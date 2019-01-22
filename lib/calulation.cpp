@@ -6,25 +6,26 @@
 
 Calculation::Calculation( int num_fields ): _num_fields(num_fields)
 {
-    _average = new double [_num_fields];
-    _variance = new double [_num_fields];
-    for( int i = 0; i < _num_fields; ++i ) _average[i] = 0;
-    for( int i = 0; i < _num_fields; ++i ) _variance[i] = 0;
+    _total_average = 0;
+    _average = new double [_num_fields]();
+    _variance = new double [_num_fields]();
 
     value = new double* [_num_fields];
-	
 	switch( dim ){
 		case 1:
-			value[0] = new double[num_fields*N];
-			for( int i = 0; i < num_fields; i++ ) value[i] = value[0] + i*N;
+			value[0] = new double [num_fields*N]();
+            total_value = new double [N]();
+			for( int i = 0; i < num_fields; ++i ) value[i] = value[0] + i*N;
 			break;
 		case 2:
-			value[0] = new double[num_fields*N*N];
-			for( int i = 0; i < num_fields; i++ ) value[i] = value[0] + i*N*N;
+			value[0] = new double [num_fields*N*N]();
+            total_value = new double [N*N]();
+			for( int i = 0; i < num_fields; ++i ) value[i] = value[0] + i*N*N;
 			break;
 		case 3:
-			value[0] = new double [num_fields*N*N*N];
-			for( int i = 0; i < num_fields; i++ ) value[i] = value[0] + i*N*N*N;
+			value[0] = new double [num_fields*N*N*N]();
+            total_value = new double [N*N*N]();
+			for( int i = 0; i < num_fields; ++i ) value[i] = value[0] + i*N*N*N;
 			break;
 	}
 }
@@ -54,7 +55,7 @@ Energy::Energy( Field* field, LeapFrog* leapfrog, double** f, double** df, int n
                     case 3:
                         for( int k = 0; k < N; ++k ){
                             for( int l = 0; l < N; ++l ){
-                                int idx = ( j*N + k)*N + l;
+                                int idx = (j*N + k)*N + l;
                                 value[i][idx] = pow(df[i][idx]*leapfrog->a() - f[i][idx]*leapfrog->da(), 2)/(2*pow(leapfrog->a(),4)) + field->aV(f, leapfrog->a(), i ,dx);
                                 _average[i] += value[i][idx];
                             }
@@ -66,6 +67,7 @@ Energy::Energy( Field* field, LeapFrog* leapfrog, double** f, double** df, int n
         for( int i = 0; i < _num_fields; ++i ){
             _average[i] += gradient_energy(f[i]) / (2*pow(leapfrog->a(),4));
             for( int j = 0; j < dim; ++j ) _average[i] /= N;
+            _total_average += _average[i];
         }
     }
     else
@@ -101,6 +103,7 @@ Energy::Energy( Field* field, LeapFrog* leapfrog, double** f, double** df, int n
         for( int i = 0; i < _num_fields; ++i ){
             _average[i] += gradient_energy( f[i] )/2;
             for( int j = 0; j < dim; ++j ) _average[i] /= N;
+            _total_average += _average[i];
         }
     }
 }
@@ -112,7 +115,7 @@ double Energy::gradient_energy( double* f )
     
     #pragma omp parallel for schedule( static ) num_threads ( num_threads )
     for( int j = 0; j < N; ++j ){
-        int jp1 = ( j ==N-1) ? 0 : j+1;
+        int jp1 = ( j ==N-1 ) ? 0 : j+1;
         int jp2 = ( j>=N-2 ) ? j-N+2 : j+2;
         #ifdef SPHERICAL_SYM
         int jm1 = abs( j-1 );
@@ -139,7 +142,7 @@ double Energy::gradient_energy( double* f )
 	    #elif dim == 2
             for( int k = 0; k < N; ++k ){
                 int kp1 = ( k==N-1 ) ? 0 : k+1;
-                int kp2 = ( k>=N-2) ? k-N+2 : k+2;
+                int kp2 = ( k>=N-2 ) ? k-N+2 : k+2;
                 int km1 = ( k==0) ? N-1: k-1;
                 int km2 = ( k<2 ) ? k+N-2 : k-2;
                 gradient_energy += pow( ( - f[jp2*N+k] + 8*f[jp1*N+k] - 8*f[jm1*N+k] + f[jm2*N+k] ) / (12*_dx), 2 );

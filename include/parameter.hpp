@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <iostream>
 
-#define dim 3
+#define dim 2
 
 
 extern int N;
@@ -26,6 +26,8 @@ extern int expansion;
 extern int precision;
 extern bool restart;
 
+extern double K;
+extern double MG;
 
 
 #endif

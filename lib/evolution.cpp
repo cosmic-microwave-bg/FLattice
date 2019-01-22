@@ -66,15 +66,21 @@ void LeapFrog::evol_fields( double** f, double** df, double h )
 void LeapFrog::evol_field_derivs( double** f, double** df, Field* field, double h )
 {	
     for( int i = 0; i < _num_fields; ++i ){
-        #pragma omp parallel for schedule( static ) num_threads( _num_threads )
-        for( int j = 0; j < N; ++j ){
+        #ifdef SPHERICAL_SYM
+            df[i][N-1] -= ( field->laplacian(f[i], df[i], N-1, 0, 0) + f[i][N-1]/2) * h*_dt;
+            #pragma omp parallel for schedule( static ) num_threads(_num_threads)
+            for( int j = 0; j < N-1; ++j ){
+		#else
+            #pragma omp parallel for schedule( static ) num_threads( _num_threads )
+            for( int j = 0; j < N; ++j ){
+        #endif
             #if dim == 1
                 int idx = j;
-                df[i][idx] += ( field->laplacian(f[i], j, k, l) - field->dV(f, i, idx) ) * h*_dt;
+                df[i][idx] += ( field->laplacian(f[i], j, 0, 0) - field->dV(f, i, idx) ) * h*_dt;
             #elif dim == 2
                 for( int k = 0; k < N; ++k ){
                     int idx = j*N + k;
-                    df[i][idx] += ( field->laplacian(f[i], j, k, l) - field->dV(f, i, idx) ) * h*_dt;
+                    df[i][idx] += ( field->laplacian(f[i], j, k, 0) - field->dV(f, i, idx) ) * h*_dt;
                 }
             #elif dim == 3
                 for( int k = 0; k < N; ++k ){
@@ -95,11 +101,12 @@ void LeapFrog::evol_field_derivs_expansion( double** f, double** df, Field* fiel
         for( int j = 0; j < N; ++j ){
             #if dim == 1
                 int idx = j;
-                df[i][idx] += ( field->laplacian(f[i], j, k, l) + _dda*f[i][idx]/_a - pow(_a,3)*field->adV(f, _a, i, idx) ) * h*_dt;
+                df[i][idx] += ( field->laplacian(f[i], j, 0, 0) + _dda*f[i][idx]/_a - pow(_a,3)*field->adV(f, _a, i, idx) ) * h*_dt;
             #elif dim == 2
                 for( int k = 0; k < N; ++k ){
                     int idx = j*N + k;
-                    df[i][idx] += ( field->laplacian(f[i], j, k, l) + _dda*f[i][idx]/_a - pow(_a,3)*field->adV(f, _a, i, idx) ) * h*_dt;
+                    //df[i][idx] += ( field->laplacian(f[i], j, k, 0) + _dda*f[i][idx]/_a - pow(_a,3)* (field->*(field->adV[i]))(f, _a, i, idx) ) * h*_dt;
+                    df[i][idx] += ( field->laplacian(f[i], j, k, 0) + _dda*f[i][idx]/_a - pow(_a,3)*field->adV(f, _a, i, idx) ) * h*_dt;
                 }
             #elif dim == 3
                 for( int k = 0; k < N; ++k ){
@@ -130,7 +137,7 @@ void LeapFrog::evolution( Field* field, double** f, double** df )
 {
     if( expansion != 0 )
     {
-        Logout( "Parameter expansion must be 0 when you use member-function 'evolution'. \n" );
+        Logout( "Error: Parameter expansion must be 0 when you use member-function 'evolution'. \n" );
         Logout( "Use expansion = 1 ~ 3 and member-function 'evolution_expansion' when you simulate the expanding universe. \n" );
         exit(1);
     }
@@ -150,9 +157,11 @@ void LeapFrog::evolution( Field* field, double** f, double** df )
         case 4:
             const double C[4] = { +0.675603595979828817023844, -0.175603595979828817023844, -0.175603595979828817023844, +0.675603595979828817023844 };
             const double D[3] = { +1.351207191959657634047688, -1.702414383919315268095376, +1.351207191959657634047688 };
-            for( int i = 0; i < _output_step; ++i ){
+            for( int i = 0; i < _output_step; ++i )
+            {
                 evol_fields( f, df, C[0] );
-                for( int p = 0; p < 3; ++p ) {
+                for( int p = 0; p < 3; ++p )
+                {
                     evol_field_derivs( f, df, field, D[p] );
                     evol_fields( f, df, C[p+1] );
                 }
@@ -319,7 +328,7 @@ void LeapFrog::evolution_expansion( Field* field, double** f, double** df, doubl
             break;
         
         default:
-            Logout( "Parameter 'expansion' must be 0 ~ 3. \n" );
+            Logout( "Error: Parameter 'expansion' must be 0 ~ 3. \n" );
             exit(1);
     }
 }

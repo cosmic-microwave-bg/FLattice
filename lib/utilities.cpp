@@ -29,16 +29,15 @@ void write_VTK( double* f, std::string str, int loop )
   		fout << "<VTKFile type=\"ImageData\" version=\"1.0\" byte_order=\"LittleEndian\" header_type=\"UInt32\">" << std::endl <<std::endl;
     	switch( dim ){
     		case 2:
-    		
-    		size = sizeof(double)*pow( N, 2 );
-    		fout << "<ImageData WholeExtent=\"0 " << N-1 << " 0 " << N-1 << " 0 " << " 0 " << "\" Origin=\"0 0 0\" Spacing=\"" << dx << " " << dx << " " << dx << "\">" << std::endl;
-    		fout << "<Piece Extent=\"0 " << N-1 << " 0 " << N-1 << " 0 " << " 0 " << "\">" << std::endl;
-    		break;
-    	case 3:
-    		size = sizeof(double)*pow( N, 3 );
-    		fout << "<ImageData WholeExtent=\"0 " << N-1 << " 0 " << N-1 <<" 0 " << N-1 << "\" Origin=\"0 0 0\" Spacing=\"" << dx << " " << dx << " " << dx << "\">" << std::endl;
-    		fout << "<Piece Extent=\"0 " << N-1 << " 0 " << N-1 << " 0 " << N-1 << "\">" << std::endl;
-    		break;
+				size = sizeof(double) * pow(N, 2);
+				fout << "<ImageData WholeExtent=\"0 " << N-1 << " 0 " << N-1 << " 0 " << " 0 " << "\" Origin=\"0 0 0\" Spacing=\"" << dx << " " << dx << " " << dx << "\">" << std::endl;
+				fout << "<Piece Extent=\"0 " << N-1 << " 0 " << N-1 << " 0 " << " 0 " << "\">" << std::endl;
+    			break;
+			case 3:
+				size = sizeof(double) * pow(N, 3);
+				fout << "<ImageData WholeExtent=\"0 " << N-1 << " 0 " << N-1 <<" 0 " << N-1 << "\" Origin=\"0 0 0\" Spacing=\"" << dx << " " << dx << " " << dx << "\">" << std::endl;
+				fout << "<Piece Extent=\"0 " << N-1 << " 0 " << N-1 << " 0 " << N-1 << "\">" << std::endl;
+				break;
     	}
     	fout << "<PointData Scalars=\"energy\">" << std::endl;
     	fout << "<DataArray type=\"Float64\" Name=\"energy\" format=\"appended\" offset=\"0\" />" << std::endl;
@@ -73,12 +72,12 @@ void write_status( Field* field, LeapFrog* leapfrog, Energy* energy, double** f,
 	if( t == t0 )
 	{
 		ofs.open( "status.txt", std::ios::trunc );
-		ofs << "# t ";
+		ofs << "t ";
 		if( expansion ) ofs << "a ";
 		for( int i = 0; i < num_fields; ++i ) ofs << "field_average[" << i << "] ";
 		for( int i = 0; i < num_fields; ++i ) ofs << "field_variance[" << i << "] ";
 		for( int i = 0; i < num_fields; ++i ) ofs << "energy_average[" << i << "] ";
-		ofs << std::endl;
+		ofs << "total_energy_average" << std::endl;
 	}
 	else ofs.open( "status.txt", std::ios::app );
 	
@@ -95,7 +94,7 @@ void write_status( Field* field, LeapFrog* leapfrog, Energy* energy, double** f,
 		for( int i = 0; i < num_fields; ++i ) ofs << std::showpos << std::scientific << std::setprecision(4) << field->variance(f[i], i) << " ";
 	}
 	for( int i = 0; i < num_fields; ++i ) ofs << std::showpos << std::scientific << std::setprecision(4) << energy->average(i) << " ";
-	ofs << std::endl;
+	ofs << energy->total_average() << std::endl;
 }
 
 

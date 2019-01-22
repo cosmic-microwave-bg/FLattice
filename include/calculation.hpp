@@ -13,13 +13,15 @@ class Calculation
         int _num_fields;
         double* _average;
         double* _variance;
+        double _total_average;
 
     public:
-        double** value;
+        double **value, *total_value;
         Calculation( int num_fields );
 
-        double average( int i ){ return _average[i]; }
-        double variance( int i ){ return _variance[i]; }
+        double average  ( int i ){ return _average[i]; }
+        double variance ( int i ){ return _variance[i]; }
+        double total_average (){ return _total_average; }
 };
 
 

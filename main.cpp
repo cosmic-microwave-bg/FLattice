@@ -23,13 +23,15 @@ int main( int argc, char** argv )
 	//--------------------------------------------------
 	
 	double **f, **df;
-	initialize( f, df );
-	write_VTK( f[0], "field", -1 );
-	
 	Field field( dx, num_fields, num_threads, rnd );
 	LeapFrog leapfrog( precision, num_fields, num_threads, output_step, dt );
 
-	
+	initialize( f, df );
+	write_VTK( f[0], "field", -1 );
+	Energy energy( &field, &leapfrog, f, df, num_fields, dx );
+	write_VTK( energy.value[0], "energy", -1 );
+	write_status( &field, &leapfrog, &energy, f, t0 );
+
 	//--------------------------------------------------
 	//       THE TIME ITERATION LOOP
 	//--------------------------------------------------
@@ -49,11 +51,11 @@ int main( int argc, char** argv )
 
 		//leapfrog.evolution( &field, f, df );
 		leapfrog.evolution_expansion( &field, f, df, t );
-
+		//std::cout << "a" << std::endl;
 		Energy energy( &field, &leapfrog, f, df, num_fields, dx );
-		write_VTK( f[0], "field", loop );
-		//write_VTK( energy.value[0], "energy", loop );
-		write_status( &field, &leapfrog, &energy, f, t );
+		//write_VTK( f[0], "field", loop );
+		write_VTK( energy.value[0], "energy", loop );
+		write_status( &field, &leapfrog, &energy, f, t+output_step*dt );
 
         current = std::chrono::high_resolution_clock::now();
 	    elapsed = std::chrono::duration_cast<std::chrono::milliseconds>( current - loop_start );

@@ -51,9 +51,9 @@ int main( int argc, char** argv )
 
 		//leapfrog.evolution( &field, f, df );
 		leapfrog.evolution_expansion( &field, f, df, t );
-		//std::cout << "a" << std::endl;
+		
 		Energy energy( &field, &leapfrog, f, df, num_fields, dx );
-		//write_VTK( f[0], "field", loop );
+		write_VTK( f[0], "field", loop );
 		write_VTK( energy.value[0], "energy", loop );
 		write_status( &field, &leapfrog, &energy, f, t+output_step*dt );
 

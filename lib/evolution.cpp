@@ -42,7 +42,7 @@ void LeapFrog::evol_fields( double** f, double** df, double h )
 {	
     for( int i = 0; i < _num_fields; ++i ){
         #pragma omp parallel for schedule( static ) num_threads( _num_threads )
-        for( int j = 0; j < N; j++ ){
+        for( int j = 0; j < N; ++j ){
             #if dim == 1
                 int idx = j;
                 f[i][idx] += df[i][idx] * h*_dt;

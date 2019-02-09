@@ -51,11 +51,15 @@ void initialize( double**& f, double**& df )
         for( int j = 0; j < N; ++j ){	
             for( int k = 0; k < N; ++k ){
 				int idx = j*N + k;
-				f[i][idx] = 10*(1 + rand(mt));
+				if( idx = 10 ) f[i][idx] = 10;
+				else f[i][idx] = 0;
 				df[i][idx] = 0;
             }
         }
     }
+
+	DFT_c2r( f );
+
 }
 
 void finalize( double**& f, double**& df )
@@ -65,6 +69,7 @@ void finalize( double**& f, double**& df )
     delete [] f;
 	delete [] df;
 }
+
 
 Field::Field( double dx, int num_fields, int num_threads, int rnd ):
                 _dx(dx), _num_fields(num_fields), _num_threads(num_threads), _rnd(rnd)

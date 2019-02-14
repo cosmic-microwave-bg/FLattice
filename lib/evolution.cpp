@@ -3,6 +3,8 @@
 #include "utilities.hpp"
 #include "evolution.hpp"
 
+double LeapFrog::_a = 1;
+double LeapFrog::_da;
 
 LeapFrog::LeapFrog( int precision, int num_fields, int num_threads, int output_step, double dt ):
                     _precision(precision), _num_fields(num_fields), _num_threads(num_threads), _output_step(output_step), _dt(dt)
@@ -20,12 +22,9 @@ LeapFrog::LeapFrog( int precision, int num_fields, int num_threads, int output_s
     switch( expansion )
     {
         case 0:
-            break;
         case 1:
-            _a = 1;
             break;
         case 2:
-            _a = 1;
             _da = 1;
             _dda = 0;
             break;

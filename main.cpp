@@ -13,9 +13,11 @@ int main( int argc, char** argv )
 	Logout( " Box Size     =  %d\n", L );
 	Logout( " Gid Number   =  %d\n", N );
 	Logout( " Initial Time =  %4.1lf\n", t0 );
-	Logout( " Final Time   =  %4.2lf\n", t0 + total_step*dt );
-	Logout( " dt     =  %2.4f\n", dt );
-	Logout( " dx     =  %2.4f\n\n", dx );
+	Logout( " Final Time   =  %4.2e\n", t0 + total_step*dt );
+	Logout( " dt     =  %2.2e\n", dt );
+	Logout( " dx     =  %2.2e\n", dx );
+	Logout( " Number of fields   =  %d\n", num_fields );
+	Logout( " Number of threads  =  %d\n\n", num_threads );
 
 
 	//--------------------------------------------------
@@ -33,7 +35,7 @@ int main( int argc, char** argv )
 	write_status( &field, &leapfrog, &energy, f, t0 );
 
 	//--------------------------------------------------
-	//       THE TIME ITERATION LOOP
+	//       TIME ITERATION LOOP
 	//--------------------------------------------------
 
 	Logout("----------------------------------------------\n");

@@ -180,19 +180,19 @@ void write_status( Field* field, LeapFrog* leapfrog, Energy* energy, double** f,
 	if( t == t0 )
 	{
 		ofs.open( "../status.txt", std::ios::trunc );
-		ofs << "t ";
+		ofs << std::setw(3) << std::right << "t ";
 		if( expansion ) ofs << "a ";
 		for( int i = 0; i < num_fields; ++i ) ofs << "field_average[" << i << "] ";
 		for( int i = 0; i < num_fields; ++i ) ofs << "field_variance[" << i << "] ";
 		for( int i = 0; i < num_fields; ++i ) ofs << "energy_average[" << i << "] ";
 		ofs << "total_energy_average" << std::endl;
 	}
-	else ofs.open( "status.txt", std::ios::app );
+	else ofs.open( "../status.txt", std::ios::app );
 	
-	ofs << std::setprecision(4) << t << " ";
+	ofs << std::setw(3) << std::right << t << " ";
 	if( expansion )
 	{
-		ofs << a << " ";
+		ofs << std::setw(3) << std::right << a << " ";
 		for( int i = 0; i < num_fields; ++i ) ofs << std::showpos << std::scientific << std::setprecision(4) << field->average(f[i], i)/a << " ";
 		for( int i = 0; i < num_fields; ++i ) ofs << std::showpos << std::scientific << std::setprecision(4) << field->variance(f[i], i)/(a*a) << " ";
 	}

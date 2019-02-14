@@ -12,7 +12,8 @@ class LeapFrog
         int _num_threads;
 		int _output_step;
 		double _dt;
-		double _a, _da, _dda;
+		static double _a, _da;
+		double _dda;
 
 		void evol_fields                 ( double** f, double** df, double h );
         void evol_field_derivs           ( double** f, double** df, Field* field, double h );

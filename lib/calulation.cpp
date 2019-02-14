@@ -33,7 +33,9 @@ Calculation::Calculation( int num_fields ): _num_fields(num_fields)
 
 Energy::Energy( Field* field, LeapFrog* leapfrog, double** f, double** df, int num_fields, double dx ): _dx(dx), Calculation(num_fields)
 {
-    
+    double a = leapfrog->a();
+    double da = leapfrog->da();
+
     if( expansion )
     {
         for( int i = 0; i < _num_fields; ++i ){
@@ -42,13 +44,13 @@ Energy::Energy( Field* field, LeapFrog* leapfrog, double** f, double** df, int n
                 switch( dim ){
                     case 1:
                         int idx = j;
-                        value[i][idx] = pow(df[i][idx]*leapfrog->a() - f[i][idx]*leapfrog->da(), 2)/(2*pow(leapfrog->a(),4)) + field->aV(f, leapfrog->a(), i ,dx);
+                        value[i][idx] = pow(df[i][idx]*a - f[i][idx]*da, 2)/(2*pow(a,4)) + field->aV(f, a, i ,dx);
                         _average[i] += value[i][idx];
                         break;
                     case 2:
                         for( int k = 0; k < N; ++k ){
                             int idx = j*N + k;
-                            value[i][idx] = pow(df[i][idx]*leapfrog->a() - f[i][idx]*leapfrog->da(), 2)/(2*pow(leapfrog->a(),4)) + field->aV(f, leapfrog->a(), i ,dx);
+                            value[i][idx] = pow(df[i][idx]*a - f[i][idx]*da, 2)/(2*pow(a,4)) + field->aV(f, a, i ,dx);
                             _average[i] += value[i][idx];
                         }
                         break;
@@ -56,7 +58,7 @@ Energy::Energy( Field* field, LeapFrog* leapfrog, double** f, double** df, int n
                         for( int k = 0; k < N; ++k ){
                             for( int l = 0; l < N; ++l ){
                                 int idx = (j*N + k)*N + l;
-                                value[i][idx] = pow(df[i][idx]*leapfrog->a() - f[i][idx]*leapfrog->da(), 2)/(2*pow(leapfrog->a(),4)) + field->aV(f, leapfrog->a(), i ,dx);
+                                value[i][idx] = pow(df[i][idx]*a - f[i][idx]*da, 2)/(2*pow(a,4)) + field->aV(f, a, i ,dx);
                                 _average[i] += value[i][idx];
                             }
                         }
@@ -65,7 +67,7 @@ Energy::Energy( Field* field, LeapFrog* leapfrog, double** f, double** df, int n
             }
         }
         for( int i = 0; i < _num_fields; ++i ){
-            _average[i] += gradient_energy(f[i]) / (2*pow(leapfrog->a(),4));
+            _average[i] += gradient_energy(f[i]) / (2*pow(a,4));
             for( int j = 0; j < dim; ++j ) _average[i] /= N;
             _total_average += _average[i];
         }

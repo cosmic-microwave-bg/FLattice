@@ -12,7 +12,7 @@ I assume that FFTW files are installed in  `/opt/fftw/`. If you installed FFTW i
 
 ## How to use
 
-Here, I introduce a simple procedure to run FLattice.
+Here, I introduce a simple procedure to use FLattice.
 
 1. Create make file by `cmake`
 
@@ -41,7 +41,9 @@ Here, I introduce a simple procedure to run FLattice.
    ./FLattice
    ```
 
-   
+3. Check the result
+
+   The data such as time, field averages, field variances, etc.  are written in `status.txt`. The field values in each time step are stored as `.vtk` files in `data` directory when `dim` is 2 or 3. I recommend you to use `Paraview.app` to visualize these files.
 
 ## Basic Concept
 

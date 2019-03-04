@@ -3,13 +3,12 @@
 #include "utilities.hpp"
 #include "evolution.hpp"
 
-double LeapFrog::_a = 1;
-double LeapFrog::_da;
+double LeapFrog::_a  = 1;
+double LeapFrog::_da = 0;
 
-LeapFrog::LeapFrog( int precision, int num_fields, int num_threads, int output_step, double dt ):
-                    _precision(precision), _num_fields(num_fields), _num_threads(num_threads), _output_step(output_step), _dt(dt)
+LeapFrog::LeapFrog(): _dda()
 {
-    switch( _precision )
+    switch( precision )
     {
         case 2:
         case 4:
@@ -25,7 +24,7 @@ LeapFrog::LeapFrog( int precision, int num_fields, int num_threads, int output_s
         case 1:
             break;
         case 2:
-            _da = 1;
+            _da  = 1;
             _dda = 0;
             break;
         case 3:
@@ -39,22 +38,22 @@ LeapFrog::LeapFrog( int precision, int num_fields, int num_threads, int output_s
 
 void LeapFrog::evol_fields( double** f, double** df, double h )
 {	
-    for( int i = 0; i < _num_fields; ++i ){
-        #pragma omp parallel for schedule( static ) num_threads( _num_threads )
+    for( int i = 0; i < num_fields; ++i ){
+        #pragma omp parallel for schedule( static ) num_threads( num_threads )
         for( int j = 0; j < N; ++j ){
             #if dim == 1
                 int idx = j;
-                f[i][idx] += df[i][idx] * h*_dt;
+                f[i][idx] += df[i][idx] * h*dt;
             #elif dim == 2
                 for( int k = 0; k < N; ++k ){
                     int idx = j*N + k;
-                    f[i][idx] += df[i][idx] * h*_dt;
+                    f[i][idx] += df[i][idx] * h*dt;
                 }
             #elif dim == 3
                 for( int k = 0; k < N; ++k ){
                     for( int l = 0; l < N; ++l ){
                         int idx = (j*N + k)*N + l;
-                        f[i][idx] += df[i][idx] * h*_dt;
+                        f[i][idx] += df[i][idx] * h*dt;
                     }
                 }
             #endif
@@ -63,29 +62,29 @@ void LeapFrog::evol_fields( double** f, double** df, double h )
 }
 
 void LeapFrog::evol_field_derivs( double** f, double** df, Field* field, double h )
-{	
-    for( int i = 0; i < _num_fields; ++i ){
+{
+    for( int i = 0; i < num_fields; ++i ){
         #ifdef SPHERICAL_SYM
-            df[i][N-1] -= ( field->laplacian(f[i], df[i], N-1, 0, 0) + f[i][N-1]/2) * h*_dt;
-            #pragma omp parallel for schedule( static ) num_threads(_num_threads)
+            df[i][N-1] -= ( field->laplacian(f[i], df[i], N-1, 0, 0) + f[i][N-1]/2) * h*dt;
+            #pragma omp parallel for schedule( static ) num_threads(num_threads)
             for( int j = 0; j < N-1; ++j ){
 		#else
-            #pragma omp parallel for schedule( static ) num_threads( _num_threads )
+            #pragma omp parallel for schedule( static ) num_threads( num_threads )
             for( int j = 0; j < N; ++j ){
         #endif
             #if dim == 1
                 int idx = j;
-                df[i][idx] += ( field->laplacian(f[i], j, 0, 0) - field->dV(f, i, idx) ) * h*_dt;
+                df[i][idx] += ( field->laplacian(f[i], j) - field->dV(f, i, idx) ) * h*dt;
             #elif dim == 2
                 for( int k = 0; k < N; ++k ){
                     int idx = j*N + k;
-                    df[i][idx] += ( field->laplacian(f[i], j, k, 0) - field->dV(f, i, idx) ) * h*_dt;
+                    df[i][idx] += ( field->laplacian(f[i], j, k) - field->dV(f, i, idx) ) * h*dt;
                 }
             #elif dim == 3
                 for( int k = 0; k < N; ++k ){
                     for( int l = 0; l < N; ++l ){
                         int idx = (j*N + k)*N + l;
-                        df[i][idx] += ( field->laplacian(f[i], j, k, l) - field->dV(f, i, idx) ) * h*_dt;
+                        df[i][idx] += ( field->laplacian(f[i], j, k, l) - field->dV(f, i, idx) ) * h*dt;
                     }
                 }
             #endif
@@ -95,23 +94,23 @@ void LeapFrog::evol_field_derivs( double** f, double** df, Field* field, double 
 
 void LeapFrog::evol_field_derivs_expansion( double** f, double** df, Field* field, double h )
 {
-    for( int i = 0; i < _num_fields; ++i ){
-        #pragma omp parallel for schedule( static ) num_threads( _num_threads )
+    for( int i = 0; i < num_fields; ++i ){
+        #pragma omp parallel for schedule( static ) num_threads( num_threads )
         for( int j = 0; j < N; ++j ){
             #if dim == 1
                 int idx = j;
-                df[i][idx] += ( field->laplacian(f[i], j, 0, 0) + _dda*f[i][idx]/_a - pow(_a,3)*field->adV(f, _a, i, idx) ) * h*_dt;
+                df[i][idx] += ( field->laplacian(f[i], j, 0, 0) + _dda*f[i][idx]/_a - pow(_a,3)*field->adV(f, i, idx, _a) ) * h*dt;
             #elif dim == 2
                 for( int k = 0; k < N; ++k ){
                     int idx = j*N + k;
-                    //df[i][idx] += ( field->laplacian(f[i], j, k, 0) + _dda*f[i][idx]/_a - pow(_a,3)* (field->*(field->adV[i]))(f, _a, i, idx) ) * h*_dt;
-                    df[i][idx] += ( field->laplacian(f[i], j, k, 0) + _dda*f[i][idx]/_a - pow(_a,3)*field->adV(f, _a, i, idx) ) * h*_dt;
+                    //df[i][idx] += ( field->laplacian(f[i], j, k, 0) + _dda*f[i][idx]/_a - pow(_a,3)* (field->*(field->adV[i]))(f, _a, i, idx) ) * h*dt;
+                    df[i][idx] += ( field->laplacian(f[i], j, k, 0) + _dda*f[i][idx]/_a - pow(_a,3)*field->adV(f, i, idx, _a) ) * h*dt;
                 }
             #elif dim == 3
                 for( int k = 0; k < N; ++k ){
                     for( int l = 0; l < N; ++l ){
                         int idx = (j*N + k)*N + l;
-                        df[i][idx] += ( field->laplacian(f[i], j, k, l) + _dda*f[i][idx]/_a - pow(_a,3)*field->adV(f, _a, i, idx) ) * h*_dt;
+                        df[i][idx] += ( field->laplacian(f[i], j, k, l) + _dda*f[i][idx]/_a - pow(_a,3)*field->adV(f, i, idx, _a) ) * h*dt;
                     }
                 }
             #endif
@@ -122,13 +121,13 @@ void LeapFrog::evol_field_derivs_expansion( double** f, double** df, Field* fiel
 
 void LeapFrog::evol_scale( Field* field, double** f, double h )
 {
-    _a += _da *h*_dt;
+    _a += _da *h*dt;
     
     double C = 0;
     C += field->gradient_energy(f[0])/(3*_a) + pow(_a,3)*field->potential_energy( f[0], _a );
     for( int i = 0; i < dim; ++i ) C /= N;
 
-    _dda = - 2./(h*_dt) * ( _da + _a/(h*_dt) * ( 1 - sqrt( 1 + ( 2*h*_dt*_da + pow(h*_dt,2)*C )/_a ) ) );
+    _dda = - 2./(h*dt) * ( _da + _a/(h*dt) * ( 1 - sqrt( 1 + ( 2*h*dt*_da + pow(h*dt,2)*C )/_a ) ) );
 }
 
 
@@ -141,14 +140,14 @@ void LeapFrog::evolution( Field* field, double** f, double** df )
         exit(1);
     }
     
-    switch( _precision )
+    switch( precision )
     {
         case 2:
             evol_fields( f, df, 0.5 );
-            for( int i = 0; i < _output_step; ++i )
+            for( int i = 0; i < output_step; ++i )
             {
                 evol_field_derivs( f, df, field, 1.0 );
-                if( i == _output_step - 1 ) evol_fields( f, df, 0.5 );
+                if( i == output_step - 1 ) evol_fields( f, df, 0.5 );
                 else evol_fields( f, df, 1.0 );
             }
             break;
@@ -156,7 +155,7 @@ void LeapFrog::evolution( Field* field, double** f, double** df )
         case 4:
             const double C[4] = { +0.675603595979828817023844, -0.175603595979828817023844, -0.175603595979828817023844, +0.675603595979828817023844 };
             const double D[3] = { +1.351207191959657634047688, -1.702414383919315268095376, +1.351207191959657634047688 };
-            for( int i = 0; i < _output_step; ++i )
+            for( int i = 0; i < output_step; ++i )
             {
                 evol_fields( f, df, C[0] );
                 for( int p = 0; p < 3; ++p )
@@ -175,14 +174,14 @@ void LeapFrog::evolution_expansion( Field* field, double** f, double** df, doubl
     {   
         /* // The code is not well optimized when include member-function 'evol_field_derivs'
         case 0: // no expansion
-            switch( _precision )
+            switch( precision )
             {
                 case 2:
                     evol_fields( f, df, 0.5 );
-                    for( int i = 0; i < _output_step; ++i )
+                    for( int i = 0; i < output_step; ++i )
                     {
                         evol_field_derivs( f, df, field, 1.0 );
-                        if( i == _output_step - 1 ) evol_fields( f, df, 0.5 );
+                        if( i == output_step - 1 ) evol_fields( f, df, 0.5 );
                         else evol_fields( f, df, 1.0 );
                     }
                     break;
@@ -190,7 +189,7 @@ void LeapFrog::evolution_expansion( Field* field, double** f, double** df, doubl
                 case 4:
                     const double C[4] = { +0.675603595979828817023844, -0.175603595979828817023844, -0.175603595979828817023844, +0.675603595979828817023844 };
                     const double D[3] = { +1.351207191959657634047688, -1.702414383919315268095376, +1.351207191959657634047688 };
-                    for( int i = 0; i < _output_step; ++i )
+                    for( int i = 0; i < output_step; ++i )
                     {
                         evol_fields( f, df, C[0] );
                         for( int p = 0; p < 3; ++p ){
@@ -206,16 +205,16 @@ void LeapFrog::evolution_expansion( Field* field, double** f, double** df, doubl
             _da = sqrt( ( field->gradient_energy(f[0]) + 2*pow(_a,4)*field->potential_energy(f[0], _a) )/6 );
             for( int i = 0; i < dim; ++i ) _da /= sqrt(N);
 
-            switch( _precision )
+            switch( precision )
             {
                 case 2:
                     evol_fields( f, df, 0.5 );
                     evol_scale( field, f, 0.5 );
-                    for( int i = 0; i < _output_step; ++i )
+                    for( int i = 0; i < output_step; ++i )
                     {
                         evol_field_derivs_expansion( f, df, field, 1.0 );
                         evol_scale_derivs( 1.0 );
-                        if( i == _output_step - 1 )
+                        if( i == output_step - 1 )
                         {
                             evol_fields( f, df, 0.5 );
                             evol_scale( field, f, 0.5 );
@@ -231,7 +230,7 @@ void LeapFrog::evolution_expansion( Field* field, double** f, double** df, doubl
                 case 4:
                     const double C[4] = { +0.675603595979828817023844, -0.175603595979828817023844, -0.175603595979828817023844, +0.675603595979828817023844 };
                     const double D[3] = { +1.351207191959657634047688, -1.702414383919315268095376, +1.351207191959657634047688 };
-                    for( int i = 0; i < _output_step; ++i )
+                    for( int i = 0; i < output_step; ++i )
                     {
                         evol_fields( f, df, C[0] );
                         evol_scale( field, f, C[0] );
@@ -247,22 +246,22 @@ void LeapFrog::evolution_expansion( Field* field, double** f, double** df, doubl
             break;
 
         case 2: // radiation dominated universe
-            switch( _precision )
+            switch( precision )
             {
                 case 2:
                     evol_fields( f, df, 0.5 );
-                    _a +=  0.5*_dt;
-                    for( int i = 0; i < _output_step; ++i ){
+                    _a +=  0.5*dt;
+                    for( int i = 0; i < output_step; ++i ){
                         evol_field_derivs_expansion( f, df, field, 1. );
-                        if( i == _output_step-1 )
+                        if( i == output_step-1 )
                         {
                             evol_fields( f, df, 0.5 );
-                            _a +=  0.5*_dt;
+                            _a +=  0.5*dt;
                         }
                         else
                         {
                             evol_fields( f, df, 1. );
-                            _a +=  _dt;
+                            _a +=  dt;
                         }
                     }
                     break;
@@ -270,37 +269,37 @@ void LeapFrog::evolution_expansion( Field* field, double** f, double** df, doubl
                 case 4:
                     const double C[4] = { +0.675603595979828817023844, -0.175603595979828817023844, -0.175603595979828817023844, +0.675603595979828817023844 };
                     const double D[3] = { +1.351207191959657634047688, -1.702414383919315268095376, +1.351207191959657634047688 };
-                    for( int i = 0; i < _output_step; ++i ){
+                    for( int i = 0; i < output_step; ++i ){
                         evol_fields( f, df, C[0] );
                         for( int p = 0; p < 3; ++p ) {
-                            _a +=  C[p]*_dt;
+                            _a +=  C[p]*dt;
                             evol_field_derivs_expansion( f, df, field, D[p] );
                             evol_fields( f, df, C[p+1] );
                         }
-                        _a +=  C[3]*_dt;
+                        _a +=  C[3]*dt;
                     }
                     break;
             }
             break;
 
         case 3: // matter dominated universe
-            switch( _precision )
+            switch( precision )
             {
                 case 2:
                     evol_fields( f, df, 0.5 );
-                    t +=  0.5*_dt;
+                    t +=  0.5*dt;
                     _a = pow( t, 2 );
-                    for( int i = 0; i < _output_step; ++i ){
+                    for( int i = 0; i < output_step; ++i ){
                         evol_field_derivs_expansion( f, df, field, 1.0 );
-                        if( i == _output_step - 1 )
+                        if( i == output_step - 1 )
                         {
                             evol_fields( f, df, 0.5 );
-                            t +=  0.5*_dt;
+                            t +=  0.5*dt;
                         }
                         else
                         {
                             evol_fields( f, df, 1.0 );
-                            t +=  _dt;
+                            t +=  dt;
                         }
                         _a = pow( t, 2 );
                     }
@@ -310,15 +309,15 @@ void LeapFrog::evolution_expansion( Field* field, double** f, double** df, doubl
                 case 4:
                     const double C[4] = { +0.675603595979828817023844, -0.175603595979828817023844, -0.175603595979828817023844, +0.675603595979828817023844 };
                     const double D[3] = { +1.351207191959657634047688, -1.702414383919315268095376, +1.351207191959657634047688 };
-                    for( int i = 0; i < _output_step; ++i ){
+                    for( int i = 0; i < output_step; ++i ){
                         evol_fields( f, df, C[0] );
                         for( int p = 0; p < 3; ++p ) {
-                            t +=  C[p]*_dt;
+                            t +=  C[p]*dt;
                             _a = pow( t, 2 );
                             evol_field_derivs_expansion( f, df, field, D[p] );
                             evol_fields( f, df, C[p+1] );
                         }
-                        t +=  C[3]*_dt;
+                        t +=  C[3]*dt;
                         _a = pow( t, 2 );
                     }
                     _da = 2*t;

@@ -7,11 +7,6 @@
 class LeapFrog
 {
 	private:
-		int _precision;
-		int _num_fields;
-        int _num_threads;
-		int _output_step;
-		double _dt;
 		static double _a, _da;
 		double _dda;
 
@@ -20,10 +15,10 @@ class LeapFrog
         void evol_field_derivs_expansion ( double** f, double** df, Field* field, double h );
 
 		void evol_scale        ( Field* field, double** f, double h );
-		void evol_scale_derivs ( double h ){ _da += _dda * h*_dt; }
+		void evol_scale_derivs ( double h ){ _da += _dda * h*dt; }
 		
 	public:
-		LeapFrog ( int precision, int num_fields, int num_threads, int output_step, double dt );
+		LeapFrog ();
 
         void evolution           ( Field* field, double** f, double** df );
 		void evolution_expansion ( Field* field, double** f, double** df, double t );

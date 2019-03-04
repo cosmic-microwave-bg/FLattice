@@ -7,18 +7,16 @@ int rnd = 1;
 int num_fields  = 2;
 int num_threads = 2;
 
-int output_step = 2e+2;
-int total_step = 5e+3;
-int max_loop = total_step/output_step;
+int output_step = 1e+1;
+int total_step  = 1e+3;
+int max_loop    = total_step/output_step;
 
 double t0 = 1.;
 double dt = 1.e-2;
 double dx = 1.* L/N;
 
-int expansion = 2; // 0: no expanxion, 1: self-consistent, 2: radiation dominant, 3: matter dominant
-int precision = 4;
+int expansion = 0; // 0: no expanxion, 1: self-consistent, 2: radiation dominant, 3: matter dominant
+int precision = 2;
 
-bool restart = false;
+bool restart = false;  // cannot use yet
 
-double K = - 0.1;
-double MG = 50.;

@@ -26,8 +26,5 @@ extern int expansion;
 extern int precision;
 extern bool restart;
 
-extern double K;
-extern double MG;
-
 
 #endif

@@ -25,13 +25,13 @@ int main( int argc, char** argv )
 	//--------------------------------------------------
 	
 	double **f, **df;
-	Field field( dx, num_fields, num_threads, rnd );
-	LeapFrog leapfrog( precision, num_fields, num_threads, output_step, dt );
+	Field field;
+	LeapFrog leapfrog;
 
 	initialize( f, df );
 	write_VTK( f[0], "field", -1 );
-	Energy energy( &field, &leapfrog, f, df, num_fields, dx );
-	write_VTK( energy.value[0], "energy", -1 );
+	Energy energy( &field, &leapfrog, f, df );
+	// write_VTK( energy.value[0], "energy", -1 );
 	write_status( &field, &leapfrog, &energy, f, t0 );
 
 	//--------------------------------------------------
@@ -51,12 +51,12 @@ int main( int argc, char** argv )
 	    double t = t0 + loop*output_step*dt;
 	    loop_start = std::chrono::high_resolution_clock::now();
 
-		//leapfrog.evolution( &field, f, df );
-		leapfrog.evolution_expansion( &field, f, df, t );
+		leapfrog.evolution( &field, f, df );
+		//leapfrog.evolution_expansion( &field, f, df, t );
 		
-		Energy energy( &field, &leapfrog, f, df, num_fields, dx );
-		write_VTK( f[0], "field", loop );
-		write_VTK( energy.value[0], "energy", loop );
+		Energy energy( &field, &leapfrog, f, df );
+		// write_VTK( f[0], "field", loop );
+		// write_VTK( energy.value[0], "energy", loop );
 		write_status( &field, &leapfrog, &energy, f, t+output_step*dt );
 
         current = std::chrono::high_resolution_clock::now();

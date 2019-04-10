@@ -1,0 +1,4 @@
+\form#0:$ N^{dim} $
+\form#1:$ {\rm output\_step} \times dt $
+\form#2:$ {\rm total_step} \times dt $
+\form#3:$ L/N $

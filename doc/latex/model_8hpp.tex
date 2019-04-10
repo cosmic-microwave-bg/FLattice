@@ -1,0 +1,34 @@
+\hypertarget{model_8hpp}{}\section{/\+Users/home/\+Dropbox/\+F\+Lattice/src/include/model.hpp File Reference}
+\label{model_8hpp}\index{/Users/home/Dropbox/FLattice/src/include/model.hpp@{/Users/home/Dropbox/FLattice/src/include/model.hpp}}
+
+
+class {\ttfamily \mbox{\hyperlink{class_model}{Model}}} is written where model parameters and the potential is defined.  
+
+
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include \char`\"{}parameter.\+hpp\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_model}{Model}}
+\begin{DoxyCompactList}\small\item\em You set the model potential (and parameters) in this class model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{model_8hpp_a11d2ecaa75d15fd8c065b3792e8c585c}\label{model_8hpp_a11d2ecaa75d15fd8c065b3792e8c585c}} 
+{\footnotesize template$<$typename data\+Type $>$ }\\data\+Type $\ast$$\ast$ {\bfseries allocate\+Data} (int \mbox{\hyperlink{parameter_8cpp_ac0ae3334b9e17a8fd23ad6fd3a032034}{num\+\_\+fields}}, std\+::size\+\_\+t \mbox{\hyperlink{parameter_8cpp_a7722c8ecbb62d99aee7ce68b1752f337}{N}}, int dimension)
+\item 
+\mbox{\Hypertarget{model_8hpp_af91166d7930b350a292500aa818bd42b}\label{model_8hpp_af91166d7930b350a292500aa818bd42b}} 
+{\footnotesize template$<$typename data\+Type $>$ }\\void {\bfseries delete\+Data} (data\+Type $\ast$$\ast$\&data)
+\item 
+\mbox{\Hypertarget{model_8hpp_ac78963266fc03d1107303238b2c0d251}\label{model_8hpp_ac78963266fc03d1107303238b2c0d251}} 
+{\footnotesize template$<$typename data\+Type $>$ }\\data\+Type {\bfseries calculate\+Average} (data\+Type $\ast$data, int \mbox{\hyperlink{parameter_8cpp_a7722c8ecbb62d99aee7ce68b1752f337}{N}}, int dimension)
+\item 
+\mbox{\Hypertarget{model_8hpp_ac403974d0033c41d6325658f6bc23315}\label{model_8hpp_ac403974d0033c41d6325658f6bc23315}} 
+{\footnotesize template$<$typename data\+Type $>$ }\\data\+Type {\bfseries calculate\+Variance} (data\+Type $\ast$data, data\+Type average, int \mbox{\hyperlink{parameter_8cpp_a7722c8ecbb62d99aee7ce68b1752f337}{N}}, int dimension)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+class {\ttfamily \mbox{\hyperlink{class_model}{Model}}} is written where model parameters and the potential is defined. 
+

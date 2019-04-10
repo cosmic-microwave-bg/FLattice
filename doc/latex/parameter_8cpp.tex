@@ -1,0 +1,52 @@
+\hypertarget{parameter_8cpp}{}\section{/\+Users/home/\+Dropbox/\+F\+Lattice/src/parameter.cpp File Reference}
+\label{parameter_8cpp}\index{/Users/home/Dropbox/FLattice/src/parameter.cpp@{/Users/home/Dropbox/FLattice/src/parameter.cpp}}
+
+
+See the explanation of the coresponding header file.  
+
+
+{\ttfamily \#include \char`\"{}parameter.\+hpp\char`\"{}}\newline
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{parameter_8cpp_a7722c8ecbb62d99aee7ce68b1752f337}\label{parameter_8cpp_a7722c8ecbb62d99aee7ce68b1752f337}} 
+int \mbox{\hyperlink{parameter_8cpp_a7722c8ecbb62d99aee7ce68b1752f337}{N}} = 64
+\begin{DoxyCompactList}\small\item\em Gird size in a dimension. The total grid size is $ N^{dim} $. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{parameter_8cpp_a61b43f3326e96036caf1c76875b794cc}\label{parameter_8cpp_a61b43f3326e96036caf1c76875b794cc}} 
+int \mbox{\hyperlink{parameter_8cpp_a61b43f3326e96036caf1c76875b794cc}{L}} = 10
+\begin{DoxyCompactList}\small\item\em Box size of the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{parameter_8cpp_a09b6a8d6828bf27a2194d8e4c6cc33a6}\label{parameter_8cpp_a09b6a8d6828bf27a2194d8e4c6cc33a6}} 
+int \mbox{\hyperlink{parameter_8cpp_a09b6a8d6828bf27a2194d8e4c6cc33a6}{rnd}} = 1
+\begin{DoxyCompactList}\small\item\em The seed of the randum numbers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{parameter_8cpp_ac0ae3334b9e17a8fd23ad6fd3a032034}\label{parameter_8cpp_ac0ae3334b9e17a8fd23ad6fd3a032034}} 
+int \mbox{\hyperlink{parameter_8cpp_ac0ae3334b9e17a8fd23ad6fd3a032034}{num\+\_\+fields}} = 2
+\begin{DoxyCompactList}\small\item\em The number of fields you use in the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{parameter_8cpp_a08963f7335eef295237ab460863bc3d5}\label{parameter_8cpp_a08963f7335eef295237ab460863bc3d5}} 
+int \mbox{\hyperlink{parameter_8cpp_a08963f7335eef295237ab460863bc3d5}{num\+\_\+threads}} = 2
+\begin{DoxyCompactList}\small\item\em The number of threads used by Open\+MP. This value greater than 8. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{parameter_8cpp_ab50ed4bd2c936265c82d528c75c9d89e}\label{parameter_8cpp_ab50ed4bd2c936265c82d528c75c9d89e}} 
+int \mbox{\hyperlink{parameter_8cpp_ab50ed4bd2c936265c82d528c75c9d89e}{output\+\_\+step}} = 1e+2
+\begin{DoxyCompactList}\small\item\em $ {\rm output\_step} \times dt $ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{parameter_8cpp_ae27569894e6c6b4fb3d4374255e073aa}\label{parameter_8cpp_ae27569894e6c6b4fb3d4374255e073aa}} 
+int \mbox{\hyperlink{parameter_8cpp_ae27569894e6c6b4fb3d4374255e073aa}{total\+\_\+step}} = 5e+2
+\begin{DoxyCompactList}\small\item\em Total simulation time is caluculated by $ {\rm total_step} \times dt $. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{parameter_8cpp_a2a6d90c736b9e880fad815952157136f}\label{parameter_8cpp_a2a6d90c736b9e880fad815952157136f}} 
+double \mbox{\hyperlink{parameter_8cpp_a2a6d90c736b9e880fad815952157136f}{t0}} = 1.
+\begin{DoxyCompactList}\small\item\em Initial time. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{parameter_8cpp_a03e28be41881b703c836edbfe9b51b17}\label{parameter_8cpp_a03e28be41881b703c836edbfe9b51b17}} 
+double \mbox{\hyperlink{parameter_8cpp_a03e28be41881b703c836edbfe9b51b17}{dt}} = 1.e-\/2
+\begin{DoxyCompactList}\small\item\em Time step. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{parameter_8cpp_a229d11aff11a7482259d1296b9b70b8a}\label{parameter_8cpp_a229d11aff11a7482259d1296b9b70b8a}} 
+double \mbox{\hyperlink{parameter_8cpp_a229d11aff11a7482259d1296b9b70b8a}{dx}} = 1.$\ast$ \mbox{\hyperlink{parameter_8cpp_a61b43f3326e96036caf1c76875b794cc}{L}}/\mbox{\hyperlink{parameter_8cpp_a7722c8ecbb62d99aee7ce68b1752f337}{N}}
+\begin{DoxyCompactList}\small\item\em Grid spacing calculated by $ L/N $. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{parameter_8cpp_a9ff4211db1807c9b6e3f08209c336d51}\label{parameter_8cpp_a9ff4211db1807c9b6e3f08209c336d51}} 
+int {\bfseries expansion} = 0
+\item 
+\mbox{\Hypertarget{parameter_8cpp_aa95455ed52a8459fad69509a4a0411b5}\label{parameter_8cpp_aa95455ed52a8459fad69509a4a0411b5}} 
+int \mbox{\hyperlink{parameter_8cpp_aa95455ed52a8459fad69509a4a0411b5}{precision}} = 4
+\begin{DoxyCompactList}\small\item\em Set the precisioin of the time evolution scheme. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+See the explanation of the coresponding header file. 
+

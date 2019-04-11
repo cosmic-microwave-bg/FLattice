@@ -1,0 +1,69 @@
+\hypertarget{class_status}{}\section{Status Class Reference}
+\label{class_status}\index{Status@{Status}}
+
+
+Manage the field average, energy average and so on.  
+
+
+
+
+{\ttfamily \#include $<$status.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_status_a8dc65ba0ef771a3f7e4e612428fad036}\label{class_status_a8dc65ba0ef771a3f7e4e612428fad036}} 
+{\bfseries Status} (double $\ast$$\ast$f, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_calculate_energy}{Calculate\+Energy}} $>$ calculate)
+\item 
+\mbox{\Hypertarget{class_status_aee5635f7aba23798c42460d8b1e223bb}\label{class_status_aee5635f7aba23798c42460d8b1e223bb}} 
+void {\bfseries update} (int now=0)
+\item 
+\mbox{\Hypertarget{class_status_acae978a23f1af0761ab95b6ad7fd376a}\label{class_status_acae978a23f1af0761ab95b6ad7fd376a}} 
+void {\bfseries write} (int now=0)
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_status_a07b8fac037e56b2359e390bca99a9b6a}\label{class_status_a07b8fac037e56b2359e390bca99a9b6a}} 
+void {\bfseries update\+Field\+Average} ()
+\item 
+\mbox{\Hypertarget{class_status_a7380d900d7af2cbe3eeffa4350e05534}\label{class_status_a7380d900d7af2cbe3eeffa4350e05534}} 
+void {\bfseries update\+Field\+Variance} ()
+\item 
+\mbox{\Hypertarget{class_status_a78fce4aa8bf9d9b035fa41755f6dba47}\label{class_status_a78fce4aa8bf9d9b035fa41755f6dba47}} 
+void {\bfseries update\+Calculate\+Average} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_status_a33dc61329a92fd5771e121fe411004ab}\label{class_status_a33dc61329a92fd5771e121fe411004ab}} 
+int \mbox{\hyperlink{class_status_a33dc61329a92fd5771e121fe411004ab}{\+\_\+time}}
+\begin{DoxyCompactList}\small\item\em To check wether the status is updeated when you call the member function \textquotesingle{}write()\textquotesingle{}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_status_a4f4a73ea4d39218be9357f850d0da0bf}\label{class_status_a4f4a73ea4d39218be9357f850d0da0bf}} 
+std\+::ofstream \mbox{\hyperlink{class_status_a4f4a73ea4d39218be9357f850d0da0bf}{\+\_\+ofs}}
+\begin{DoxyCompactList}\small\item\em Instance to write the status in the status file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_status_a1c37348ecb8a8c83699b78a801131aac}\label{class_status_a1c37348ecb8a8c83699b78a801131aac}} 
+double $\ast$$\ast$ \mbox{\hyperlink{class_status_a1c37348ecb8a8c83699b78a801131aac}{\+\_\+f}}
+\begin{DoxyCompactList}\small\item\em Pointer to the fields f. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_status_aa836aff401b3feb9246f390f2ed12761}\label{class_status_aa836aff401b3feb9246f390f2ed12761}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_calculate_energy}{Calculate\+Energy}} $>$ {\bfseries \+\_\+energy}
+\item 
+\mbox{\Hypertarget{class_status_aed39d6b3166423fd6fb034213ae155e1}\label{class_status_aed39d6b3166423fd6fb034213ae155e1}} 
+std\+::valarray$<$ double $>$ {\bfseries \+\_\+field\+\_\+average}
+\item 
+\mbox{\Hypertarget{class_status_a872aa7141f3a81006989e0d58a6b0ce4}\label{class_status_a872aa7141f3a81006989e0d58a6b0ce4}} 
+std\+::valarray$<$ double $>$ {\bfseries \+\_\+field\+\_\+variance}
+\item 
+\mbox{\Hypertarget{class_status_a0ba31edaecd8eda04ba8e6dea5126459}\label{class_status_a0ba31edaecd8eda04ba8e6dea5126459}} 
+std\+::valarray$<$ double $>$ {\bfseries \+\_\+energy\+\_\+average}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manage the field average, energy average and so on. 
+
+This class is temporary to observe the simulation correctness and may have bugs, so use with caution. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/eisuke\+\_\+sonomoto/\+Dropbox/\+F\+Lattice/src/include/\mbox{\hyperlink{status_8hpp}{status.\+hpp}}\end{DoxyCompactItemize}

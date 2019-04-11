@@ -1,6 +1,9 @@
+/**
+ * @file  evolution.cpp
+ * @brief See the coresponding header file for details.
+ */
 #include <cmath>
 #include "evolution.hpp"
-#include "utilities.hpp"
 
 
 
@@ -63,7 +66,7 @@ double Evolution::laplacian ( const double* f, int j, int k, int l ) const
 }
 
 
-void   Evolution::evol_fields ( double** f, double** df, double h )
+void  Evolution::evol_fields ( double** f, double** df, const double h )
 {	
     for( int n = 0; n < num_fields; ++n ){
         #pragma omp parallel for schedule( static ) num_threads( num_threads )
@@ -88,7 +91,7 @@ void   Evolution::evol_fields ( double** f, double** df, double h )
     }
 }
 
-void   LeapFrog::evol_field_derivs( double** f, double** df, double h )
+void   LeapFrog::evol_field_derivs( double** f, double** df, const double h )
 {
     for( int n = 0; n < num_fields; ++n ){
         #ifdef SPHERICAL_SYM

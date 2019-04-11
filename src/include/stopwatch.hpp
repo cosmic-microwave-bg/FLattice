@@ -1,9 +1,18 @@
+/**
+ * @file  stopwatch.hpp
+ * @brief 'Stopwatch' class which records time and return the time duration is defined 
+ */
 #ifndef _STOPWATCH_H_
 #define _STOPWATCH_H_
 
 #include <chrono>
 
 
+
+/**
+ * @class Stopwatch
+ * @brief Stopwatch class
+ */
 class Stopwatch
 {
     private:

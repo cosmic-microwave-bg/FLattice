@@ -17,15 +17,15 @@ dataType** allocateData( int num_fields, std::size_t N, int dimension )
 	switch( dimension )
 	{
 		case 1:
-			data[0] = new dataType [num_fields*N];
+			data[0] = new dataType [num_fields*N]();
 			for( int n = 0; n < num_fields; ++n ) data[n] = data[0] + n*N;
 			break;
 		case 2:
-			data[0] = new dataType [num_fields*N*N];
+			data[0] = new dataType [num_fields*N*N]();
 			for( int n = 0; n < num_fields; ++n ) data[n] = data[0] + n*N*N;
 			break;
 		case 3:
-			data[0] = new dataType [num_fields*N*N*N];
+			data[0] = new dataType [num_fields*N*N*N]();
 			for( int n = 0; n < num_fields; ++n ) data[n] = data[0] + n*N*N*N;
 			break;
 		default:
@@ -41,73 +41,6 @@ void deleteData( dataType**& data )
 {
 	delete [] data[0];
 	delete [] data;
-}
-
-template <typename dataType>
-dataType calculateAverage( dataType* data, int N, int dimension )
-{
-    dataType average = 0;
-
-    for( int i = 0; i < N; ++i ){
-		switch( dimension )
-        {
-			case 1:
-				int idx = i;
-				average += data[idx];
-				break;
-			case 2:
-				for( int j = 0; j < N; ++j ){
-					int idx = i*N+j;
-					average += data[idx];
-				}
-				break;
-			case 3:
-				for( int j = 0; j < N; ++j ){
-					for( int k = 0; k < N; ++k ){
-						int idx = (i*N+j)*N+k;
-						average += data[idx];
-					}
-				}
-				break;
-		}
-	}
-    for( int i = 0; i < dim; ++i ) average /= N;
-	
-	return average;
-}
-
-
-template <typename dataType>
-dataType calculateVariance( dataType* data, dataType average, int N, int dimension )
-{
-    dataType variance = 0;
-
-    for( int i = 0; i < N; ++i ){
-		switch( dimension )
-        {
-			case 1:
-				int idx = i;
-				variance += pow( data[idx]-average, 2 );
-				break;
-			case 2:
-				for( int j = 0; j < N; ++j ){
-					int idx = i*N+j;
-    				variance += pow( data[idx]-average, 2 );
-				}
-				break;
-			case 3:
-				for( int j = 0; j < N; ++j ){
-					for( int k = 0; k < N; ++k ){
-						int idx = (i*N+j)*N+k;
-    				    variance += pow( data[idx]-average, 2 );
-					}
-				}
-				break;
-		}
-	}
-    for( int i = 0; i < dim; ++i ) variance /= N;
-	
-	return variance;
 }
 
 

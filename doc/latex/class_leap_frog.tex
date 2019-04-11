@@ -24,27 +24,36 @@ Inheritance diagram for Leap\+Frog\+:\begin{figure}[H]
 \mbox{\Hypertarget{class_leap_frog_a8a7b7814a7e1953c1c0a08ddfe3e49db}\label{class_leap_frog_a8a7b7814a7e1953c1c0a08ddfe3e49db}} 
 void {\bfseries evolution} (double $\ast$$\ast$f, double $\ast$$\ast$df)
 \end{DoxyCompactItemize}
-\subsection*{Protected Member Functions}
+\subsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_leap_frog_a41ad24a048bec43cad6a531ff37fc926}\label{class_leap_frog_a41ad24a048bec43cad6a531ff37fc926}} 
-double {\bfseries laplacian} (const double $\ast$f, int i, int j=0, int k=0) const
-\item 
-\mbox{\Hypertarget{class_leap_frog_adaa36c4c3fec6517cb99c5698b716ddb}\label{class_leap_frog_adaa36c4c3fec6517cb99c5698b716ddb}} 
-void {\bfseries evol\+\_\+fields} (double $\ast$$\ast$f, double $\ast$$\ast$df, double h)
-\end{DoxyCompactItemize}
-\subsection*{Protected Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_leap_frog_ae6204c50678b1ee804d35718b23e1e28}\label{class_leap_frog_ae6204c50678b1ee804d35718b23e1e28}} 
-std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_model}{Model}} $>$ {\bfseries \+\_\+model}
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{class_leap_frog_a0798b7d6bfdf2f19e5bce08c4ce17d29}{evol\+\_\+field\+\_\+derivs}} (double $\ast$$\ast$f, double $\ast$$\ast$df, const double h)
+\begin{DoxyCompactList}\small\item\em Evolve the conjugates of the fields df. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
 
 
 \subsection{Detailed Description}
 Evolve the fields by leapfrog method. 
 
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_leap_frog_a0798b7d6bfdf2f19e5bce08c4ce17d29}\label{class_leap_frog_a0798b7d6bfdf2f19e5bce08c4ce17d29}} 
+\index{LeapFrog@{LeapFrog}!evol\_field\_derivs@{evol\_field\_derivs}}
+\index{evol\_field\_derivs@{evol\_field\_derivs}!LeapFrog@{LeapFrog}}
+\subsubsection{\texorpdfstring{evol\_field\_derivs()}{evol\_field\_derivs()}}
+{\footnotesize\ttfamily void Leap\+Frog\+::evol\+\_\+field\+\_\+derivs (\begin{DoxyParamCaption}\item[{double $\ast$$\ast$}]{f,  }\item[{double $\ast$$\ast$}]{df,  }\item[{const double}]{h }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Evolve the conjugates of the fields df. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em h} & A constant depending on the time evolution precision. \\
+\hline
+\end{DoxyParams}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/home/\+Dropbox/\+F\+Lattice/src/include/\mbox{\hyperlink{evolution_8hpp}{evolution.\+hpp}}\item 
-/\+Users/home/\+Dropbox/\+F\+Lattice/src/evolution.\+cpp\end{DoxyCompactItemize}
+/\+Users/eisuke\+\_\+sonomoto/\+Dropbox/\+F\+Lattice/src/include/\mbox{\hyperlink{evolution_8hpp}{evolution.\+hpp}}\item 
+/\+Users/eisuke\+\_\+sonomoto/\+Dropbox/\+F\+Lattice/src/\mbox{\hyperlink{evolution_8cpp}{evolution.\+cpp}}\end{DoxyCompactItemize}

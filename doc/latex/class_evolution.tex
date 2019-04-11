@@ -1,0 +1,66 @@
+\hypertarget{class_evolution}{}\section{Evolution Class Reference}
+\label{class_evolution}\index{Evolution@{Evolution}}
+
+
+The base class of time evolution of the fields.  
+
+
+
+
+{\ttfamily \#include $<$evolution.\+hpp$>$}
+
+Inheritance diagram for Evolution\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_evolution}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_evolution_ab3af50ff7c697e4fa972f7f172b9bd4d}\label{class_evolution_ab3af50ff7c697e4fa972f7f172b9bd4d}} 
+{\bfseries Evolution} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_model}{Model}} $>$ model)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{class_evolution_af86656987a077304eacaa56100377be3}{laplacian}} (const double $\ast$f, int i, int j=0, int k=0) const
+\begin{DoxyCompactList}\small\item\em The function to calculate the laplacian by fourth-\/order centeral differencial scheme. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_evolution_a27b820875e04d97b58b8e10d0d7ad82d}\label{class_evolution_a27b820875e04d97b58b8e10d0d7ad82d}} 
+void {\bfseries evol\+\_\+fields} (double $\ast$$\ast$f, double $\ast$$\ast$df, const double h)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_evolution_aa3dd9e68324ac958960e9b6e600940cf}\label{class_evolution_aa3dd9e68324ac958960e9b6e600940cf}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_model}{Model}} $>$ {\bfseries \+\_\+model}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The base class of time evolution of the fields. 
+
+We will implement the factory method to generate the evolution class ( \mbox{\hyperlink{class_leap_frog}{Leap\+Frog}}, \mbox{\hyperlink{class_leap_frog_expansion}{Leap\+Frog\+Expansion}}, ... ) by simply set the parameter \textquotesingle{}expansion\textquotesingle{} and so on. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_evolution_af86656987a077304eacaa56100377be3}\label{class_evolution_af86656987a077304eacaa56100377be3}} 
+\index{Evolution@{Evolution}!laplacian@{laplacian}}
+\index{laplacian@{laplacian}!Evolution@{Evolution}}
+\subsubsection{\texorpdfstring{laplacian()}{laplacian()}}
+{\footnotesize\ttfamily double Evolution\+::laplacian (\begin{DoxyParamCaption}\item[{const double $\ast$}]{f,  }\item[{int}]{i,  }\item[{int}]{j = {\ttfamily 0},  }\item[{int}]{k = {\ttfamily 0} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The function to calculate the laplacian by fourth-\/order centeral differencial scheme. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em $\ast$f} & The argument of the fields must be the pointer type for the vector optimization of the intel compiler! \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/eisuke\+\_\+sonomoto/\+Dropbox/\+F\+Lattice/src/include/\mbox{\hyperlink{evolution_8hpp}{evolution.\+hpp}}\item 
+/\+Users/eisuke\+\_\+sonomoto/\+Dropbox/\+F\+Lattice/src/\mbox{\hyperlink{evolution_8cpp}{evolution.\+cpp}}\end{DoxyCompactItemize}

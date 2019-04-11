@@ -63,8 +63,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="class_leap_frog-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">LeapFrog Class Reference</div>  </div>
@@ -81,7 +80,7 @@ Inheritance diagram for LeapFrog:</div>
  <div class="center">
   <img src="class_leap_frog.png" usemap="#LeapFrog_map" alt=""/>
   <map id="LeapFrog_map" name="LeapFrog_map">
-<area href="class_leap_frog_expansion.html" alt="LeapFrogExpansion" shape="rect" coords="0,56,125,80"/>
+<area href="class_evolution.html" title="The base class of time evolution of the fields." alt="Evolution" shape="rect" coords="0,0,67,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -93,27 +92,87 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8a7b7814a7e1953c1c0a08ddfe3e49db"><td class="memItemLeft" align="right" valign="top"><a id="a8a7b7814a7e1953c1c0a08ddfe3e49db"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>evolution</b> (double **f, double **df)</td></tr>
 <tr class="separator:a8a7b7814a7e1953c1c0a08ddfe3e49db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_evolution"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_evolution')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_evolution.html">Evolution</a></td></tr>
+<tr class="memitem:ab3af50ff7c697e4fa972f7f172b9bd4d inherit pub_methods_class_evolution"><td class="memItemLeft" align="right" valign="top"><a id="ab3af50ff7c697e4fa972f7f172b9bd4d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Evolution</b> (std::shared_ptr&lt; <a class="el" href="class_model.html">Model</a> &gt; model)</td></tr>
+<tr class="separator:ab3af50ff7c697e4fa972f7f172b9bd4d inherit pub_methods_class_evolution"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a41ad24a048bec43cad6a531ff37fc926"><td class="memItemLeft" align="right" valign="top"><a id="a41ad24a048bec43cad6a531ff37fc926"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>laplacian</b> (const double *f, int i, int j=0, int k=0) const</td></tr>
-<tr class="separator:a41ad24a048bec43cad6a531ff37fc926"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adaa36c4c3fec6517cb99c5698b716ddb"><td class="memItemLeft" align="right" valign="top"><a id="adaa36c4c3fec6517cb99c5698b716ddb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>evol_fields</b> (double **f, double **df, double h)</td></tr>
-<tr class="separator:adaa36c4c3fec6517cb99c5698b716ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a0798b7d6bfdf2f19e5bce08c4ce17d29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_leap_frog.html#a0798b7d6bfdf2f19e5bce08c4ce17d29">evol_field_derivs</a> (double **f, double **df, const double h)</td></tr>
+<tr class="memdesc:a0798b7d6bfdf2f19e5bce08c4ce17d29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evolve the conjugates of the fields df.  <a href="#a0798b7d6bfdf2f19e5bce08c4ce17d29">More...</a><br /></td></tr>
+<tr class="separator:a0798b7d6bfdf2f19e5bce08c4ce17d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:ae6204c50678b1ee804d35718b23e1e28"><td class="memItemLeft" align="right" valign="top"><a id="ae6204c50678b1ee804d35718b23e1e28"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_class_evolution"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_evolution')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_evolution.html">Evolution</a></td></tr>
+<tr class="memitem:af86656987a077304eacaa56100377be3 inherit pro_methods_class_evolution"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_evolution.html#af86656987a077304eacaa56100377be3">laplacian</a> (const double *f, int i, int j=0, int k=0) const</td></tr>
+<tr class="memdesc:af86656987a077304eacaa56100377be3 inherit pro_methods_class_evolution"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function to calculate the laplacian by fourth-order centeral differencial scheme.  <a href="class_evolution.html#af86656987a077304eacaa56100377be3">More...</a><br /></td></tr>
+<tr class="separator:af86656987a077304eacaa56100377be3 inherit pro_methods_class_evolution"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27b820875e04d97b58b8e10d0d7ad82d inherit pro_methods_class_evolution"><td class="memItemLeft" align="right" valign="top"><a id="a27b820875e04d97b58b8e10d0d7ad82d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>evol_fields</b> (double **f, double **df, const double h)</td></tr>
+<tr class="separator:a27b820875e04d97b58b8e10d0d7ad82d inherit pro_methods_class_evolution"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_evolution"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_evolution')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_evolution.html">Evolution</a></td></tr>
+<tr class="memitem:aa3dd9e68324ac958960e9b6e600940cf inherit pro_attribs_class_evolution"><td class="memItemLeft" align="right" valign="top"><a id="aa3dd9e68324ac958960e9b6e600940cf"></a>
 std::shared_ptr&lt; <a class="el" href="class_model.html">Model</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_model</b></td></tr>
-<tr class="separator:ae6204c50678b1ee804d35718b23e1e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:aa3dd9e68324ac958960e9b6e600940cf inherit pro_attribs_class_evolution"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Evolve the fields by leapfrog method. </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/home/Dropbox/FLattice/src/include/<a class="el" href="evolution_8hpp_source.html">evolution.hpp</a></li>
-<li>/Users/home/Dropbox/FLattice/src/evolution.cpp</li>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0798b7d6bfdf2f19e5bce08c4ce17d29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0798b7d6bfdf2f19e5bce08c4ce17d29">&#9670;&nbsp;</a></span>evol_field_derivs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LeapFrog::evol_field_derivs </td>
+          <td>(</td>
+          <td class="paramtype">double **&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double **&#160;</td>
+          <td class="paramname"><em>df</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>h</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Evolve the conjugates of the fields df. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">h</td><td>A constant depending on the time evolution precision. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/Users/eisuke_sonomoto/Dropbox/FLattice/src/include/<a class="el" href="evolution_8hpp_source.html">evolution.hpp</a></li>
+<li>/Users/eisuke_sonomoto/Dropbox/FLattice/src/<a class="el" href="evolution_8cpp.html">evolution.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

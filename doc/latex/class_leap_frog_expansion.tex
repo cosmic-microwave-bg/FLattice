@@ -1,5 +1,14 @@
 \hypertarget{class_leap_frog_expansion}{}\section{Leap\+Frog\+Expansion Class Reference}
 \label{class_leap_frog_expansion}\index{LeapFrogExpansion@{LeapFrogExpansion}}
+
+
+Evolve the fields by leapfrog method in the expanding universe.  
+
+
+
+
+{\ttfamily \#include $<$evolution.\+hpp$>$}
+
 Inheritance diagram for Leap\+Frog\+Expansion\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -15,10 +24,37 @@ Inheritance diagram for Leap\+Frog\+Expansion\+:\begin{figure}[H]
 \mbox{\Hypertarget{class_leap_frog_expansion_a27854e0461bb73d00876439cf734aff6}\label{class_leap_frog_expansion_a27854e0461bb73d00876439cf734aff6}} 
 void {\bfseries evolution} (double $\ast$$\ast$f, double $\ast$$\ast$df, double t)
 \end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_leap_frog_expansion_aa2a0a61cc01b33b257d553b40c32d10e}\label{class_leap_frog_expansion_aa2a0a61cc01b33b257d553b40c32d10e}} 
+static double {\bfseries \+\_\+a} = 1
+\item 
+\mbox{\Hypertarget{class_leap_frog_expansion_ae3b8aaa75482f796026edce748ba7d46}\label{class_leap_frog_expansion_ae3b8aaa75482f796026edce748ba7d46}} 
+static double {\bfseries \+\_\+da} = 1
+\item 
+\mbox{\Hypertarget{class_leap_frog_expansion_a49e7b433e3af0db474bf4113e1ae5510}\label{class_leap_frog_expansion_a49e7b433e3af0db474bf4113e1ae5510}} 
+static double {\bfseries \+\_\+dda} = 0
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_leap_frog_expansion_a7a155509a648425183fb0e9ac02b4beb}\label{class_leap_frog_expansion_a7a155509a648425183fb0e9ac02b4beb}} 
+void {\bfseries evol\+\_\+field\+\_\+derivs} (double $\ast$$\ast$f, double $\ast$$\ast$df, double h)
+\item 
+\mbox{\Hypertarget{class_leap_frog_expansion_a9b7af3625b0aeea6f03d25f1bd8c6bd9}\label{class_leap_frog_expansion_a9b7af3625b0aeea6f03d25f1bd8c6bd9}} 
+void {\bfseries evol\+\_\+scale} (double $\ast$$\ast$f, double h)
+\item 
+\mbox{\Hypertarget{class_leap_frog_expansion_a2ad530744c6ce8798da0442fbe35a228}\label{class_leap_frog_expansion_a2ad530744c6ce8798da0442fbe35a228}} 
+void {\bfseries evol\+\_\+scale\+\_\+derivs} (double h)
+\end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
 
+\subsection{Detailed Description}
+Evolve the fields by leapfrog method in the expanding universe. 
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/home/\+Dropbox/\+F\+Lattice/src/include/\mbox{\hyperlink{evolution_8hpp}{evolution.\+hpp}}\item 
-/\+Users/home/\+Dropbox/\+F\+Lattice/src/evolution.\+cpp\end{DoxyCompactItemize}
+/\+Users/eisuke\+\_\+sonomoto/\+Dropbox/\+F\+Lattice/src/include/\mbox{\hyperlink{evolution_8hpp}{evolution.\+hpp}}\item 
+/\+Users/eisuke\+\_\+sonomoto/\+Dropbox/\+F\+Lattice/src/\mbox{\hyperlink{evolution_8cpp}{evolution.\+cpp}}\end{DoxyCompactItemize}

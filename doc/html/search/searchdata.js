@@ -1,12 +1,13 @@
 var indexSectionsWithContent =
 {
-  0: "cdelmnoprst",
-  1: "clm",
-  2: "cemp",
-  3: "dlnoprt",
-  4: "e",
-  5: "mnrs",
-  6: "d"
+  0: "_cdelmnoprst",
+  1: "celms",
+  2: "cemps",
+  3: "cel",
+  4: "_dlnoprt",
+  5: "e",
+  6: "mnrs",
+  7: "d"
 };
 
 var indexSectionNames =
@@ -14,10 +15,11 @@ var indexSectionNames =
   0: "all",
   1: "classes",
   2: "files",
-  3: "variables",
-  4: "enums",
-  5: "enumvalues",
-  6: "defines"
+  3: "functions",
+  4: "variables",
+  5: "enums",
+  6: "enumvalues",
+  7: "defines"
 };
 
 var indexSectionLabels =
@@ -25,9 +27,10 @@ var indexSectionLabels =
   0: "All",
   1: "Classes",
   2: "Files",
-  3: "Variables",
-  4: "Enumerations",
-  5: "Enumerator",
-  6: "Macros"
+  3: "Functions",
+  4: "Variables",
+  5: "Enumerations",
+  6: "Enumerator",
+  7: "Macros"
 };
 

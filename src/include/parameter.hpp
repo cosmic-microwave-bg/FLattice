@@ -16,6 +16,7 @@
  * @brief Simulatioin dimension.
  */
 #define DIMENSION 3
+#define Logout(...) 	do { printf(__VA_ARGS__); fflush(stdout); } while(0)
 
 
 

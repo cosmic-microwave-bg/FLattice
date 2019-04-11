@@ -63,12 +63,18 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_calculate_base-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">CalculateBase Class Reference</div>  </div>
+<div class="title">CalculateBase Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Abstract base class to calculate phycal quantites.  
+ <a href="class_calculate_base.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="calculation_8hpp_source.html">calculation.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CalculateBase:</div>
 <div class="dyncontent">
@@ -81,37 +87,51 @@ Inheritance diagram for CalculateBase:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4b3589297b24aa0dfde7e1b0c4f71300"><td class="memItemLeft" align="right" valign="top"><a id="a4b3589297b24aa0dfde7e1b0c4f71300"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>average</b> (int i)</td></tr>
-<tr class="separator:a4b3589297b24aa0dfde7e1b0c4f71300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5488d1de75b90da12080c795af284b2d"><td class="memItemLeft" align="right" valign="top"><a id="a5488d1de75b90da12080c795af284b2d"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>variance</b> (int i)</td></tr>
-<tr class="separator:a5488d1de75b90da12080c795af284b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a844f4d0e39795bcea7743c74e2fec224"><td class="memItemLeft" align="right" valign="top"><a id="a844f4d0e39795bcea7743c74e2fec224"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>total_average</b> ()</td></tr>
-<tr class="separator:a844f4d0e39795bcea7743c74e2fec224"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ff55898f914b7d8843a44c19848dc63"><td class="memItemLeft" align="right" valign="top"><a id="a6ff55898f914b7d8843a44c19848dc63"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>CalculateBase</b> (double **f, double **df)</td></tr>
+<tr class="separator:a6ff55898f914b7d8843a44c19848dc63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadbce95d114f18ccbbe752818223f604"><td class="memItemLeft" align="right" valign="top"><a id="aadbce95d114f18ccbbe752818223f604"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (int now=0)</td></tr>
+<tr class="separator:aadbce95d114f18ccbbe752818223f604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9befdcb41010d4fb5e38891fb31c00a7"><td class="memItemLeft" align="right" valign="top"><a id="a9befdcb41010d4fb5e38891fb31c00a7"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>average</b> (int n)</td></tr>
+<tr class="separator:a9befdcb41010d4fb5e38891fb31c00a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a9e56aaaaf9f0044049d37440fb135e2b"><td class="memItemLeft" align="right" valign="top"><a id="a9e56aaaaf9f0044049d37440fb135e2b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate</b> ()</td></tr>
+<tr class="separator:a9e56aaaaf9f0044049d37440fb135e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92d2b3012524704ffd8b87b5ac5a8888"><td class="memItemLeft" align="right" valign="top"><a id="a92d2b3012524704ffd8b87b5ac5a8888"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_calculate_base.html#a92d2b3012524704ffd8b87b5ac5a8888">calculateData</a> (int n, int i, int j=0, int k=0)=0</td></tr>
+<tr class="memdesc:a92d2b3012524704ffd8b87b5ac5a8888"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pure virtual function to be implemented in the sub class. <br /></td></tr>
+<tr class="separator:a92d2b3012524704ffd8b87b5ac5a8888"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:a759eb201d41d35ea600333074e007181"><td class="memItemLeft" align="right" valign="top"><a id="a759eb201d41d35ea600333074e007181"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>_time</b></td></tr>
+<tr class="separator:a759eb201d41d35ea600333074e007181"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e863d6582d9a59270fa382552a86de0"><td class="memItemLeft" align="right" valign="top"><a id="a5e863d6582d9a59270fa382552a86de0"></a>
+double **&#160;</td><td class="memItemRight" valign="bottom"><b>_f</b></td></tr>
+<tr class="separator:a5e863d6582d9a59270fa382552a86de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b88550952b5b159369a0446e0278b1b"><td class="memItemLeft" align="right" valign="top"><a id="a7b88550952b5b159369a0446e0278b1b"></a>
+double **&#160;</td><td class="memItemRight" valign="bottom"><b>_df</b></td></tr>
+<tr class="separator:a7b88550952b5b159369a0446e0278b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae77ed832e35fb46ae64baec24a9ff359"><td class="memItemLeft" align="right" valign="top"><a id="ae77ed832e35fb46ae64baec24a9ff359"></a>
-double **&#160;</td><td class="memItemRight" valign="bottom"><b>_data</b></td></tr>
+double **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_calculate_base.html#ae77ed832e35fb46ae64baec24a9ff359">_data</a></td></tr>
+<tr class="memdesc:ae77ed832e35fb46ae64baec24a9ff359"><td class="mdescLeft">&#160;</td><td class="mdescRight">The physical quantity you want to calculate is stored. <br /></td></tr>
 <tr class="separator:ae77ed832e35fb46ae64baec24a9ff359"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a736de31fa14cadd5466531506be981b5"><td class="memItemLeft" align="right" valign="top"><a id="a736de31fa14cadd5466531506be981b5"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>_total</b></td></tr>
-<tr class="separator:a736de31fa14cadd5466531506be981b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ceb49ac1bef2197f9fbab8d5a421c3b"><td class="memItemLeft" align="right" valign="top"><a id="a5ceb49ac1bef2197f9fbab8d5a421c3b"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>_average</b></td></tr>
-<tr class="separator:a5ceb49ac1bef2197f9fbab8d5a421c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04805fcade234d0400b47c76727aec3b"><td class="memItemLeft" align="right" valign="top"><a id="a04805fcade234d0400b47c76727aec3b"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>_variance</b></td></tr>
-<tr class="separator:a04805fcade234d0400b47c76727aec3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c336116045b19865fa872d89e4b1b6b"><td class="memItemLeft" align="right" valign="top"><a id="a1c336116045b19865fa872d89e4b1b6b"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>_total_average</b></td></tr>
-<tr class="separator:a1c336116045b19865fa872d89e4b1b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5481e38a3cf7122365f57bda92d3e27a"><td class="memItemLeft" align="right" valign="top"><a id="a5481e38a3cf7122365f57bda92d3e27a"></a>
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_calculate_base.html#a5481e38a3cf7122365f57bda92d3e27a">_data_sum</a></td></tr>
+<tr class="memdesc:a5481e38a3cf7122365f57bda92d3e27a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sum of fields of _data at each grid point. <br /></td></tr>
+<tr class="separator:a5481e38a3cf7122365f57bda92d3e27a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/home/Dropbox/FLattice/src/include/<a class="el" href="calculation_8hpp_source.html">calculation.hpp</a></li>
-<li>/Users/home/Dropbox/FLattice/src/calulation.cpp</li>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract base class to calculate phycal quantites. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
+<li>/Users/eisuke_sonomoto/Dropbox/FLattice/src/include/<a class="el" href="calculation_8hpp_source.html">calculation.hpp</a></li>
+<li>/Users/eisuke_sonomoto/Dropbox/FLattice/src/<a class="el" href="calculation_8cpp.html">calculation.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

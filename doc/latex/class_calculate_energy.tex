@@ -9,16 +9,28 @@ Inheritance diagram for Calculate\+Energy\+:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_calculate_energy_a25aeab3fd4505ccbef0bdc064961785a}\label{class_calculate_energy_a25aeab3fd4505ccbef0bdc064961785a}} 
-{\bfseries Calculate\+Energy} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_model}{Model}} $>$ model, \mbox{\hyperlink{class_leap_frog}{Leap\+Frog}} $\ast$leapfrog, double $\ast$$\ast$f, double $\ast$$\ast$df)
+\mbox{\Hypertarget{class_calculate_energy_aa307650f8e9652782e1024f6450a7028}\label{class_calculate_energy_aa307650f8e9652782e1024f6450a7028}} 
+{\bfseries Calculate\+Energy} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_model}{Model}} $>$ model, double $\ast$$\ast$f, double $\ast$$\ast$df)
 \item 
-\mbox{\Hypertarget{class_calculate_energy_ab0c1f1084c68e9c282e49df8ffb31a7c}\label{class_calculate_energy_ab0c1f1084c68e9c282e49df8ffb31a7c}} 
-double {\bfseries gradient\+\_\+energy} (double $\ast$f)
+\mbox{\Hypertarget{class_calculate_energy_a7501b04772918eb12d0b6fd7659df4ce}\label{class_calculate_energy_a7501b04772918eb12d0b6fd7659df4ce}} 
+void \mbox{\hyperlink{class_calculate_energy_a7501b04772918eb12d0b6fd7659df4ce}{calculate\+Data}} (int n, int i, int j=0, int k=0) override
+\begin{DoxyCompactList}\small\item\em Pure virtual function to be implemented in the sub class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_calculate_energy_a65c66f5908b9402f317924594c20435e}\label{class_calculate_energy_a65c66f5908b9402f317924594c20435e}} 
+double {\bfseries gradient\+Energy} (const double $\ast$f, int i, int j=0, int k=0) const
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_calculate_energy_adb103d2c892ae25df1d14af57f0a2143}\label{class_calculate_energy_adb103d2c892ae25df1d14af57f0a2143}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_model}{Model}} $>$ {\bfseries \+\_\+model}
 \end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/home/\+Dropbox/\+F\+Lattice/src/include/\mbox{\hyperlink{calculation_8hpp}{calculation.\+hpp}}\item 
-/\+Users/home/\+Dropbox/\+F\+Lattice/src/calulation.\+cpp\end{DoxyCompactItemize}
+/\+Users/eisuke\+\_\+sonomoto/\+Dropbox/\+F\+Lattice/src/include/\mbox{\hyperlink{calculation_8hpp}{calculation.\+hpp}}\item 
+/\+Users/eisuke\+\_\+sonomoto/\+Dropbox/\+F\+Lattice/src/\mbox{\hyperlink{calculation_8cpp}{calculation.\+cpp}}\end{DoxyCompactItemize}

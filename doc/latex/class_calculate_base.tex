@@ -1,5 +1,14 @@
 \hypertarget{class_calculate_base}{}\section{Calculate\+Base Class Reference}
 \label{class_calculate_base}\index{CalculateBase@{CalculateBase}}
+
+
+Abstract base class to calculate phycal quantites.  
+
+
+
+
+{\ttfamily \#include $<$calculation.\+hpp$>$}
+
 Inheritance diagram for Calculate\+Base\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -9,36 +18,48 @@ Inheritance diagram for Calculate\+Base\+:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_calculate_base_a4b3589297b24aa0dfde7e1b0c4f71300}\label{class_calculate_base_a4b3589297b24aa0dfde7e1b0c4f71300}} 
-double {\bfseries average} (int i)
+\mbox{\Hypertarget{class_calculate_base_a6ff55898f914b7d8843a44c19848dc63}\label{class_calculate_base_a6ff55898f914b7d8843a44c19848dc63}} 
+{\bfseries Calculate\+Base} (double $\ast$$\ast$f, double $\ast$$\ast$df)
 \item 
-\mbox{\Hypertarget{class_calculate_base_a5488d1de75b90da12080c795af284b2d}\label{class_calculate_base_a5488d1de75b90da12080c795af284b2d}} 
-double {\bfseries variance} (int i)
+\mbox{\Hypertarget{class_calculate_base_aadbce95d114f18ccbbe752818223f604}\label{class_calculate_base_aadbce95d114f18ccbbe752818223f604}} 
+void {\bfseries update} (int now=0)
 \item 
-\mbox{\Hypertarget{class_calculate_base_a844f4d0e39795bcea7743c74e2fec224}\label{class_calculate_base_a844f4d0e39795bcea7743c74e2fec224}} 
-double {\bfseries total\+\_\+average} ()
+\mbox{\Hypertarget{class_calculate_base_a9befdcb41010d4fb5e38891fb31c00a7}\label{class_calculate_base_a9befdcb41010d4fb5e38891fb31c00a7}} 
+double {\bfseries average} (int n)
 \end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_calculate_base_a9e56aaaaf9f0044049d37440fb135e2b}\label{class_calculate_base_a9e56aaaaf9f0044049d37440fb135e2b}} 
+void {\bfseries calculate} ()
+\item 
+\mbox{\Hypertarget{class_calculate_base_a92d2b3012524704ffd8b87b5ac5a8888}\label{class_calculate_base_a92d2b3012524704ffd8b87b5ac5a8888}} 
+virtual void \mbox{\hyperlink{class_calculate_base_a92d2b3012524704ffd8b87b5ac5a8888}{calculate\+Data}} (int n, int i, int j=0, int k=0)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual function to be implemented in the sub class. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_calculate_base_a759eb201d41d35ea600333074e007181}\label{class_calculate_base_a759eb201d41d35ea600333074e007181}} 
+int {\bfseries \+\_\+time}
+\item 
+\mbox{\Hypertarget{class_calculate_base_a5e863d6582d9a59270fa382552a86de0}\label{class_calculate_base_a5e863d6582d9a59270fa382552a86de0}} 
+double $\ast$$\ast$ {\bfseries \+\_\+f}
+\item 
+\mbox{\Hypertarget{class_calculate_base_a7b88550952b5b159369a0446e0278b1b}\label{class_calculate_base_a7b88550952b5b159369a0446e0278b1b}} 
+double $\ast$$\ast$ {\bfseries \+\_\+df}
+\item 
 \mbox{\Hypertarget{class_calculate_base_ae77ed832e35fb46ae64baec24a9ff359}\label{class_calculate_base_ae77ed832e35fb46ae64baec24a9ff359}} 
-double $\ast$$\ast$ {\bfseries \+\_\+data}
-\item 
-\mbox{\Hypertarget{class_calculate_base_a736de31fa14cadd5466531506be981b5}\label{class_calculate_base_a736de31fa14cadd5466531506be981b5}} 
-double $\ast$ {\bfseries \+\_\+total}
-\item 
-\mbox{\Hypertarget{class_calculate_base_a5ceb49ac1bef2197f9fbab8d5a421c3b}\label{class_calculate_base_a5ceb49ac1bef2197f9fbab8d5a421c3b}} 
-double $\ast$ {\bfseries \+\_\+average}
-\item 
-\mbox{\Hypertarget{class_calculate_base_a04805fcade234d0400b47c76727aec3b}\label{class_calculate_base_a04805fcade234d0400b47c76727aec3b}} 
-double $\ast$ {\bfseries \+\_\+variance}
-\item 
-\mbox{\Hypertarget{class_calculate_base_a1c336116045b19865fa872d89e4b1b6b}\label{class_calculate_base_a1c336116045b19865fa872d89e4b1b6b}} 
-double {\bfseries \+\_\+total\+\_\+average}
-\end{DoxyCompactItemize}
+double $\ast$$\ast$ \mbox{\hyperlink{class_calculate_base_ae77ed832e35fb46ae64baec24a9ff359}{\+\_\+data}}
+\begin{DoxyCompactList}\small\item\em The physical quantity you want to calculate is stored. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_calculate_base_a5481e38a3cf7122365f57bda92d3e27a}\label{class_calculate_base_a5481e38a3cf7122365f57bda92d3e27a}} 
+double $\ast$ \mbox{\hyperlink{class_calculate_base_a5481e38a3cf7122365f57bda92d3e27a}{\+\_\+data\+\_\+sum}}
+\begin{DoxyCompactList}\small\item\em Sum of fields of \+\_\+data at each grid point. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+Abstract base class to calculate phycal quantites. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/home/\+Dropbox/\+F\+Lattice/src/include/\mbox{\hyperlink{calculation_8hpp}{calculation.\+hpp}}\item 
-/\+Users/home/\+Dropbox/\+F\+Lattice/src/calulation.\+cpp\end{DoxyCompactItemize}
+/\+Users/eisuke\+\_\+sonomoto/\+Dropbox/\+F\+Lattice/src/include/\mbox{\hyperlink{calculation_8hpp}{calculation.\+hpp}}\item 
+/\+Users/eisuke\+\_\+sonomoto/\+Dropbox/\+F\+Lattice/src/\mbox{\hyperlink{calculation_8cpp}{calculation.\+cpp}}\end{DoxyCompactItemize}

@@ -9,8 +9,12 @@
 #include "stopwatch.hpp"
 
 
-
-inline void DFT_c2r( double** f )
+/**
+ * @brief Discrete Forurier Transformation from complex to real number.
+ * 
+ * We will create a rapper class of fftw in the near future or use intel MKL library.
+ */
+void DFT_c2r( double** f )
 {
 	fftw_plan p;
 	double* out;
@@ -118,23 +122,22 @@ inline void DFT_c2r( double** f )
 void initialize( double** f, double** df )
 {   
 	std::mt19937 mt( rnd );
-	std::uniform_real_distribution<> rand( -1.e-2, 1.e-2 );
-
+	std::uniform_real_distribution<> rand( -5.e-2, 5.e-2 );
+	
     for( int n = 0; n < num_fields; ++n ){
         #pragma omp parallel for schedule( static ) num_threads ( num_threads )
         for( int i = 0; i < N; ++i ){	
             for( int j = 0; j < N; ++j ){
             	for( int k = 0; k < N; ++k ){
 					int idx = (i*N+j)*N+k;
-					f[n][idx]  = 10*( 1 + rand(mt) );
+					if( n == 0 ) f[n][idx]  = 1*(1 + rand(mt));
+					else         f[n][idx]  = rand(mt);
 					df[n][idx] = 0;
 				}
             }
         }
     }
-
 	//DFT_c2r( f );
-
 }
 
 
@@ -165,17 +168,14 @@ int main( int argc, char** argv )
 	initialize( f, df );
 
 	auto model    = std::make_shared<Model>();
-	auto leapfrog = std::make_shared<LeapFrog>(model);
-	auto energy   = std::make_shared<CalculateEnergy>(model, f, df);
-	auto status   = std::make_shared<Status>(f, energy);
+	//auto leapfrog = std::make_unique<LeapFrog>(model);
+	auto leapfrog = std::make_unique<LeapFrogExpansion>(model);  // Change the Evolution calss depending on the geometry !
+	auto energy   = std::make_unique<CalculateEnergy>(model, f, df);  // These instances will be managed in the status class
+	auto status   = std::make_unique<Status>(f, std::move(energy));
 
-	energy->update();
-	//energy.write()
-
+	writeVTI<double>(f, num_fields, "field", 0);
 	status->update();
-	status->write();
-	// write_VTK( energy.value[0], "energy", -1 );
-	// write_VTK( f[0], "model", -1 );
+	status->write ();
 
 	//-------------------------------------------------
 	//           TIME ITERATION LOOP
@@ -189,13 +189,12 @@ int main( int argc, char** argv )
 
     for( int loop = 1; loop <= max_loop; ++loop )
 	{	
-		leapfrog->evolution( f, df );
-		
-		energy->update(loop);
+		double t = t0+(loop-1)*output_step*dt;
+		leapfrog->evolution( f, df, t );
+
+		writeVTI<double>(f, num_fields, "field", loop);
 		status->update(loop);
 		status->write (loop);
-		// write_VTK( f[0], "model", loop );
-		// write_VTK( energy.value[0], "energy", loop );
 
         Logout( " Loop %d/%d: %2.3f s \n", loop, max_loop, stopwatch.lap() );
     }

@@ -15,7 +15,7 @@
  * @brief The base class of time evolution of the fields.
  * 
  * We will implement the factory method to generate the evolution class ( LeapFrog, LeapFrogExpansion, ... )
- * by simply set the parameter 'expansion' and so on.
+ * by simply set the parameter 'expansion'.
  */
 class Evolution
 {
@@ -29,12 +29,13 @@ class Evolution
 
 	public:
 		explicit Evolution    ( std::shared_ptr<Model> model ): _model(model) {}
+		{ if( precision != 2 and precision != 4 ) std::cerr << "Evolution precision must be 2 or 4." << std::endl, exit(1); }
 };
 
 
 /** 
  * @class LeapFrog
- * @brief Evolve the fields by leapfrog method.
+ * @brief Evolve the fields by leapfrog method in Minkowski spacetime.
  */
 class LeapFrog: public Evolution
 {
@@ -45,9 +46,8 @@ class LeapFrog: public Evolution
         void     evol_field_derivs  ( double** f, double** df, const double h );
 		
 	public:
-		LeapFrog                    ( std::shared_ptr<Model> model ): Evolution(model) 
-		{ if( precision != 2 and precision != 4 ) std::cerr << "LeapFrog precision must be 2 or 4." << std::endl, exit(1); }
-        void     evolution          ( double** f, double** df );
+		LeapFrog                    ( std::shared_ptr<Model> model ): Evolution(model) {}
+        void     evolution          ( double** f, double** df, double t=0 );
 };
 
 
@@ -60,12 +60,12 @@ class LeapFrogExpansion: public Evolution
 	private:
 		void     evol_field_derivs   ( double** f, double** df, double h );
 		void     evol_scale          ( double** f, double h );
-		void     evol_scale_derivs   ( double h ) { _da += _dda * h*dt; }
+		void     evol_scale_derivs   ( double h ) { da += dda * h*dt; }
 
 	public:
 		LeapFrogExpansion            ( std::shared_ptr<Model> model );
 		void     evolution           ( double** f, double** df, double t );
-		static double _a, _da, _dda;
+		static double a, da, dda;
 };
 
 

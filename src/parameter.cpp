@@ -19,4 +19,4 @@ double dt = 1.e-2;
 double dx = 1.* L/N;
 
 int precision = 4;
-Expansion expansion = Expansion::no_expansion;
+Expansion expansion = Expansion::rad_domination;

@@ -91,6 +91,7 @@ void  Evolution::evol_fields ( double** f, double** df, const double h )
     }
 }
 
+
 void   LeapFrog::evol_field_derivs( double** f, double** df, const double h )
 {
     for( int n = 0; n < num_fields; ++n ){
@@ -123,11 +124,11 @@ void   LeapFrog::evol_field_derivs( double** f, double** df, const double h )
 }
 
 
-void LeapFrog::evolution( double** f, double** df )
+void LeapFrog::evolution( double** f, double** df, double t )
 {
     if( expansion != Expansion::no_expansion )
     {
-        Logout( "Error: Parameter expansion must be 'no_expansion' when you use member-function 'evolution'. \n" );
+        Logout( "Error: Parameter expansion must be 'no_expansion' when you use calss 'LeapFrog'. \n" );
         exit(1);
     }
     
@@ -160,9 +161,9 @@ void LeapFrog::evolution( double** f, double** df )
 }
 
 
-double LeapFrogExpansion::_a   = 1;
-double LeapFrogExpansion::_da  = 1;
-double LeapFrogExpansion::_dda = 0;
+double LeapFrogExpansion::a   = 1;
+double LeapFrogExpansion::da  = 1;  // initial のエネルギー密度が変わるので注意！
+double LeapFrogExpansion::dda = 0;
 
 
 LeapFrogExpansion::LeapFrogExpansion( std::shared_ptr<Model> model ): Evolution(model)
@@ -172,13 +173,14 @@ LeapFrogExpansion::LeapFrogExpansion( std::shared_ptr<Model> model ): Evolution(
         case Expansion::self_consist:
             break;
         case Expansion::rad_domination:
-            _dda = 0;
+            da  = 1;
+            dda = 0;
             break;
         case Expansion::mat_domination:
-            _dda = 2;
+            dda = 2;
             break;
         default:
-            std::cerr << "Parameter 'expansion' must be enum class ... when you use class 'LeapFrog'." << std::endl;
+            std::cerr << "Parameter 'expansion' must not be 'no_expansion' when you use class 'LeapFrogExpansion'." << std::endl;
             exit(1);
     }
 }
@@ -186,22 +188,22 @@ LeapFrogExpansion::LeapFrogExpansion( std::shared_ptr<Model> model ): Evolution(
 
 void LeapFrogExpansion::evol_field_derivs( double** f, double** df, double h )
 {
-    for( int i = 0; i < num_fields; ++i ){
+    for( int n = 0; n < num_fields; ++n ){
         #pragma omp parallel for schedule( static ) num_threads( num_threads )
-        for( int j = 0; j < N; ++j ){
+        for( int i = 0; i < N; ++i ){
             #if DIMENSION == 1
-                int idx = j;
-                df[i][idx] += ( laplacian(f[i], j) + _dda*f[i][idx]/_a - pow(_a,3)*_model->adV(f, i, idx, _a) ) * h*dt;
+                int idx = i;
+                df[n][idx] += ( laplacian(f[n], i) + dda*f[n][idx]/a - pow(a,3)*_model->dV(f, n, idx, a) ) * h*dt;
             #elif DIMENSION == 2
-                for( int k = 0; k < N; ++k ){
-                    int idx = j*N + k;
-                    df[i][idx] += ( laplacian(f[i], j, k) + _dda*f[i][idx]/_a - pow(_a,3)*_model->adV(f, i, idx, _a) ) * h*dt;
+                for( int j = 0; j < N; ++j ){
+                    int idx = i*N+j;
+                    df[n][idx] += ( laplacian(f[n], i, j) + dda*f[n][idx]/a - pow(a,3)*_model->dV(f, n, idx, a) ) * h*dt;
                 }
             #elif DIMENSION == 3
-                for( int k = 0; k < N; ++k ){
-                    for( int l = 0; l < N; ++l ){
-                        int idx = (j*N + k)*N + l;
-                        df[i][idx] += ( laplacian(f[i], j, k, l) + _dda*f[i][idx]/_a - pow(_a,3)*_model->adV(f, i, idx, _a) ) * h*dt;
+                for( int j = 0; j < N; ++j ){
+                    for( int k = 0; k < N; ++k ){
+                        int idx = (i*N+j)*N+k;
+                        df[n][idx] += ( laplacian(f[n], i, j, k) + dda*f[n][idx]/a - pow(a,3)*_model->dV(f, n, idx, a) ) * h*dt;
                     }
                 }
             #endif
@@ -212,13 +214,9 @@ void LeapFrogExpansion::evol_field_derivs( double** f, double** df, double h )
 
 void LeapFrogExpansion::evol_scale( double** f, double h )
 {
-    _a += _da *h*dt;
-    
-    double C = 0;
-    C += _model->gradient_energy(f[0])/(3*_a) + pow(_a,3)*_model->potential_energy( f[0], _a );
-    for( int i = 0; i < DIMENSION; ++i ) C /= N;
-
-    _dda = - 2./(h*dt) * ( _da + _a/(h*dt) * ( 1 - sqrt( 1 + ( 2*h*dt*_da + pow(h*dt,2)*C )/_a ) ) );
+    a += da *h*dt;
+    double C = _model->gradientEnergy(f[0])/(3*a) + pow(a,3)*_model->potential_energy( f, 0, a );
+    dda = - 2./(h*dt) * ( da + a/(h*dt) * (1 - sqrt( 1 + (2*h*dt*da + C*pow(h*dt,2))/a )) );
 }
 
 
@@ -227,8 +225,7 @@ void LeapFrogExpansion::evolution( double** f, double** df, double t )
     switch ( expansion )
     {   
         case Expansion::self_consist: // self-consistent evolution
-            _da = sqrt( ( _model->gradient_energy(f[0]) + 2*pow(_a,4)*_model->potential_energy(f[0], _a) )/6 );
-            for( int i = 0; i < DIMENSION; ++i ) _da /= sqrt(N);
+            da = sqrt( ( _model->gradientEnergy(f[0]) + 2*pow(a,4)*_model->potential_energy(f, 0, a) )/6 );
 
             switch( precision )
             {
@@ -275,18 +272,15 @@ void LeapFrogExpansion::evolution( double** f, double** df, double t )
             {
                 case 2:
                     evol_fields( f, df, 0.5 );
-                    _a +=  0.5*dt;
+                    a +=  0.5*dt;
                     for( int i = 0; i < output_step; ++i ){
                         evol_field_derivs( f, df, 1. );
-                        if( i == output_step-1 )
-                        {
+                        if( i == output_step-1 ){
                             evol_fields( f, df, 0.5 );
-                            _a +=  0.5*dt;
-                        }
-                        else
-                        {
+                            a +=  0.5*dt;
+                        }else{
                             evol_fields( f, df, 1. );
-                            _a +=  dt;
+                            a +=  dt;
                         }
                     }
                     break;
@@ -297,11 +291,11 @@ void LeapFrogExpansion::evolution( double** f, double** df, double t )
                     for( int i = 0; i < output_step; ++i ){
                         evol_fields( f, df, C[0] );
                         for( int p = 0; p < 3; ++p ) {
-                            _a +=  C[p]*dt;
+                            a +=  C[p]*dt;
                             evol_field_derivs( f, df, D[p] );
                             evol_fields( f, df, C[p+1] );
                         }
-                        _a +=  C[3]*dt;
+                        a +=  C[3]*dt;
                     }
                     break;
             }
@@ -313,7 +307,7 @@ void LeapFrogExpansion::evolution( double** f, double** df, double t )
                 case 2:
                     evol_fields( f, df, 0.5 );
                     t +=  0.5*dt;
-                    _a = pow( t, 2 );
+                    a = pow( t, 2 );
                     for( int i = 0; i < output_step; ++i ){
                         evol_field_derivs( f, df, 1.0 );
                         if( i == output_step - 1 )
@@ -326,9 +320,9 @@ void LeapFrogExpansion::evolution( double** f, double** df, double t )
                             evol_fields( f, df, 1.0 );
                             t +=  dt;
                         }
-                        _a = pow( t, 2 );
+                        a = pow( t, 2 );
                     }
-                    _da = 2*t;
+                    da = 2*t;
                     break;
 
                 case 4:
@@ -338,14 +332,14 @@ void LeapFrogExpansion::evolution( double** f, double** df, double t )
                         evol_fields( f, df, C[0] );
                         for( int p = 0; p < 3; ++p ) {
                             t +=  C[p]*dt;
-                            _a = pow( t, 2 );
+                            a = pow( t, 2 );
                             evol_field_derivs( f, df, D[p] );
                             evol_fields( f, df, C[p+1] );
                         }
                         t +=  C[3]*dt;
-                        _a = pow( t, 2 );
+                        a = pow( t, 2 );
                     }
-                    _da = 2*t;
+                    da = 2*t;
                     break;
             }
             break;

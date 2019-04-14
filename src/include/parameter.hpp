@@ -1,7 +1,8 @@
 /**
- * @file parameter.hpp
- * @brief The header file written the difinitions of the parameters used in the simulation.
+ * @file    parameter.hpp
+ * @brief   The header file written the difinitions of the parameters used in the simulation.
  * @details These words are globally declared, so beware of the confliction of the definition of local variavles.
+ *          This file will be changed to .json style in the future update
  */
 #ifndef _PARAMETER_H_
 #define _PARAMETER_H_

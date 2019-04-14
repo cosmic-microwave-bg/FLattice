@@ -82,23 +82,69 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>gradient_energy</b>
 <tr class="memitem:ad84316146a32691f3c66f774eedcc139"><td class="memItemLeft" align="right" valign="top"><a id="ad84316146a32691f3c66f774eedcc139"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>potential_energy</b> (double *f, double a) const</td></tr>
 <tr class="separator:ad84316146a32691f3c66f774eedcc139"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a75608c37107dfac5dc2f3e8b5b6665"><td class="memItemLeft" align="right" valign="top"><a id="a4a75608c37107dfac5dc2f3e8b5b6665"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>V</b> (double **f, int i, int idx) const</td></tr>
-<tr class="separator:a4a75608c37107dfac5dc2f3e8b5b6665"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21e3d33156c7ddc20a4bbf198ad43300"><td class="memItemLeft" align="right" valign="top"><a id="a21e3d33156c7ddc20a4bbf198ad43300"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>dV</b> (double **f, int i, int idx) const</td></tr>
-<tr class="separator:a21e3d33156c7ddc20a4bbf198ad43300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5eca5bd8d56ad529c767f89b020df8d"><td class="memItemLeft" align="right" valign="top"><a id="ac5eca5bd8d56ad529c767f89b020df8d"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>aV</b> (double **f, int i, int idx, double a) const</td></tr>
-<tr class="separator:ac5eca5bd8d56ad529c767f89b020df8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d0c7d5e8de5e402a95a3290fc027bee"><td class="memItemLeft" align="right" valign="top"><a id="a1d0c7d5e8de5e402a95a3290fc027bee"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>adV</b> (double **f, int i, int idx, double a) const</td></tr>
-<tr class="separator:a1d0c7d5e8de5e402a95a3290fc027bee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b339be9bef53eb7fd511a25a4c07608"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a9b339be9bef53eb7fd511a25a4c07608">V</a> (double **f, int i, int idx, double a=1) const</td></tr>
+<tr class="memdesc:a9b339be9bef53eb7fd511a25a4c07608"><td class="mdescLeft">&#160;</td><td class="mdescRight">Potential.  <a href="#a9b339be9bef53eb7fd511a25a4c07608">More...</a><br /></td></tr>
+<tr class="separator:a9b339be9bef53eb7fd511a25a4c07608"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3124dc0624f866668626ccb0c3fa0b1f"><td class="memItemLeft" align="right" valign="top"><a id="a3124dc0624f866668626ccb0c3fa0b1f"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>dV</b> (double **f, int i, int idx, double a=1) const</td></tr>
+<tr class="separator:a3124dc0624f866668626ccb0c3fa0b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>You set the model potential (and parameters) in this class model. </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>/Users/eisuke_sonomoto/Dropbox/FLattice/src/include/<a class="el" href="model_8hpp_source.html">model.hpp</a></li>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9b339be9bef53eb7fd511a25a4c07608"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b339be9bef53eb7fd511a25a4c07608">&#9670;&nbsp;</a></span>V()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Model::V </td>
+          <td>(</td>
+          <td class="paramtype">double **&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>idx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>a</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Potential. </p>
+<p>When you simulate in the Minkowski spacetime, just write the potential <img class="formulaInl" alt="$ V(\phi) $" src="form_4.png"/>. When you simulate in the FRW spacetime, write the rescaled potential <img class="formulaInl" alt="$ V(\bar{\phi}) $" src="form_5.png"/> where <img class="formulaInl" alt="$ \bar{\phi} = \phi / a $" src="form_6.png"/> </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>/Users/home/Dropbox/FLattice/src/include/<a class="el" href="model_8hpp_source.html">model.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -2,3 +2,6 @@
 \form#1:$ {\rm output\_step} \times dt $
 \form#2:$ {\rm total_step} \times dt $
 \form#3:$ L/N $
+\form#4:$ V(\phi) $
+\form#5:$ V(\bar{\phi}) $
+\form#6:$ \bar{\phi} = \phi / a $

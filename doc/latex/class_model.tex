@@ -18,23 +18,29 @@ double {\bfseries gradient\+\_\+energy} (double $\ast$f) const
 \mbox{\Hypertarget{class_model_ad84316146a32691f3c66f774eedcc139}\label{class_model_ad84316146a32691f3c66f774eedcc139}} 
 double {\bfseries potential\+\_\+energy} (double $\ast$f, double a) const
 \item 
-\mbox{\Hypertarget{class_model_a4a75608c37107dfac5dc2f3e8b5b6665}\label{class_model_a4a75608c37107dfac5dc2f3e8b5b6665}} 
-double {\bfseries V} (double $\ast$$\ast$f, int i, int idx) const
-\item 
-\mbox{\Hypertarget{class_model_a21e3d33156c7ddc20a4bbf198ad43300}\label{class_model_a21e3d33156c7ddc20a4bbf198ad43300}} 
-double {\bfseries dV} (double $\ast$$\ast$f, int i, int idx) const
-\item 
-\mbox{\Hypertarget{class_model_ac5eca5bd8d56ad529c767f89b020df8d}\label{class_model_ac5eca5bd8d56ad529c767f89b020df8d}} 
-double {\bfseries aV} (double $\ast$$\ast$f, int i, int idx, double a) const
-\item 
-\mbox{\Hypertarget{class_model_a1d0c7d5e8de5e402a95a3290fc027bee}\label{class_model_a1d0c7d5e8de5e402a95a3290fc027bee}} 
-double {\bfseries adV} (double $\ast$$\ast$f, int i, int idx, double a) const
+double \mbox{\hyperlink{class_model_a9b339be9bef53eb7fd511a25a4c07608}{V}} (double $\ast$$\ast$f, int i, int idx, double a=1) const
+\begin{DoxyCompactList}\small\item\em Potential. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_model_a3124dc0624f866668626ccb0c3fa0b1f}\label{class_model_a3124dc0624f866668626ccb0c3fa0b1f}} 
+double {\bfseries dV} (double $\ast$$\ast$f, int i, int idx, double a=1) const
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 You set the model potential (and parameters) in this class model. 
 
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_model_a9b339be9bef53eb7fd511a25a4c07608}\label{class_model_a9b339be9bef53eb7fd511a25a4c07608}} 
+\index{Model@{Model}!V@{V}}
+\index{V@{V}!Model@{Model}}
+\subsubsection{\texorpdfstring{V()}{V()}}
+{\footnotesize\ttfamily double Model\+::V (\begin{DoxyParamCaption}\item[{double $\ast$$\ast$}]{f,  }\item[{int}]{i,  }\item[{int}]{idx,  }\item[{double}]{a = {\ttfamily 1} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Potential. 
+
+When you simulate in the Minkowski spacetime, just write the potential $ V(\phi) $. When you simulate in the F\+RW spacetime, write the rescaled potential $ V(\bar{\phi}) $ where $ \bar{\phi} = \phi / a $ 
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/eisuke\+\_\+sonomoto/\+Dropbox/\+F\+Lattice/src/include/\mbox{\hyperlink{model_8hpp}{model.\+hpp}}\end{DoxyCompactItemize}
+/\+Users/home/\+Dropbox/\+F\+Lattice/src/include/\mbox{\hyperlink{model_8hpp}{model.\+hpp}}\end{DoxyCompactItemize}

@@ -8,6 +8,7 @@
 #include <memory>
 #include "model.hpp"
 #include "evolution.hpp"
+#include "write.hpp"
 
 
 
@@ -19,7 +20,7 @@ dataType calculateAverage( dataType* data, int N, int dimension )
     #pragma omp parallel for reduction(+:average) schedule( static ) num_threads ( num_threads )
     for( int i = 0; i < N; ++i ){
 		switch( dimension )
-        {
+		{
 			case 1:
 				int idx = i;
 				average += data[idx];
@@ -31,16 +32,15 @@ dataType calculateAverage( dataType* data, int N, int dimension )
 				}
 				break;
 			case 3:
-				for( int j = 0; j < N; ++j ){
+				for( int j = 0; j < N; ++j )
 					for( int k = 0; k < N; ++k ){
 						int idx = (i*N+j)*N+k;
 						average += data[idx];
 					}
-				}
 				break;
 		}
 	}
-    for( int i = 0; i < dimension; ++i ) average /= N;
+	for( int i = 0; i < dimension; ++i ) average /= N;
 	
 	return average;
 }
@@ -88,11 +88,10 @@ dataType calculateVariance( dataType* data, dataType average, int N, int dimensi
 class CalculateBase
 {
     protected:
-		int _time;
 		double** _f;
 		double** _df;
         double** _data;      //!< The physical quantity you want to calculate is stored.
-        double*  _data_sum;  //!< Sum of fields of _data at each grid point.
+        double*  _data_tot;  //!< Total of _data at each grid point.
 
 		void         calculate     ();
 		/**
@@ -101,20 +100,20 @@ class CalculateBase
 		virtual void calculateData ( int n, int i, int j=0, int k=0 ) = 0;
 
     public:
-        CalculateBase              ( double** f, double** df ): _time(0), _f(f), _df(df)
+        CalculateBase              ( double** f, double** df ): _f(f), _df(df)
         {
 			_data = allocateData<double>( num_fields, N, DIMENSION );
-            if( DIMENSION == 1 ) _data_sum = new double [N]();
-            if( DIMENSION == 2 ) _data_sum = new double [N*N]();
-            if( DIMENSION == 3 ) _data_sum = new double [N*N*N]();
+            if( DIMENSION == 1 ) _data_tot = new double [N]();
+            if( DIMENSION == 2 ) _data_tot = new double [N*N]();
+            if( DIMENSION == 3 ) _data_tot = new double [N*N*N]();
         }
         virtual     ~CalculateBase ()
 		{ 
 			deleteData(_data);
-			delete[] _data_sum; 
+			delete[] _data_tot; 
 		}
 
-		void        update         ( int now=0 ){ _time = now; calculate(); }
+		void        update         ()        { calculate(); }
 		double      average        ( int n ) { return calculateAverage<double>(_data[n], N, DIMENSION); }
 };
 
@@ -130,7 +129,11 @@ class CalculateEnergy: public CalculateBase
 		:CalculateBase(f, df), _model(model) { }
         
 		void        calculateData  ( int n, int i, int j=0, int k=0 ) override;
-        //writeVTI();
+		void        write          ( int loop )
+		{
+			writeVTI<double>( _data, num_fields, "energy", loop);
+			writeVTI<double>( _data_tot, "total_energy", loop  );
+		}
 };
 
 

@@ -25,18 +25,48 @@ void CalculateBase::calculate()
             #endif
         }
     }
+    
+    #pragma omp parallel for schedule( static ) num_threads ( num_threads )
+    for( int i = 0; i < N; ++i ){
+        #if   DIMENSION == 1
+            int idx = i;
+            for( int n = 0; n < num_fields; ++n ){
+                if( n == 0 ) _data_tot[idx]  = _data[n][idx];
+                else         _data_tot[idx] += _data[n][idx];
+            }
+        #elif DIMENSION == 2
+            for( int j = 0; j < N; ++j ){
+                int idx = i*N+j;
+                for( int n = 0; n < num_fields; ++n ){
+                    if( n == 0 ) _data_tot[idx]  = _data[n][idx];
+                    else         _data_tot[idx] += _data[n][idx];
+                }
+            }
+        #elif DIMENSION == 3
+            for( int j = 0; j < N; ++j )
+                for( int k = 0; k < N; ++k ){
+                    int idx = (i*N+j)*N+k;
+                    for( int n = 0; n < num_fields; ++n ){
+                        if( n == 0 ) _data_tot[idx]  = _data[n][idx];
+                        else         _data_tot[idx] += _data[n][idx];
+                    }
+                }
+        #endif
+    }
 }
 
 
 void CalculateEnergy::calculateData( int n, int i, int j, int k )
 {
-    double a  = LeapFrogExpansion::_a;
-    double da = LeapFrogExpansion::_da;
+    double a  = LeapFrogExpansion::a;
+    double da = LeapFrogExpansion::da;
 
     int idx = (k*N+j)*N+i;
-    if( expansion == Expansion::no_expansion ) _data[n][idx] = pow(_df[n][idx], 2)/2 + gradientEnergy(_f[n], i, j, k)          + _model->V(_f, n, idx);
-    else          _data[n][idx] = pow(_df[n][idx]*a - _f[n][idx]*da, 2)/(2*pow(a,4)) + gradientEnergy(_f[n], i, j, k)/pow(a,4) + _model->aV(_f, a, n, idx);
-    
+    if( expansion == Expansion::no_expansion )
+        _data[n][idx] = pow(_df[n][idx], 2)/2 + gradientEnergy(_f[n], i, j, k) + _model->V(_f, n, idx);
+    else
+        _data[n][idx] = ( pow(_df[n][idx] - _f[n][idx]*da/a, 2)/2
+                                    + gradientEnergy(_f[n], i, j, k) )/pow(a,4) + _model->V(_f, n, idx, a);
 }
 
 

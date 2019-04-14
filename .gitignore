@@ -43,5 +43,6 @@ https://github.com/simonwhitaker/gibo
 status.txt
 build
 
+*.ipynb
 memo.txt
 Makefile

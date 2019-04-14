@@ -12,16 +12,16 @@ You set the model potential (and parameters) in this class model.
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_model_ab00000d80ed947859bc69f05322d8038}\label{class_model_ab00000d80ed947859bc69f05322d8038}} 
-double {\bfseries gradient\+\_\+energy} (double $\ast$f) const
-\item 
-\mbox{\Hypertarget{class_model_ad84316146a32691f3c66f774eedcc139}\label{class_model_ad84316146a32691f3c66f774eedcc139}} 
-double {\bfseries potential\+\_\+energy} (double $\ast$f, double a) const
-\item 
-double \mbox{\hyperlink{class_model_a9b339be9bef53eb7fd511a25a4c07608}{V}} (double $\ast$$\ast$f, int i, int idx, double a=1) const
+double \mbox{\hyperlink{class_model_ac370fd0b6e71231998e012480f30c4c1}{V}} (double $\ast$$\ast$f, int n, int idx, double a=1) const
 \begin{DoxyCompactList}\small\item\em Potential. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_model_a3124dc0624f866668626ccb0c3fa0b1f}\label{class_model_a3124dc0624f866668626ccb0c3fa0b1f}} 
-double {\bfseries dV} (double $\ast$$\ast$f, int i, int idx, double a=1) const
+\mbox{\Hypertarget{class_model_aed8016aa38d39bd83cbe222119589044}\label{class_model_aed8016aa38d39bd83cbe222119589044}} 
+double {\bfseries dV} (double $\ast$$\ast$f, int n, int idx, double a=1) const
+\item 
+\mbox{\Hypertarget{class_model_af463b3898ec29efe8e2a5ad14bdc2be1}\label{class_model_af463b3898ec29efe8e2a5ad14bdc2be1}} 
+double {\bfseries gradient\+Energy} (double $\ast$f) const
+\item 
+\mbox{\Hypertarget{class_model_a7a0097d2525a387a190736edf97be723}\label{class_model_a7a0097d2525a387a190736edf97be723}} 
+double {\bfseries potential\+\_\+energy} (double $\ast$$\ast$f, int n, double a) const
 \end{DoxyCompactItemize}
 
 
@@ -29,11 +29,11 @@ double {\bfseries dV} (double $\ast$$\ast$f, int i, int idx, double a=1) const
 You set the model potential (and parameters) in this class model. 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{class_model_a9b339be9bef53eb7fd511a25a4c07608}\label{class_model_a9b339be9bef53eb7fd511a25a4c07608}} 
+\mbox{\Hypertarget{class_model_ac370fd0b6e71231998e012480f30c4c1}\label{class_model_ac370fd0b6e71231998e012480f30c4c1}} 
 \index{Model@{Model}!V@{V}}
 \index{V@{V}!Model@{Model}}
 \subsubsection{\texorpdfstring{V()}{V()}}
-{\footnotesize\ttfamily double Model\+::V (\begin{DoxyParamCaption}\item[{double $\ast$$\ast$}]{f,  }\item[{int}]{i,  }\item[{int}]{idx,  }\item[{double}]{a = {\ttfamily 1} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily double Model\+::V (\begin{DoxyParamCaption}\item[{double $\ast$$\ast$}]{f,  }\item[{int}]{n,  }\item[{int}]{idx,  }\item[{double}]{a = {\ttfamily 1} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 

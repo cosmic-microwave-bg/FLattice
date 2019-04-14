@@ -90,9 +90,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6ff55898f914b7d8843a44c19848dc63"><td class="memItemLeft" align="right" valign="top"><a id="a6ff55898f914b7d8843a44c19848dc63"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>CalculateBase</b> (double **f, double **df)</td></tr>
 <tr class="separator:a6ff55898f914b7d8843a44c19848dc63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadbce95d114f18ccbbe752818223f604"><td class="memItemLeft" align="right" valign="top"><a id="aadbce95d114f18ccbbe752818223f604"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (int now=0)</td></tr>
-<tr class="separator:aadbce95d114f18ccbbe752818223f604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa201990f71721e008b9168fc2fee1dd1"><td class="memItemLeft" align="right" valign="top"><a id="aa201990f71721e008b9168fc2fee1dd1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()</td></tr>
+<tr class="separator:aa201990f71721e008b9168fc2fee1dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9befdcb41010d4fb5e38891fb31c00a7"><td class="memItemLeft" align="right" valign="top"><a id="a9befdcb41010d4fb5e38891fb31c00a7"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>average</b> (int n)</td></tr>
 <tr class="separator:a9befdcb41010d4fb5e38891fb31c00a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,9 +109,6 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a759eb201d41d35ea600333074e007181"><td class="memItemLeft" align="right" valign="top"><a id="a759eb201d41d35ea600333074e007181"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>_time</b></td></tr>
-<tr class="separator:a759eb201d41d35ea600333074e007181"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e863d6582d9a59270fa382552a86de0"><td class="memItemLeft" align="right" valign="top"><a id="a5e863d6582d9a59270fa382552a86de0"></a>
 double **&#160;</td><td class="memItemRight" valign="bottom"><b>_f</b></td></tr>
 <tr class="separator:a5e863d6582d9a59270fa382552a86de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,10 +119,10 @@ double **&#160;</td><td class="memItemRight" valign="bottom"><b>_df</b></td></tr
 double **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_calculate_base.html#ae77ed832e35fb46ae64baec24a9ff359">_data</a></td></tr>
 <tr class="memdesc:ae77ed832e35fb46ae64baec24a9ff359"><td class="mdescLeft">&#160;</td><td class="mdescRight">The physical quantity you want to calculate is stored. <br /></td></tr>
 <tr class="separator:ae77ed832e35fb46ae64baec24a9ff359"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5481e38a3cf7122365f57bda92d3e27a"><td class="memItemLeft" align="right" valign="top"><a id="a5481e38a3cf7122365f57bda92d3e27a"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_calculate_base.html#a5481e38a3cf7122365f57bda92d3e27a">_data_sum</a></td></tr>
-<tr class="memdesc:a5481e38a3cf7122365f57bda92d3e27a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sum of fields of _data at each grid point. <br /></td></tr>
-<tr class="separator:a5481e38a3cf7122365f57bda92d3e27a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a169edba47bb93203963350d3d5e65e00"><td class="memItemLeft" align="right" valign="top"><a id="a169edba47bb93203963350d3d5e65e00"></a>
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_calculate_base.html#a169edba47bb93203963350d3d5e65e00">_data_tot</a></td></tr>
+<tr class="memdesc:a169edba47bb93203963350d3d5e65e00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total of _data at each grid point. <br /></td></tr>
+<tr class="separator:a169edba47bb93203963350d3d5e65e00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract base class to calculate phycal quantites. </p>

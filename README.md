@@ -8,7 +8,7 @@ The following items are necessary to run the code ( or fix the relevant parts ).
 - Intel compiler
 - fftw
 
-I assume that FFTW files are installed in  `/opt/fftw/`. If you installed FFTW in other directory, change `include_directories` and `link_directories` in the cmake file.
+I assume that FFTW files are installed in  `/usr/local/lib` and `/usr/local/include`. If you installed FFTW in other directory, change `include_directories` and `link_directories` in the cmake file.
 
 ## How to use
 
@@ -53,9 +53,9 @@ Here, I introduce a simple procedure to use FLattice.
 
   Simulation parameters are stored in this file.
 
-- `field.cpp`
+- `model.hpp`
 
-  We arrange the field array in `field.cpp`. The class `Field` includes all functions involving the field arrangement, such as seting initial condition, potential, etc.
+  The class `Model` includes the model potential you use, so change here to other models.
 
 - `evolutioin.cpp`
 

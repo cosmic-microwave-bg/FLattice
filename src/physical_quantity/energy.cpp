@@ -19,11 +19,11 @@ void Energy::calculate ( double**f, double** df )
                         idx = (i*N+j)*N+k;
             #endif
                         if( expansion == Expansion::no_expansion )
-                            _data[n][idx] = pow(df[n][idx], 2)/2
-                                          + gradientEnergy(f[n], i, j, k)/2 + _model->V(f, n, idx);
+                            _data[n][idx] = ( pow(df[n][idx], 2)
+                                            + gradientEnergy(f[n], i, j, k) )/2 + _model->V(f, n, idx);
                         else
-                            _data[n][idx] = ( pow(df[n][idx] - f[n][idx]*da/a, 2)/2
-                                          + gradientEnergy(f[n], i, j, k) )/(2*pow(a,4)) + _model->V(f, n, idx, a);
+                            _data[n][idx] = ( pow(df[n][idx] - f[n][idx]*da/a, 2)
+                                            + gradientEnergy(f[n], i, j, k) )/(2*pow(a,4)) + _model->V(f, n, idx, a);
             #if DIMENSION == 3
                     }
             #endif

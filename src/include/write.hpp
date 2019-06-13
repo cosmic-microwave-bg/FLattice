@@ -18,7 +18,7 @@ void writeVTI( dataType** f, int num_fields, std::string name, int loop )
 	std::stringstream filename;
 	std::ofstream ofs;
 
-    filename << "../data/" << name << std::setw(4) << std::setfill('0') << loop;
+    filename << "../data/" << name+'_' << std::setw(4) << std::setfill('0') << loop;
 
 	if( DIMENSION == 1 ){
 		filename << ".txt";
@@ -83,7 +83,7 @@ void writeVTI( dataType* f, std::string name, int loop )
 	std::stringstream filename;
 	std::ofstream ofs;
 
-    filename << "../data/" << name << std::setw(4) << std::setfill('0') << loop;
+    filename << "../data/" << name+'_' << std::setw(4) << std::setfill('0') << loop;
 
 	if( DIMENSION == 1 ){
 		filename << ".txt";
@@ -129,6 +129,7 @@ void writeVTI( dataType* f, std::string name, int loop )
         ofs << "</VTKFile>" ;
     }
 }
+
 
 
 #endif

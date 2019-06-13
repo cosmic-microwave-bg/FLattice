@@ -7,17 +7,20 @@
 #ifndef _PARAMETER_H_
 #define _PARAMETER_H_
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <fstream>
 #include <cstddef>  // for std::size_t
+#include "nlohmann/json.hpp"
 
 /**
  * @def DIMENSION
  * @brief Simulatioin dimension.
  */
-#define DIMENSION 3
-#define Logout(...) 	do { printf(__VA_ARGS__); fflush(stdout); } while(0)
+#define DIMENSION 2 
+#define Logout(...)    do { printf(__VA_ARGS__); fflush(stdout); } while(0)
 
 
 
@@ -27,11 +30,18 @@
  */
 enum class Expansion
 {
-	no_expansion,    //!< No expansion.
-	rad_domination,  //!< Radiation dominated universe.
-	mat_domination,  //!< Matter dominated universe.
-	self_consist,    //!< Fields' energy and expansion rate are self-consistent (inflaton case).
+    no_expansion,    //!< No expansion.
+    rad_domination,  //!< Radiation dominated universe.
+    mat_domination,  //!< Matter dominated universe.
+    self_consist,    //!< Fields' energy and expansion rate are self-consistent (inflaton case).
 };
+NLOHMANN_JSON_SERIALIZE_ENUM( Expansion, {
+    {Expansion::no_expansion, "no expansion"},
+    {Expansion::rad_domination, "radiation domination"},
+    {Expansion::mat_domination, "matter domination"},
+    {Expansion::self_consist, "self consistence"},
+})
+
 
 extern int N;            //!< Gird size in a dimension. The total grid size is \f$ N^{dim} \f$.
 extern int L;            //!< Box size of the simulation.
@@ -48,6 +58,16 @@ extern double dx;  //!< Grid spacing calculated by \f$ L/N \f$.
 
 extern int precision;  //!< Set the precisioin of the time evolution scheme.
 extern Expansion expansion;
+
+extern double a, da, dda, t;
+
+
+extern double K;
+extern double meff2;
+
+
+void setParameters();
+
 
 
 #endif

@@ -68,8 +68,6 @@ void  LeapFrogBase::evolFields ( double** f, double** df, const double h )
 
 void LeapFrogBase::evolFieldDerivs( double** f, double** df, const double h, double a )
 {
-    double dda = 0;
-    
     for( int n = 0; n < num_fields; ++n ){
         #if DIMENSION == 1
         #pragma omp parallel for simd schedule(static) num_threads(num_threads)

@@ -8,12 +8,17 @@
 
 
 template <typename T=PhysicalQuantity>
-std::unique_ptr<T> createPhysicalQuantity( std::string name, std::shared_ptr<Model> model, double** f, double** df )
+std::unique_ptr<T> createPhysicalQuantity(std::string name, double** f, double** df)
 {
-    if( name == "energy" )
-        return std::make_unique<Energy>(name, num_fields, N, DIMENSION, model);
-    else if( name == "charge" )
+    if(name == "energy")
+        return std::make_unique<Energy>(name, num_fields, N, DIMENSION);
+    if(name == "charge"){
+        if(num_fields != 2){
+            std::cerr << "'num_fields' must be 2 when you set 'charge'." << std::endl;
+            exit(1);
+        }
         return std::make_unique<Charge>(name, num_fields, N, DIMENSION, f, df);
+    }
     
     return nullptr;
 }

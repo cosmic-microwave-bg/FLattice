@@ -6,6 +6,7 @@
 #define _CALCULATION_H_
 
 #include <cmath>
+#include <numeric>
 #include "parameter.hpp"
 
 
@@ -13,33 +14,8 @@
 template <typename dataType>
 dataType calculateAverage( dataType* data, int N, int dimension )
 {
-    dataType average = 0;
-
-    #pragma omp parallel for reduction(+:average) schedule( static ) num_threads ( num_threads )
-    for( int i = 0; i < N; ++i ){
-        switch( dimension )
-        {
-            case 1:
-                int idx = i;
-                average += data[idx];
-                break;
-            case 2:
-                for( int j = 0; j < N; ++j ){
-                    int idx = i*N+j;
-                    average += data[idx];
-                }
-                break;
-            case 3:
-                for( int j = 0; j < N; ++j )
-                    for( int k = 0; k < N; ++k ){
-                        int idx = (i*N+j)*N+k;
-                        average += data[idx];
-                    }
-                break;
-        }
-    }
-    for( int i = 0; i < dimension; ++i ) average /= N;
-    
+    std::size_t grid_size = pow(N, dimension);
+    dataType average = std::accumulate(data, data+grid_size, 0.) / grid_size;
     return average;
 }
 
@@ -47,35 +23,10 @@ dataType calculateAverage( dataType* data, int N, int dimension )
 template <typename dataType>
 dataType calculateVariance( dataType* data, dataType average, int N, int dimension )
 {
-    dataType variance = 0;
-
-    #pragma omp parallel for reduction(+:variance) schedule( static ) num_threads ( num_threads )
-    for( int i = 0; i < N; ++i ){
-        switch( dimension )
-        {
-            case 1:
-                int idx = i;
-                variance += pow( data[idx]-average, 2 );
-                break;
-            case 2:
-                for( int j = 0; j < N; ++j ){
-                    int idx = i*N+j;
-                    variance += pow( data[idx]-average, 2 );
-                }
-                break;
-            case 3:
-                for( int j = 0; j < N; ++j ){
-                    for( int k = 0; k < N; ++k ){
-                        int idx = (i*N+j)*N+k;
-                        variance += pow( data[idx]-average, 2 );
-                    }
-                }
-                break;
-        }
-    }
-    for( int i = 0; i < dimension; ++i ) variance /= N;
-    
-    return variance;
+    std::size_t grid_size = pow(N, dimension);
+    dataType variance = std::inner_product(data, data+grid_size, data, 0.) / grid_size;
+    variance -= average*average;
+    return sqrt(variance);
 }
 
 template <typename dataType=double>
@@ -93,7 +44,7 @@ dataType gradientEnergy( double* f, int i, int j=0, int k=0 )
     int jm1 = (j ==   0)?   N-1: j-1;
     int jm2 = (j <    2)? j+N-2: j-2;
 
-    #if DIMENSION == 1
+    #if   DIMENSION == 1
         gradient_energy +=  pow( ( - f[ip2]  + 8*f[ip1]  - 8*f[im1] + f[im2] ) / (12*dx), 2 );
     #elif DIMENSION == 2
         gradient_energy += pow( ( - f[ip2*N+j] + 8*f[ip1*N+j] - 8*f[im1*N+j] + f[im2*N+j] ) / (12*dx), 2 );
@@ -108,7 +59,8 @@ dataType gradientEnergy( double* f, int i, int j=0, int k=0 )
         gradient_energy += pow( ( - f[(i*N+j)*N+kp2] + 8*f[(i*N+j)*N+kp1] - 8*f[(i*N+j)*N+km1] + f[(i*N+j)*N+km2] ) / (12*dx), 2 );
     #endif
 
-    return gradient_energy;
+    return gradient_energy/2;
 }
+
 
 #endif

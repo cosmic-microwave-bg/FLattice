@@ -20,13 +20,11 @@ void LeapFrogInMinkowsky::evolution( double** f, double** df, int output_step )
             break;
 
         case 4:
-            const double C[4] = { +0.675603595979828817023844, -0.175603595979828817023844, -0.175603595979828817023844, +0.675603595979828817023844 };
-            const double D[3] = { +1.351207191959657634047688, -1.702414383919315268095376, +1.351207191959657634047688 };
             for( int i = 0; i < output_step; ++i ){
-                evolFields( f, df, C[0] );
-                for( int p = 0; p < 3; ++p ){
-                    evolFieldDerivs( f, df, D[p] );
-                    evolFields( f, df, C[p+1] );
+                evolFields(f, df, _C[0]);
+                for(int p = 0; p < 3; ++p){
+                    evolFieldDerivs(f, df, _D[p]);
+                    evolFields(f, df, _C[p+1]);
                 }
             }
             break;
@@ -64,7 +62,7 @@ void LeapFrogWithABC::evolFieldDerivsWithABC( double **f, double **df, const dou
         #pragma omp parallel for simd schedule(static) num_threads(num_threads)
         for( int i = 0; i < N-1; ++i ){
             int idx = i;
-            df[n][idx] += ( sphericalSymLaplacian(f[n], i) - _model->dV(f, n, idx) ) * h*dt;
+            df[n][idx] += ( sphericalSymLaplacian(f[n], i) - dV(f, n, idx) ) * h*dt;
         }
         df[n][N-1] = ( df[n][N-1] - (df[n][N-3] - 4*df[n][N-2])*h*dt ) / (4*dx+3*h*dt);
         //df[n][N-1] -= ( sphericalSymLaplacian(df[n], N-1) + meff2*f[n][N-1]/2 + df[n][N-1]/L ) * h*dt;
@@ -76,24 +74,20 @@ void LeapFrogWithABC::evolution( double** f, double** df, int loop )
     switch( _precision )
     {
         case 2:
-            evolFields( f, df, 0.5 );
-            for( int i = 0; i < output_step; ++i ){
-                evolFieldDerivsWithABC( f, df, 1.0 );
-                if( i == output_step-1 ) evolFields( f, df, 0.5 );
-                else evolFields( f, df, 1.0 );
+            evolFields(f, df, 0.5);
+            for(int i = 0; i < output_step; ++i){
+                evolFieldDerivsWithABC(f, df, 1. );
+                if( i == output_step-1 ) evolFields(f, df, 0.5);
+                else evolFields(f, df, 1.0);
             }
             break;
 
         case 4:
-            const double C[4] = { +0.675603595979828817023844, -0.175603595979828817023844,
-                                  -0.175603595979828817023844, +0.675603595979828817023844 };
-            const double D[3] = { +1.351207191959657634047688, -1.702414383919315268095376,
-                                  +1.351207191959657634047688 };
-            for( int i = 0; i < output_step; ++i ){
-                evolFields( f, df, C[0] );
-                for( int p = 0; p < 3; ++p ){
-                    evolFieldDerivsWithABC( f, df, D[p] );
-                    evolFields( f, df, C[p+1] );
+            for(int i = 0; i < output_step; ++i){
+                evolFields(f, df, _C[0]);
+                for(int p = 0; p < 3; ++p){
+                    evolFieldDerivsWithABC(f, df, _D[p]);
+                    evolFields(f, df, _C[p+1]);
                 }
             }
             break;

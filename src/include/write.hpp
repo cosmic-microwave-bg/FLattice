@@ -10,9 +10,12 @@
 #include "parameter.hpp"
 
 
+/** You can use VTK Library instead of the below code.
+ *  However, VTK Library code fairly slows down the output process.
+ */ 
 
 template <typename dataType>
-void writeVTI( dataType** f, int num_fields, std::string name, int loop )
+void writeVTI(dataType** f, int num_fields, std::string name, int loop)
 {
 	unsigned int size;
 	std::stringstream filename;
@@ -77,7 +80,7 @@ void writeVTI( dataType** f, int num_fields, std::string name, int loop )
 
 
 template <typename dataType>
-void writeVTI( dataType* f, std::string name, int loop )
+void writeVTI(dataType* f, std::string name, int loop)
 {
 	unsigned int size;
 	std::stringstream filename;

@@ -1,32 +1,26 @@
-\hypertarget{calculation_8hpp}{}\section{/\+Users/home/\+Dropbox/\+F\+Lattice/src/include/calculation.hpp File Reference}
-\label{calculation_8hpp}\index{/Users/home/Dropbox/FLattice/src/include/calculation.hpp@{/Users/home/Dropbox/FLattice/src/include/calculation.hpp}}
+\hypertarget{calculation_8hpp}{}\section{/\+Users/eisuke\+\_\+sonomoto/\+Google ドライブ/\+F\+Lattice/src/include/calculation.hpp File Reference}
+\label{calculation_8hpp}\index{/Users/eisuke\_sonomoto/Google ドライブ/FLattice/src/include/calculation.hpp@{/Users/eisuke\_sonomoto/Google ドライブ/FLattice/src/include/calculation.hpp}}
 
 
-The classes to calculate pysical values, such as energy, charge, and so on, are implemented.  
+The functions calculating average, variance, gradient energy are defined.  
 
 
-{\ttfamily \#include $<$memory$>$}\newline
-{\ttfamily \#include \char`\"{}model.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}evolution.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}write.\+hpp\char`\"{}}\newline
-\subsection*{Classes}
-\begin{DoxyCompactItemize}
-\item 
-class \mbox{\hyperlink{class_calculate_base}{Calculate\+Base}}
-\begin{DoxyCompactList}\small\item\em Abstract base class to calculate phycal quantites. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{class_calculate_energy}{Calculate\+Energy}}
-\end{DoxyCompactItemize}
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include \char`\"{}parameter.\+hpp\char`\"{}}\newline
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{calculation_8hpp_ac78963266fc03d1107303238b2c0d251}\label{calculation_8hpp_ac78963266fc03d1107303238b2c0d251}} 
-{\footnotesize template$<$typename data\+Type $>$ }\\data\+Type {\bfseries calculate\+Average} (data\+Type $\ast$data, int \mbox{\hyperlink{parameter_8cpp_a7722c8ecbb62d99aee7ce68b1752f337}{N}}, int dimension)
+{\footnotesize template$<$typename data\+Type $>$ }\\data\+Type {\bfseries calculate\+Average} (data\+Type $\ast$data, int N, int dimension)
 \item 
 \mbox{\Hypertarget{calculation_8hpp_ac403974d0033c41d6325658f6bc23315}\label{calculation_8hpp_ac403974d0033c41d6325658f6bc23315}} 
-{\footnotesize template$<$typename data\+Type $>$ }\\data\+Type {\bfseries calculate\+Variance} (data\+Type $\ast$data, data\+Type average, int \mbox{\hyperlink{parameter_8cpp_a7722c8ecbb62d99aee7ce68b1752f337}{N}}, int dimension)
+{\footnotesize template$<$typename data\+Type $>$ }\\data\+Type {\bfseries calculate\+Variance} (data\+Type $\ast$data, data\+Type average, int N, int dimension)
+\item 
+\mbox{\Hypertarget{calculation_8hpp_a12d22dd7d8840129055c6161cc86672c}\label{calculation_8hpp_a12d22dd7d8840129055c6161cc86672c}} 
+{\footnotesize template$<$typename data\+Type  = double$>$ }\\data\+Type {\bfseries gradient\+Energy} (double $\ast$f, int i, int j=0, int k=0)
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-The classes to calculate pysical values, such as energy, charge, and so on, are implemented. 
+The functions calculating average, variance, gradient energy are defined. 
 

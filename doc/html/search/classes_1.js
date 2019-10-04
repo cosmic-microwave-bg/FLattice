@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['evolution',['Evolution',['../class_evolution.html',1,'']]]
+  ['simulator',['Simulator',['../class_simulator.html',1,'']]],
+  ['stopwatch',['Stopwatch',['../class_stopwatch.html',1,'']]]
 ];

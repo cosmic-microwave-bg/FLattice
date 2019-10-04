@@ -2,13 +2,12 @@
 #define _ALLOCATOR_H_
 
 
+#include <iostream>
 #include <cmath>
-#include "parameter.hpp"
-
 
 
 template <typename dataType>
-dataType** allocateData( int num_fields, std::size_t N, int dimension )
+dataType** allocateData(int num_fields, std::size_t N, int dimension)
 {
     if( dimension < 1 or dimension > 3 )
     {
@@ -16,7 +15,7 @@ dataType** allocateData( int num_fields, std::size_t N, int dimension )
         exit(1);
     }
 
-    std::size_t grid_size = pow(N,dimension);
+    std::size_t grid_size = pow(N, dimension);
 
     dataType** data = new dataType* [num_fields];
     data[0] = new dataType [num_fields*grid_size]();
@@ -27,7 +26,7 @@ dataType** allocateData( int num_fields, std::size_t N, int dimension )
 
 
 template <typename dataType>
-void deleteData( dataType**& data )
+void deleteData(dataType**& data)
 {
     delete [] data[0];
     delete [] data;

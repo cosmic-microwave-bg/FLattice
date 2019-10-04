@@ -1,10 +1,6 @@
 # FLattice
 
----
-
-Updated on June 13th, 2019
-
-We totally refactored the codes. Please read the **Basic Concept** below.
+Updated on October 14th, 2019
 
 ---
 
@@ -57,21 +53,24 @@ Here, I introduce a simple procedure to use FLattice.
 
  We have four directories in `src` directory.
 
-- `parameter`
+- `src/parameter/`
 
-  In FLattice we globally define the simulatioin parameters. Simulation parameters are set from `parameter.json`  by `setParameter()` function in `parameter.cpp` at runtime. When you want to add another paraemters, make sure that 'parameter.hpp' and 'paramete.cpp' files are properly modified.
+  In FLattice we globally define the simulatioin parameters. Simulation parameters are set from `parameter.json`  by `setParameter()` function in `parameter.cpp` at runtime. When you want to add another paraemters, make sure that `parameter.hpp` and `paramete.cpp` files are properly modified.
 
-Ther other three directories are structured . Each class is derived by its base class and its instance is created in the corresponding `create-` functions.
-
-- `model`
-
-  The  `model` directory includes the files of various model, i.e. poteintials. By default, `harmonic_osciilator.hpp` and 'qball.hpo' are included, so add an another model or rewrite the existing files if necessary. However, please be careful when you inhrerits the `Model` class  because the member function of `Model` class  `dV` is frequently called in solving the equaitons of motions and it slows down the calculation speed (about 1.2 - 2 times).
-
-- `evolutioin_scheme`
+- `src/evolutioin_scheme/`
 
   All Classes to calculate the time evolutioin are included in the `evolution` directory. I still only implement the 2nd-order or 4th-order simplectic integration scheme ( leap-frog method ), but I will add other integration scheme such as 4th-order Runge-Kutta method.
   
-- 'physical_quantity'
+- `src/physical_quantity/`
 
-  By default, the enegy density and the Q-ball charge density can be calculated in `Energy` class and `Charge` class. You can add an another class by inheriting the `PhysicalQuanitity` class if necessary.
+  By default, the enegy density and the Q-ball charge density can be calculated in `Energy` class and `Charge` class. You can add another classes by inheriting the `PhysicalQuanitity` class if necessary.
 
+The other directory, `src/include/` includes  two important files,  `model.hpp` and `simulator.hpp`.
+
+- `src/include/model.hpp`
+
+  In `model.hpp` file, we globally define the poteintial `V` and its derivative  `dV`  of fields. Harmonic oscillator potential is set initially, so set  whether you simulate under the expanding universe or not.
+
+- `src/include/simulator.hpp`
+
+  Class `Simulator` defined in `simlator.hpp` manages all classes necessary to simulation, such as `Field`, `evolution_shceme`, `physical_quantity` and so on. This class is pretty messy and it will be refactored in the future release.

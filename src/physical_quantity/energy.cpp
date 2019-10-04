@@ -1,13 +1,14 @@
 #include <cmath>
 #include "energy.hpp"
+#include "model.hpp"
 
 
 
-void Energy::calculate ( double**f, double** df )
+void Energy::calculate (double**f, double** df)
 {
     for( int n = 0; n < num_fields; ++n ){
         int i = 0, j = 0, k = 0;
-        #pragma omp parallel for schedule( static ) num_threads ( num_threads )
+        #pragma omp parallel for schedule(static) num_threads (num_threads)
         for( i = 0; i < N; ++i ){
                 int idx = i;
             #if DIMENSION >= 2
@@ -18,12 +19,7 @@ void Energy::calculate ( double**f, double** df )
                     for( k = 0; k < N; ++k ){
                         idx = (i*N+j)*N+k;
             #endif
-                        if( expansion == Expansion::no_expansion )
-                            _data[n][idx] = ( pow(df[n][idx], 2)
-                                            + gradientEnergy(f[n], i, j, k) )/2 + _model->V(f, n, idx);
-                        else
-                            _data[n][idx] = ( pow(df[n][idx] - f[n][idx]*da/a, 2)
-                                            + gradientEnergy(f[n], i, j, k) )/(2*pow(a,4)) + _model->V(f, n, idx, a);
+                        _data[n][idx] = pow(df[n][idx]/pow(a,D), 2)/2 + gradientEnergy(f[n], i, j, k)/pow(a,2) + V(f, n, idx);
             #if DIMENSION == 3
                     }
             #endif
@@ -33,7 +29,7 @@ void Energy::calculate ( double**f, double** df )
         }
     }
     
-    #pragma omp parallel for schedule( static ) num_threads ( num_threads )
+    #pragma omp parallel for schedule(static) num_threads (num_threads)
     for( int i = 0; i < N; ++i ){
         int idx = i;
         #if DIMENSION >= 2

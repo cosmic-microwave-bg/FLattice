@@ -34,7 +34,7 @@ double LeapFrogBase::laplacian ( const double* f, int i, int j, int k ) const
 }
 
 
-void  LeapFrogBase::evolFields ( double** f, double** df, const double h )
+void  LeapFrogBase::evolFields (double** f, double** df, const double h, double a)
 {
     for( int n = 0; n < num_fields; ++n ){
         #if   DIMENSION == 1
@@ -45,19 +45,19 @@ void  LeapFrogBase::evolFields ( double** f, double** df, const double h )
         for( int i = 0; i < N; ++i ){
             #if   DIMENSION == 1
                 int idx = i;
-                f[n][idx] += df[n][idx] * h*dt;
+                f[n][idx] += df[n][idx] * pow(a, A-D) * h*dt;
             #elif DIMENSION == 2
                 #pragma omp simd
                 for( int j = 0; j < N; ++j ){
                     int idx = i*N+j;
-                    f[n][idx] += df[n][idx] * h*dt;
+                    f[n][idx] += df[n][idx] * pow(a, A-D) * h*dt;
                 }
             #elif DIMENSION == 3
                 for( int j = 0; j < N; ++j ){
                     #pragma omp simd
                     for( int k = 0; k < N; ++k ){
                         int idx = (i*N+j)*N+k;
-                        f[n][idx] += df[n][idx] * h*dt;
+                        f[n][idx] += df[n][idx] * pow(a, A-D) * h*dt;
                     }
                 }
             #endif
@@ -66,7 +66,7 @@ void  LeapFrogBase::evolFields ( double** f, double** df, const double h )
 }
 
 
-void LeapFrogBase::evolFieldDerivs( double** f, double** df, const double h, double a )
+void LeapFrogBase::evolFieldDerivs(double** f, double** df, const double h, double a)
 {
     for( int n = 0; n < num_fields; ++n ){
         #if DIMENSION == 1
@@ -77,19 +77,19 @@ void LeapFrogBase::evolFieldDerivs( double** f, double** df, const double h, dou
         for( int i = 0; i < N; ++i ){
             #if DIMENSION == 1
                 int idx = i;
-                df[n][idx] += ( laplacian(f[n], i) + dda*f[n][idx]/a - pow(a,3)*_model->dV(f, n, idx, a) ) * h*dt;
+                df[n][idx] += ( laplacian(f[n], i)/pow(a, 2)  - dV(f, n, idx) ) * pow(a, A+D) * h*dt;
             #elif DIMENSION == 2
                 #pragma omp simd
                 for( int j = 0; j < N; ++j ){
                     int idx = i*N+j;
-                    df[n][idx] += ( laplacian(f[n], i, j) + dda*f[n][idx]/a - pow(a,3)*_model->dV(f, n, idx, a) ) * h*dt;
+                    df[n][idx] += ( laplacian(f[n], i, j)/pow(a, 2)  - dV(f, n, idx) ) * pow(a, A+D) * h*dt;
                 }
             #elif DIMENSION == 3
                 for( int j = 0; j < N; ++j ){
                     #pragma omp simd
                     for( int k = 0; k < N; ++k ){
                         int idx = (i*N+j)*N+k;
-                        df[n][idx] += ( laplacian(f[n], i, j, k) + dda*f[n][idx]/a - pow(a,3)*_model->dV(f, n, idx, a) ) * h*dt;
+                        df[n][idx] += ( laplacian(f[n], i, j, k)/pow(a, 2)  - dV(f, n, idx) ) * pow(a, A+D) * h*dt;
                     }
                 }
             #endif

@@ -1,0 +1,61 @@
+\hypertarget{class_simulator}{}\section{Simulator Class Reference}
+\label{class_simulator}\index{Simulator@{Simulator}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulator_a21599e1d1087379526018461865edc76}\label{class_simulator_a21599e1d1087379526018461865edc76}} 
+{\bfseries Simulator} (int num\+\_\+fields, int N, int dimension)
+\item 
+\mbox{\Hypertarget{class_simulator_a124ec3d47704e6df2bcc575430ca1327}\label{class_simulator_a124ec3d47704e6df2bcc575430ca1327}} 
+void {\bfseries initialize\+Field} (int rnd)
+\item 
+\mbox{\Hypertarget{class_simulator_ab164215c1cca5a19b90970e2dd36e09a}\label{class_simulator_ab164215c1cca5a19b90970e2dd36e09a}} 
+bool {\bfseries set\+Model} (std\+::string name)
+\item 
+\mbox{\Hypertarget{class_simulator_a3344e15e02b5d90e9800212bbb417aed}\label{class_simulator_a3344e15e02b5d90e9800212bbb417aed}} 
+bool {\bfseries set\+Evolution\+Scheme} (std\+::string name, int precision, Expansion expansion)
+\item 
+\mbox{\Hypertarget{class_simulator_a331af9b2a231d76a90db87566664152c}\label{class_simulator_a331af9b2a231d76a90db87566664152c}} 
+bool {\bfseries add\+Physical\+Quantites} (std\+::string name)
+\item 
+\mbox{\Hypertarget{class_simulator_a3b1608831b3a559424d0af5b7fd789be}\label{class_simulator_a3b1608831b3a559424d0af5b7fd789be}} 
+void {\bfseries run} (int output\+\_\+step)
+\item 
+\mbox{\Hypertarget{class_simulator_a5fc3f2c9ce8099b27b7744274416d5a8}\label{class_simulator_a5fc3f2c9ce8099b27b7744274416d5a8}} 
+void {\bfseries calculate\+Physical\+Quantities} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a94c638929256df21ca9baa784985007f}\label{class_simulator_a94c638929256df21ca9baa784985007f}} 
+void {\bfseries write\+Fields} (int loop=0)
+\item 
+\mbox{\Hypertarget{class_simulator_a944c5c9229e603c8da2737511b6557ba}\label{class_simulator_a944c5c9229e603c8da2737511b6557ba}} 
+void {\bfseries write\+Physical\+Quantities} (int loop=0, std\+::string name=\char`\"{}none\char`\"{}, bool write\+\_\+each=true, bool write\+\_\+total=true)
+\item 
+\mbox{\Hypertarget{class_simulator_aef37b00f4a9d739a03004b3b0a083d4a}\label{class_simulator_aef37b00f4a9d739a03004b3b0a083d4a}} 
+void {\bfseries write\+Status} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulator_a9c80bf222436e0c2ea9929fc64f396c3}\label{class_simulator_a9c80bf222436e0c2ea9929fc64f396c3}} 
+\mbox{\hyperlink{struct_field}{Field}} {\bfseries \+\_\+field}
+\item 
+\mbox{\Hypertarget{class_simulator_abbdae2b6367fe3327df534f96cacc43e}\label{class_simulator_abbdae2b6367fe3327df534f96cacc43e}} 
+std\+::ofstream {\bfseries \+\_\+status}
+\item 
+\mbox{\Hypertarget{class_simulator_ab420c9b58c941b1f40c9c315b2088511}\label{class_simulator_ab420c9b58c941b1f40c9c315b2088511}} 
+std\+::shared\+\_\+ptr$<$ Model $>$ {\bfseries \+\_\+model}
+\item 
+\mbox{\Hypertarget{class_simulator_a148923591e31f511fa395b7c611479a4}\label{class_simulator_a148923591e31f511fa395b7c611479a4}} 
+std\+::unique\+\_\+ptr$<$ Evolution\+Scheme $>$ {\bfseries \+\_\+scheme}
+\item 
+\mbox{\Hypertarget{class_simulator_a686066f812565c0779cab673bf0f95a3}\label{class_simulator_a686066f812565c0779cab673bf0f95a3}} 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::unique\+\_\+ptr$<$ Physical\+Quantity $>$ $>$ {\bfseries \+\_\+quantity}
+\item 
+\mbox{\Hypertarget{class_simulator_a84436afba283509aa0f7a624f418d4fd}\label{class_simulator_a84436afba283509aa0f7a624f418d4fd}} 
+std\+::vector$<$ std\+::string $>$ {\bfseries \+\_\+quantity\+\_\+name}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/eisuke\+\_\+sonomoto/\+Google ドライブ/\+F\+Lattice/src/include/simulator.\+hpp\end{DoxyCompactItemize}

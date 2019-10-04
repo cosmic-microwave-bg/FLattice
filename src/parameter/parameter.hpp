@@ -17,9 +17,9 @@
 
 /**
  * @def DIMENSION
- * @brief Simulatioin dimension.
+ * @brief Simulation dimension.
  */
-#define DIMENSION 2 
+#define DIMENSION 3
 #define Logout(...)    do { printf(__VA_ARGS__); fflush(stdout); } while(0)
 
 
@@ -37,9 +37,9 @@ enum class Expansion
 };
 NLOHMANN_JSON_SERIALIZE_ENUM( Expansion, {
     {Expansion::no_expansion, "no expansion"},
-    {Expansion::rad_domination, "radiation domination"},
-    {Expansion::mat_domination, "matter domination"},
-    {Expansion::self_consist, "self consistence"},
+    {Expansion::rad_domination, "radiation dominated universe"},
+    {Expansion::mat_domination, "matter dominated universe"},
+    {Expansion::self_consist, "self consistent universe"},
 })
 
 
@@ -49,21 +49,26 @@ extern int rnd;          //!< The seed of the randum numbers.
 extern int num_fields;   //!< The number of fields you use in the simulation. 
 extern int num_threads;  //!< The number of threads used by OpenMP. This value  greater than 8.
 
+extern double dt;  //!< Time step. 
 extern int output_step;  //!< \f$ {\rm output\_step} \times dt \f$
 extern int total_step;   //!< Total simulation time is caluculated by \f$ {\rm total_step} \times dt \f$.
 
+extern int A;
+extern int D;
+
+extern Expansion expansion;
+extern double c;
 extern double t0;  //!< Initial time.
-extern double dt;  //!< Time step. 
-extern double dx;  //!< Grid spacing calculated by \f$ L/N \f$.
+extern double R;  //!< Field normalization to reduced Planck mass
 
 extern int precision;  //!< Set the precisioin of the time evolution scheme.
-extern Expansion expansion;
-
-extern double a, da, dda, t;
-
 
 extern double K;
 extern double meff2;
+
+extern double dx;  //!< Grid spacing calculated by \f$ L/N \f$.
+extern double a, da;
+extern double t;
 
 
 void setParameters();

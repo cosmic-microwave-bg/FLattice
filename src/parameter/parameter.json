@@ -1,22 +1,42 @@
 {
-    "N": 512,
-    "L": 3,
+    "N": 64,
+    "L": 10,
     "rnd": 1,
     "num_fields" : 2,
     "num_threads": 2,
     
-    "output_step": 5e+2,
-    "total_step" : 1.5e+4,
-    
+    "dt": 1.0e-2,
+    "output_step": 1e+0,
+    "total_step" : 1e+3,
+
+    "A": 1,  "//": "A = 0, 1 corresponds to the physical time, the conformal time respectively",
+    "D": 3,  "//": "D is the dimension of the EOMs",
+
+    "expansion": "self consistent universe",
+    "//": [
+        "Depending on the problem, you can choose",
+        "no expansion",
+        "radiation dominated universe",
+        "matter dominated universe",
+        "self consistent universe"
+    ],
+
+    "c": 1,
     "t0": 1.0,
-    "dt": 1.0e-3,
-    "expansion": "matter domination",
+    "//": [
+        "Note that H = cm is used as the initial condition",
+        "only when dominated cosmic expansion is true.",
+        "t0 is only used in Minkowsky spacetime."
+    ],
+
+    "F/Mp": 1,
+    "//": [
+        "the ratio of the field normalization to reduced Planck mass",
+        "is necessary only for self consistent evolution"
+    ],
+
     "precision": 4,
     
     "K": -0.1,
-    "meff2": 1,
-    
-    "a"  : 1,
-    "da" : 0,
-    "dda": 0
+    "meff2": 1, "//": "effective mass at inifity is necessary only for ABC"
 }

@@ -9,7 +9,7 @@
 
 
 
-int main( int argc, char** argv )
+int main()
 {   
     setParameters();
     Simulator simulator(num_fields, N, DIMENSION);
@@ -19,8 +19,7 @@ int main( int argc, char** argv )
     //-------------------------------------------------
     
     simulator.initializeField(rnd);
-    //simulator.setModel("harmonic_oscillator");
-    simulator.setModel("Qball");
+    simulator.setModel("harmonic_oscillator");
     simulator.setEvolutionScheme("leapfrog", precision, expansion);
     
     simulator.addPhysicalQuantites("energy");
@@ -46,7 +45,7 @@ int main( int argc, char** argv )
         simulator.run(output_step);
         simulator.calculatePhysicalQuantities();
 
-        t = t0+loop*output_step*dt;
+        t = t0 + loop*(dt*output_step);
 
         simulator.writeFields(loop);
         simulator.writePhysicalQuantities(loop);

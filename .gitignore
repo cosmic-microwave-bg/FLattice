@@ -38,11 +38,8 @@ https://github.com/simonwhitaker/gibo
 
 # Ignore unnecessary project files and directories
 *.vti
-*.dSYM
-*.optrpt
 *.txt
 build
 
 *.ipynb
 memo.txt
-Makefile

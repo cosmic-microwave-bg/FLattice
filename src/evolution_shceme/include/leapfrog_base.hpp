@@ -12,17 +12,20 @@
 class LeapFrogBase: public EvolutionScheme
 {
     protected:
-        int _precision;
         /** @brief           The function to calculate the laplacian by fourth-order centeral differencial scheme.
          *  @param[in]  *f   The argument of the fields must be the pointer type for the vector optimization of the intel compiler!
          */
-        double   laplacian        ( const double* f, int i, int j=0, int k=0 ) const;
-        void     evolFields       ( double** f, double** df, const double h );
-        void     evolFieldDerivs  ( double** f, double** df, const double h, double a=1 );
+        const double _C[4] = {+0.675603595979828817023844, -0.175603595979828817023844, -0.175603595979828817023844, +0.675603595979828817023844};
+        const double _D[3] = {+1.351207191959657634047688, -1.702414383919315268095376, +1.351207191959657634047688};
+
+        double   laplacian        (const double* f, int i, int j=0, int k=0) const;
+        void     evolFields       (double** f, double** df, const double h, double a=1);
+        void     evolFieldDerivs  (double** f, double** df, const double h, double a=1);
 
     public:
-        LeapFrogBase              ( std::shared_ptr<Model> model, int precision )
-        : EvolutionScheme(model), _precision(precision) {}
+        LeapFrogBase              (int precision)
+        : EvolutionScheme(precision) {}
+        
         virtual  ~LeapFrogBase    () {};
 };
 

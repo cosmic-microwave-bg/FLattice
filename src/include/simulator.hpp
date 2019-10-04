@@ -11,7 +11,6 @@
 #include "common.hpp"
 #include "create_evolution_scheme.hpp"
 #include "create_physical_quantity.hpp"
-#include "create_model.hpp"
 
 
 
@@ -19,15 +18,15 @@ class Simulator
 {
     private:
         Field _field;
+        std::string _model_name;
         std::ofstream _status;
-        std::shared_ptr<Model> _model;
         std::unique_ptr<EvolutionScheme> _scheme;
         std::unordered_map<std::string,std::unique_ptr<PhysicalQuantity>> _quantity;
         std::vector<std::string> _quantity_name;
 
     public:
         Simulator( int num_fields, int N, int dimension )
-        : _field(num_fields, N, dimension), _status("../status.txt", std::ios::trunc), _model(nullptr), _scheme(nullptr)
+        : _field(num_fields, N, dimension), _status("../status.txt", std::ios::trunc), _scheme(nullptr)
         {
             if( !_status ){ std::cerr << "Failed to open 'status.txt'" << std::endl; exit(1); }
             else{
@@ -45,40 +44,35 @@ class Simulator
             std::mt19937 mt( rnd );
             std::uniform_real_distribution<> rand(-1.e-5, 1.e-5);
     
+            // Be careful of DIMENSION
             for( int n = 0; n < num_fields; ++n ){
-                #pragma omp parallel for schedule( static ) num_threads ( num_threads )
                 for( int i = 0; i < N; ++i ){	
-                    #pragma omp simd
                     for( int j = 0; j < N; ++j ){
-                        int idx = i*N+j;
-                        double f_fluct = rand(mt);
-                        double v_fluct = rand(mt);
-                        f[n][idx]  = 10*(1 + f_fluct);
-                        if( n == 0 ) df[n][idx] = f[n][idx];
-                        if( n == 1 ) df[n][idx] = f[n][idx] + 1*(1 + v_fluct);
+                        for( int k = 0; k < N; ++k ){
+                            int idx = (i*N+j)*N + k;
+                            double f_fluct = rand(mt);
+                            double v_fluct = rand(mt);
+                            f[n][idx]   = 1*(1 + f_fluct);
+                            df[n][idx]  = 0;
+                            // if( n == 0 ) df[n][idx] = f[n][idx];
+                            // if( n == 1 ) df[n][idx] = f[n][idx] + 1*(1 + v_fluct);
+                        }
                     }
                 }
             }
         }
 
-        bool setModel (std::string name)
-        {
-            _model = createModel(name);
-            if( !_model ){
-                std::cerr << "invalid model name: " << name << std::endl;
-                exit(1);
-            }
-        }
+        bool setModel (std::string name) { _model_name = name; }
 
         bool setEvolutionScheme (std::string name, int precision, Expansion expansion)
         {
-            _scheme = createEvolutionScheme(name, precision, _model, expansion, _field.f, _field.df);
+            _scheme = createEvolutionScheme(name, precision, expansion, _field.f, _field.df);
             if( !_scheme ){ std::cerr << "invalid evolution scheme" << std::endl; exit(1); }
         }
         
         bool addPhysicalQuantites (std::string name)
         {
-            _quantity[name] = createPhysicalQuantity(name, _model, _field.f, _field.df);
+            _quantity[name] = createPhysicalQuantity(name, _field.f, _field.df);
             if( _quantity[name] == nullptr ){ std::cerr << "invalid physical quantity " << std::endl; exit(1); }
             _quantity_name.push_back(name);
             for( int n = 0; n < num_fields; ++n ) _status << "  "+name+"_ave[" << n << "] ";
@@ -91,7 +85,7 @@ class Simulator
         { for( auto itr = _quantity.begin(); itr != _quantity.end(); ++itr ) itr->second->calculate(_field.f, _field.df); }
 
         void writeFields( int loop=0 )
-        { writeVTI<double>( _field.f, num_fields, _model->name(), loop ); }
+        { writeVTI<double>( _field.f, num_fields, _model_name, loop ); }
 
         void writePhysicalQuantities( int loop=0, std::string name="none", bool write_each=true, bool write_total=true )
         {
@@ -121,11 +115,7 @@ class Simulator
             _status << std::noshowpos << std::fixed <<std::setprecision(2);
             _status << t;
             
-            if( expansion != Expansion::no_expansion ){
-                _status << "  " << a;
-                for( int n = 0; n < num_fields; ++n ) field_ave[n] /= a;
-                for( int n = 0; n < num_fields; ++n ) field_var[n] /= a*a;
-            }
+            if( expansion != Expansion::no_expansion ) _status << "  " << a;
 
             _status << std::showpos << std::scientific << std::setprecision(3);
             for( int n = 0; n < num_fields; ++n ) _status << "  " << field_ave[n];

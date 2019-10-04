@@ -8,8 +8,8 @@
 class LeapFrogInMinkowsky final: public LeapFrogBase
 {
     public:
-        LeapFrogInMinkowsky ( std::shared_ptr<Model> model, int precision )
-        : LeapFrogBase(model, precision) {}
+        LeapFrogInMinkowsky ( int precision )
+        : LeapFrogBase(precision) {}
         
         void evolution  ( double** f, double** df, int output_step ) override;
 };
@@ -22,8 +22,8 @@ class LeapFrogWithABC final: public LeapFrogBase
         void   evolFieldDerivsWithABC ( double **f, double **df, const double h );
 
     public:
-        LeapFrogWithABC( std::shared_ptr<Model> model, int precision )
-        : LeapFrogBase(model, precision)
+        LeapFrogWithABC( int precision )
+        : LeapFrogBase(precision)
         {
             if( DIMENSION != 1 ){
                 std::cerr << "DIMENSION must be 1 when you use spherical symmetry." << std::endl;

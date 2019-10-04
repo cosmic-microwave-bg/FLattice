@@ -9,7 +9,6 @@
 #include "model.hpp"
 
 
-
 /** 
  * @class EvolutionScheme
  * @brief The base class of time evolution of the fields.
@@ -17,14 +16,13 @@
 class EvolutionScheme
 {
     protected:
-        std::shared_ptr<Model> _model;  //!< `model` class is needed to solve the eom.
+        int _precision;
 
     public:
-        explicit EvolutionScheme          ( std::shared_ptr<Model> model)
-        : _model(model) {}
+        EvolutionScheme          (int precision): _precision(precision) {}
 
-        virtual ~EvolutionScheme ()                                              {}
-        virtual void evolution   ( double** f, double** df, int ouptut_step ) = 0;
+        virtual ~EvolutionScheme () {}
+        virtual void evolution   (double** f, double** df, int ouptut_step) = 0;
 };
 
 

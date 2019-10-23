@@ -78,7 +78,7 @@ class LeapFrogSelf final: public LeapFrogBase
             rho /= pow(N, DIMENSION);
 
             // Set t0 from Hubble parameter
-            da = R*sqrt(rho/3);
+            da = pow(a, A+1)*R*sqrt(2*rho/(D*(D-1)));
             t = t0 = 1/da;
         } 
 

@@ -56,27 +56,28 @@ void LeapFrogSelf::evolScale(double** f, const double h)
         for( int i = 0; i < N; ++i ){
             #if   DIMENSION == 1
                 int idx = i;
-                C += 2*gradientEnergy(f[n], i)/(a*a) + 3*V(f, n, idx);
+                C += (D+1)*gradientEnergy(f[n], i)/(a*a) + 2*D*V(f, n, idx);
             #elif DIMENSION == 2
                 #pragma omp simd reduction(+:C)
                 for( int j = 0; j < N; ++j ){
                     int idx = i*N+j;
-                    C += 2*gradientEnergy(f[n], i, j)/(a*a) + 3*V(f, n, idx);
+                    C += (D+1)*gradientEnergy(f[n], i, j)/(a*a) + 2*D*V(f, n, idx);
                 }
             #elif DIMENSION == 3
                 for( int j = 0; j < N; ++j ){
                     #pragma omp simd reduction(+:C)
                     for( int k = 0; k < N; ++k ){
                         int idx = (i*N+j)*N+k;
-                        C += 2*gradientEnergy(f[n], i, j, k)/(a*a) + 3*V(f, n, idx);
+                        C += (D+1)*gradientEnergy(f[n], i, j, k)/(a*a) + 2*D*V(f, n, idx);
                     }
                 }
             #endif
         }
     }
-    C *= R*R*pow(a, 2*A+1)/3;
+    C *= R*R*pow(a, 2*A+1)/(D*(D-1));
     C /= pow(N, DIMENSION);
-    da = a/((A-2)*h*dt) * ( 1 - sqrt(1 - (A-2)*h*dt*(2*da + C*h*dt)/a) );
+    if(A-D+1 == 0) da += C*h*dt;
+    else da = a/((A-D+1)*h*dt) * ( 1 - sqrt(1 - (A-D+1)*h*dt*(2*da + C*h*dt)/a) );
 }
 
 void LeapFrogSelf::calcDa(double** f, double** df)
@@ -105,7 +106,7 @@ void LeapFrogSelf::calcDa(double** f, double** df)
         }
     }
     rho /= pow(N, DIMENSION);
-    da = pow(a, A+1)*R*sqrt(rho/3);
+    da = pow(a, A+1)*R*sqrt(2*rho/(D*(D-1)));
 }
 
 void LeapFrogSelf::evolution( double** f, double** df, int output_step )

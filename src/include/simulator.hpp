@@ -32,6 +32,7 @@ class Simulator
             else{
                 _status << "    t";
                 if( expansion != Expansion::no_expansion ) _status << "    a";
+                if( expansion == Expansion::self_consist) _status << "    H^{-1}";
                 for( int n = 0; n < num_fields; ++n ) _status << "  field_ave["  << n << "]";
                 for( int n = 0; n < num_fields; ++n ) _status << "  field_var["  << n << "]";
             }
@@ -48,15 +49,16 @@ class Simulator
             for( int n = 0; n < num_fields; ++n ){
                 for( int i = 0; i < N; ++i ){	
                     for( int j = 0; j < N; ++j ){
-                        for( int k = 0; k < N; ++k ){
-                            int idx = (i*N+j)*N + k;
+                        // for( int k = 0; k < N; ++k ){
+                            //int idx = (i*N+j)*N + k;
+                            int idx = i*N+j;
                             double f_fluct = rand(mt);
                             double v_fluct = rand(mt);
                             f[n][idx]   = 1*(1 + f_fluct);
                             df[n][idx]  = 0;
                             // if( n == 0 ) df[n][idx] = f[n][idx];
                             // if( n == 1 ) df[n][idx] = f[n][idx] + 1*(1 + v_fluct);
-                        }
+                        //}
                     }
                 }
             }
@@ -116,6 +118,7 @@ class Simulator
             _status << t;
             
             if( expansion != Expansion::no_expansion ) _status << "  " << a;
+            if( expansion == Expansion::self_consist) _status << "  " << 1/(sqrt(calculateAverage(_quantity["energy"]->data_tot(), N, DIMENSION)*2/(D*(D-1))) * R);
 
             _status << std::showpos << std::scientific << std::setprecision(3);
             for( int n = 0; n < num_fields; ++n ) _status << "  " << field_ave[n];

@@ -1,6 +1,6 @@
 # FLattice
 
-Updated on October 14th, 2019
+Updated on October 4th, 2019
 
 ---
 

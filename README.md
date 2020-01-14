@@ -1,6 +1,6 @@
 # FLattice
 
-Updated on October 4th, 2019
+Updated on January 14th, 2020 ver. 0.0.0
 
 ---
 

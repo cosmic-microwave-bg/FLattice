@@ -28,11 +28,11 @@ class LeapFrogRadMat final: public LeapFrogBase
             */
             if(A == 0){ // physical time
                 _index = (expansion==Expansion::rad_domination)? 1./2: 2./3;
-                _coeff = (expansion==Expansion::rad_domination)? 2*c: 3/2*c;
+                _coeff = (expansion==Expansion::rad_domination)? 2*c: 3./2*c;
             }
             if(A == 1){ // conformal time
                 _index = (expansion==Expansion::rad_domination)? 1: 2;
-                _coeff = (expansion==Expansion::rad_domination)? c: pow(c, 2/3)/2;
+                _coeff = (expansion==Expansion::rad_domination)? c: pow(c, 2./3)/2;
             }
             t = t0 = 1/_coeff;
         }

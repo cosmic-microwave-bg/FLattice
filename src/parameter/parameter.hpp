@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include <cstddef>  // for std::size_t
 #include "nlohmann/json.hpp"
 
@@ -42,6 +43,12 @@ NLOHMANN_JSON_SERIALIZE_ENUM( Expansion, {
     {Expansion::self_consist, "self consistent universe"},
 })
 
+extern int A;
+extern int D;
+extern Expansion expansion;
+extern double R;  //!< Field normalization to reduced Planck mass
+extern double meff2;
+
 
 extern int N;            //!< Gird size in a dimension. The total grid size is \f$ N^{dim} \f$.
 extern int L;            //!< Box size of the simulation.
@@ -53,18 +60,16 @@ extern double dt;  //!< Time step.
 extern int output_step;  //!< \f$ {\rm output\_step} \times dt \f$
 extern int total_step;   //!< Total simulation time is caluculated by \f$ {\rm total_step} \times dt \f$.
 
-extern int A;
-extern int D;
-
-extern Expansion expansion;
-extern double c;
-extern double t0;  //!< Initial time.
-extern double R;  //!< Field normalization to reduced Planck mass
-
 extern int precision;  //!< Set the precisioin of the time evolution scheme.
 
-extern double K;
-extern double meff2;
+
+extern double c;
+extern double t0;  //!< Initial time.
+extern std::vector<double> ini_amp;
+
+
+extern double lambda;
+
 
 extern double dx;  //!< Grid spacing calculated by \f$ L/N \f$.
 extern double a, da;

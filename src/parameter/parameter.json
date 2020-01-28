@@ -1,14 +1,5 @@
 {
-    "N": 64,
-    "L": 30,
-    "rnd": 1,
-    "num_fields" : 2,
-    "num_threads": 2,
-    
-    "dt": 5.0e-3,
-    "output_step": 1e+0,
-    "total_step" : 5e+2,
-
+    "//": "Spacetime Structure",
     "A": 1,  "//": "A = 0, 1 corresponds to the physical time, the conformal time respectively",
     "D": 2,  "//": "D is the dimension of the EOMs",
 
@@ -20,23 +11,35 @@
         "matter dominated universe",
         "self consistent universe"
     ],
+    "F/Mp": 1, "//": "the ratio of the field normalization to reduced Planck mass necessary for self consistent evolution",
+    "meff2": 1, "//": "effective mass at inifity is necessary only for ABC",
 
+
+    "//": "Simulation Parameters",
+    "N": 64,
+    "L": 30,
+    "rnd": 1,
+    "num_fields" : 2,
+    "num_threads": 2,
+    
+    "dt": 5.0e-3,
+    "output_step": 5e+0,
+    "total_step" : 5e+2,
+
+    "precision": 4,
+
+
+    "//": "Initial Conditions",
     "c": 1,
     "t0": 1.0,
     "//": [
-        "Note that H = cm is used as the initial condition",
-        "only when dominated cosmic expansion is true.",
+        "H = cm is used as the initial condition",
+        "when the universe is dominated by raditaion or matter.",
         "t0 is only used in Minkowsky spacetime."
     ],
+    "initial_amplitude": [1, 0.5], "//": "initial amplitude of the each field",
 
-    "F/Mp": 1,
-    "//": [
-        "the ratio of the field normalization to reduced Planck mass",
-        "is necessary only for self consistent evolution"
-    ],
 
-    "precision": 4,
-    
-    "K": -0.1,
-    "meff2": 1, "//": "effective mass at inifity is necessary only for ABC"
+    "//": "model parameters",
+    "lambda": 0.1
 }

@@ -42,24 +42,32 @@ class Simulator
             double **f  = _field.f;
             double **df = _field.df;
 
-            std::mt19937 mt( rnd );
+            std::mt19937 mt(rnd);
             std::uniform_real_distribution<> rand(-1.e-5, 1.e-5);
     
-            // Be careful of DIMENSION
             for( int n = 0; n < num_fields; ++n ){
-                for( int i = 0; i < N; ++i ){	
-                    for( int j = 0; j < N; ++j ){
-                        // for( int k = 0; k < N; ++k ){
-                            //int idx = (i*N+j)*N + k;
-                            int idx = i*N+j;
-                            double f_fluct = rand(mt);
-                            double v_fluct = rand(mt);
-                            f[n][idx]   = 1*(1 + f_fluct);
-                            df[n][idx]  = 0;
-                            // if( n == 0 ) df[n][idx] = f[n][idx];
-                            // if( n == 1 ) df[n][idx] = f[n][idx] + 1*(1 + v_fluct);
-                        //}
-                    }
+                int i = 0, j = 0, k = 0;
+                #pragma omp parallel for schedule(static) num_threads (num_threads)
+                for( i = 0; i < N; ++i ){
+                        int idx = i;
+                    #if dimension >= 2
+                        for( j = 0; j < N; ++j ){
+                            idx = i*N+j;
+                    #endif
+                    #if dimension == 3
+                            for( k = 0; k < N; ++k ){
+                                idx = (i*N+j)*N+k;
+                    #endif
+                                double f_fluct = rand(mt);
+                                double v_fluct = rand(mt);
+                                f[n][idx]   = ini_amp[n]*(1 + f_fluct);
+                                df[n][idx]  = 0;
+                    #if dimension == 3
+                            }
+                    #endif
+                    #if dimension >= 2
+                        }
+                    #endif
                 }
             }
         }

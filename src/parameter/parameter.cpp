@@ -2,6 +2,7 @@
  * @file parameter.cpp
  * @brief See the explanation of the coresponding header file.
  */
+#include <typeinfo>
 #include "parameter.hpp"
 
 
@@ -23,9 +24,10 @@ double c;
 double t0;
 double R;
 
+std::vector<double> ini_amp;
 int precision;
 
-double K;
+double lambda;
 double meff2;
 
 double dx;
@@ -39,6 +41,14 @@ void setParameters()
     std::ifstream input("../src/parameter/parameter.json");
     input >> j;
 
+
+    A = j["A"];
+    D = j["D"];
+    expansion = j["expansion"].get<Expansion>();
+    R = j["F/Mp"];
+    meff2 = j["meff2"];
+
+
     N = j["N"];
     L = j["L"];
     rnd = j["rnd"];
@@ -49,18 +59,16 @@ void setParameters()
     output_step = j["output_step"];
     total_step  = j["total_step"];
 
-    A = j["A"];
-    D = j["D"];
-
-    expansion = j["expansion"].get<Expansion>();
-    c = j["c"];
-    t0 = j["t0"];
-    R = j["F/Mp"];
-
     precision = j["precision"];
 
-    K = j["K"];
-    meff2 = j["meff2"];
+
+    c = j["c"];
+    t0 = j["t0"];
+    ini_amp = j["initial_amplitude"].get<std::vector<double>>();
+
+
+    lambda = j["lambda"];
+
 
     dx = 1.* L/N;
     a   = 1;

@@ -40,6 +40,7 @@ https://github.com/simonwhitaker/gibo
 *.vti
 *.txt
 build
+.vscode
 
 *.ipynb
 memo.txt

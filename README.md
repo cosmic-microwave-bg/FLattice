@@ -2,6 +2,8 @@
 
 Updated on January 14th, 2020 ver. 0.0.0
 
+Add the "initial_amplitude" parameter to parameter.json so that we can set initial amplitude of fields easily.
+
 ---
 
 FLattice is the Fast Lattice code to caluclate the scalar feild evolution ( still in the experimental stage ).

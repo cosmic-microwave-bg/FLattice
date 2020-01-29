@@ -1,6 +1,8 @@
 # FLattice
 
-Updated on January 14th, 2020 ver. 0.0.0
+Updated on January 28th, 2020 ver. 0.0.1
+
+Add the "initial_amplitude" parameter to parameter.json so that we can set initial amplitude of fields easily.
 
 ---
 

@@ -40,6 +40,6 @@
     "initial_amplitude": [1, 0.5], "//": "initial amplitude of the each field",
 
 
-    "//": "model parameters",
+    "//": "Model Parameters",
     "lambda": 0.1
 }

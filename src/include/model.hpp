@@ -11,9 +11,7 @@
 
 /**
  * @brief   V, dV
- * @details When you simulate in the Minkowski spacetime, just write the potential \f$ V(\phi) \f$.
- *          When you simulate in the FRW spacetime, write the rescaled potential \f$ V(\bar{\phi}) \f$
- *          where \f$ \bar{\phi} = \phi / a \f$
+ * @details When you simulate in either spacetime, just write down the potential \f$ V(\phi) \f$.
  */
 template <typename T = double>
 T V    (T** f, int n, int idx)

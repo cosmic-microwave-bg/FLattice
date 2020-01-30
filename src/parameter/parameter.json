@@ -1,7 +1,7 @@
 {
     "//": "Spacetime Structure",
     "A": 1,  "//": "A = 0, 1 corresponds to the physical time, the conformal time respectively",
-    "D": 2,  "//": "D is the dimension of the EOMs",
+    "D": 3,  "//": "D is the dimension of the EOMs",
 
     "expansion": "self consistent universe",
     "//": [
@@ -17,7 +17,7 @@
 
     "//": "Simulation Parameters",
     "N": 64,
-    "L": 30,
+    "L": 20,
     "rnd": 1,
     "num_fields" : 2,
     "num_threads": 2,
@@ -38,6 +38,7 @@
         "t0 is only used in Minkowsky spacetime."
     ],
     "initial_amplitude": [1, 0.5], "//": "initial amplitude of the each field",
+    "initial_velocity": [1, 0.5], "//": "initial velocity of the each field",
 
 
     "//": "Model Parameters",

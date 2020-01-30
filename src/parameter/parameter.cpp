@@ -25,6 +25,8 @@ double t0;
 double R;
 
 std::vector<double> ini_amp;
+std::vector<double> ini_vel;
+
 int precision;
 
 double lambda;
@@ -65,6 +67,7 @@ void setParameters()
     c = j["c"];
     t0 = j["t0"];
     ini_amp = j["initial_amplitude"].get<std::vector<double>>();
+    ini_vel = j["initial_velocity"].get<std::vector<double>>();
 
 
     lambda = j["lambda"];

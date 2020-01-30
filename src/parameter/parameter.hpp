@@ -66,6 +66,7 @@ extern int precision;  //!< Set the precisioin of the time evolution scheme.
 extern double c;
 extern double t0;  //!< Initial time.
 extern std::vector<double> ini_amp;
+extern std::vector<double> ini_vel;
 
 
 extern double lambda;

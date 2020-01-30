@@ -61,7 +61,7 @@ class Simulator
                                 double f_fluct = rand(mt);
                                 double v_fluct = rand(mt);
                                 f[n][idx]   = ini_amp[n]*(1 + f_fluct);
-                                df[n][idx]  = 0;
+                                df[n][idx]  = ini_vel[n];
                     #if dimension == 3
                             }
                     #endif

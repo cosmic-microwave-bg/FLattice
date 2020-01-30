@@ -50,11 +50,11 @@ class Simulator
                 #pragma omp parallel for schedule(static) num_threads (num_threads)
                 for( i = 0; i < N; ++i ){
                         int idx = i;
-                    #if dimension >= 2
+                    #if DIMENSION >= 2
                         for( j = 0; j < N; ++j ){
                             idx = i*N+j;
                     #endif
-                    #if dimension == 3
+                    #if DIMENSION == 3
                             for( k = 0; k < N; ++k ){
                                 idx = (i*N+j)*N+k;
                     #endif
@@ -62,10 +62,10 @@ class Simulator
                                 double v_fluct = rand(mt);
                                 f[n][idx]   = ini_amp[n]*(1 + f_fluct);
                                 df[n][idx]  = ini_vel[n];
-                    #if dimension == 3
+                    #if DIMESION == 3
                             }
                     #endif
-                    #if dimension >= 2
+                    #if DIMENSION >= 2
                         }
                     #endif
                 }

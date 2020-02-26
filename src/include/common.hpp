@@ -6,6 +6,7 @@
 #include "calculation.hpp"
 #include "stopwatch.hpp"
 #include "write.hpp"
+#include "search.hpp"
 
 
 #endif

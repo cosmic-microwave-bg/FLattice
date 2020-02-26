@@ -50,6 +50,7 @@ int main()
         simulator.writeFields(loop);
         simulator.writePhysicalQuantities(loop);
         simulator.writeStatus();
+        // simulator.searchObject(0.01, loop);
 
         Logout( " Loop %d/%d: %2.3f s \n", loop, max_loop, stopwatch.lap() );
     }

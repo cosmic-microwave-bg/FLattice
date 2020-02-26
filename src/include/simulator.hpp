@@ -31,41 +31,37 @@ class Simulator
             if( !_status ){ std::cerr << "Failed to open 'status.txt'" << std::endl; exit(1); }
             else{
                 _status << "    t";
-                if( expansion != Expansion::no_expansion ) _status << "    a";
-                if( expansion == Expansion::self_consist) _status << "    H^{-1}";
+                if( expansion != Expansion::no_expansion ) _status << "    a" << "    1/H";
                 for( int n = 0; n < num_fields; ++n ) _status << "  field_ave["  << n << "]";
                 for( int n = 0; n < num_fields; ++n ) _status << "  field_var["  << n << "]";
             }
         }
 
         void initializeField( int rnd ) {
-            double **f  = _field.f;
-            double **df = _field.df;
-
             std::mt19937 mt(rnd);
             std::uniform_real_distribution<> rand(-1.e-5, 1.e-5);
     
             for( int n = 0; n < num_fields; ++n ){
                 int i = 0, j = 0, k = 0;
-                #pragma omp parallel for schedule(static) num_threads (num_threads)
+                // Don't parallerize to realize the same initial condition
                 for( i = 0; i < N; ++i ){
                         int idx = i;
-                    #if dimension >= 2
+                    #if DIMENSION >= 2
                         for( j = 0; j < N; ++j ){
                             idx = i*N+j;
                     #endif
-                    #if dimension == 3
+                    #if DIMENSION == 3
                             for( k = 0; k < N; ++k ){
                                 idx = (i*N+j)*N+k;
                     #endif
                                 double f_fluct = rand(mt);
                                 double v_fluct = rand(mt);
-                                f[n][idx]   = ini_amp[n]*(1 + f_fluct);
-                                df[n][idx]  = ini_vel[n];
-                    #if dimension == 3
+                                _field.f[n][idx]   = ini_amp[n]*(1 + f_fluct);
+                                _field.df[n][idx]  = ini_vel[n];
+                    #if DIMESION == 3
                             }
                     #endif
-                    #if dimension >= 2
+                    #if DIMENSION >= 2
                         }
                     #endif
                 }
@@ -125,8 +121,12 @@ class Simulator
             _status << std::noshowpos << std::fixed <<std::setprecision(2);
             _status << t;
             
-            if( expansion != Expansion::no_expansion ) _status << "  " << a;
-            if( expansion == Expansion::self_consist) _status << "  " << 1/(sqrt(calculateAverage(_quantity["energy"]->data_tot(), N, DIMENSION)*2/(D*(D-1))) * R);
+            if( expansion != Expansion::no_expansion ){
+                _status << "  " << a;
+                if(expansion == Expansion::rad_domination) _status << "  " << ((A==0)? 2*t: c*pow(t, 2));
+                if(expansion == Expansion::mat_domination) _status << "  " << ((A==0)? 3./2*t: c*pow(t/2, 3));
+                if(expansion == Expansion::self_consist) _status << "  " << 1/(sqrt(calculateAverage(_quantity["energy"]->data_tot(), N, DIMENSION)*2/(D*(D-1))) * R);
+            }
 
             _status << std::showpos << std::scientific << std::setprecision(3);
             for( int n = 0; n < num_fields; ++n ) _status << "  " << field_ave[n];
@@ -138,6 +138,24 @@ class Simulator
                 _status << "  " << calculateAverage(_quantity[name]->data_tot(), N, DIMENSION);
             }
         }
+
+        template <typename T=double>
+        void searchObject( double threshold, int loop )
+        {
+            std::stringstream filename1;
+            filename1 << "../data/QEsize_th=";
+            filename1 << std::scientific << std::setprecision(0) << threshold << "_" << std::setw(4) << std::setfill('0') << loop << ".txt";
+
+            auto QEs = serachObject<T>( _quantity["charge"]->data_tot(), _quantity["energy"]->data_tot(), threshold );
+            std::ofstream ofs( filename1.str().c_str(), std::ios::app );
+            for( auto p: QEs ){
+                ofs << rnd << " ";
+                for( auto v: p ) ofs << v << " ";
+                ofs << std::endl;
+            }
+            ofs << std::endl;
+        }
+
 };
 
 

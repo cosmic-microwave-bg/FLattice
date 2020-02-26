@@ -52,7 +52,6 @@ extern double meff2;
 
 extern int N;            //!< Gird size in a dimension. The total grid size is \f$ N^{dim} \f$.
 extern int L;            //!< Box size of the simulation.
-extern int rnd;          //!< The seed of the randum numbers.
 extern int num_fields;   //!< The number of fields you use in the simulation. 
 extern int num_threads;  //!< The number of threads used by OpenMP. This value  greater than 8.
 
@@ -63,6 +62,7 @@ extern int total_step;   //!< Total simulation time is caluculated by \f$ {\rm t
 extern int precision;  //!< Set the precisioin of the time evolution scheme.
 
 
+extern int rnd;          //!< The seed of the randum numbers.
 extern double c;
 extern double t0;  //!< Initial time.
 extern std::vector<double> ini_amp;

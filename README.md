@@ -1,8 +1,8 @@
 # FLattice
 
-Updated on January 28th, 2020 ver. 0.0.2
+Updated on February 26th, 2020 ver. 0.0.3
 
-Add the "initial_velocity" parameter to parameter.json so that we can set initial velocity of fields easily.
+Add `searchObject` function to calculate the number of clumps only for 2D.
 
 ---
 

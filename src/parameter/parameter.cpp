@@ -6,9 +6,15 @@
 #include "parameter.hpp"
 
 
+int A;
+int D;
+Expansion expansion;
+double R;
+double meff2;
+
+
 int N;
 int L;
-int rnd;
 int num_fields;
 int num_threads;
 
@@ -16,21 +22,18 @@ double dt;
 int output_step;
 int total_step;
 
-int A;
-int D;
+int precision;
 
-Expansion expansion;
+
+int rnd;
 double c;
 double t0;
-double R;
-
 std::vector<double> ini_amp;
 std::vector<double> ini_vel;
 
-int precision;
 
 double lambda;
-double meff2;
+
 
 double dx;
 double a, da;
@@ -53,7 +56,6 @@ void setParameters()
 
     N = j["N"];
     L = j["L"];
-    rnd = j["rnd"];
     num_fields  = j["num_fields"];
     num_threads = j["num_threads"];
 
@@ -64,6 +66,7 @@ void setParameters()
     precision = j["precision"];
 
 
+    rnd = j["rnd"];
     c = j["c"];
     t0 = j["t0"];
     ini_amp = j["initial_amplitude"].get<std::vector<double>>();

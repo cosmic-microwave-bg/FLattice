@@ -1,6 +1,6 @@
-\hypertarget{class_simulator}{}\section{Simulator Class Reference}
+\hypertarget{class_simulator}{}\doxysection{Simulator Class Reference}
 \label{class_simulator}\index{Simulator@{Simulator}}
-\subsection*{Public Member Functions}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_simulator_a21599e1d1087379526018461865edc76}\label{class_simulator_a21599e1d1087379526018461865edc76}} 
@@ -32,18 +32,21 @@ void {\bfseries write\+Physical\+Quantities} (int loop=0, std\+::string name=\ch
 \item 
 \mbox{\Hypertarget{class_simulator_aef37b00f4a9d739a03004b3b0a083d4a}\label{class_simulator_aef37b00f4a9d739a03004b3b0a083d4a}} 
 void {\bfseries write\+Status} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a7b74b8c6cfe05a3975f600295e39aa87}\label{class_simulator_a7b74b8c6cfe05a3975f600295e39aa87}} 
+{\footnotesize template$<$typename T  = double$>$ }\\void {\bfseries search\+Object} (double threshold, int loop)
 \end{DoxyCompactItemize}
-\subsection*{Private Attributes}
+\doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_simulator_a9c80bf222436e0c2ea9929fc64f396c3}\label{class_simulator_a9c80bf222436e0c2ea9929fc64f396c3}} 
 \mbox{\hyperlink{struct_field}{Field}} {\bfseries \+\_\+field}
 \item 
+\mbox{\Hypertarget{class_simulator_a8cc8a94a725d27157e05f041c2bb3f74}\label{class_simulator_a8cc8a94a725d27157e05f041c2bb3f74}} 
+std\+::string {\bfseries \+\_\+model\+\_\+name}
+\item 
 \mbox{\Hypertarget{class_simulator_abbdae2b6367fe3327df534f96cacc43e}\label{class_simulator_abbdae2b6367fe3327df534f96cacc43e}} 
 std\+::ofstream {\bfseries \+\_\+status}
-\item 
-\mbox{\Hypertarget{class_simulator_ab420c9b58c941b1f40c9c315b2088511}\label{class_simulator_ab420c9b58c941b1f40c9c315b2088511}} 
-std\+::shared\+\_\+ptr$<$ Model $>$ {\bfseries \+\_\+model}
 \item 
 \mbox{\Hypertarget{class_simulator_a148923591e31f511fa395b7c611479a4}\label{class_simulator_a148923591e31f511fa395b7c611479a4}} 
 std\+::unique\+\_\+ptr$<$ Evolution\+Scheme $>$ {\bfseries \+\_\+scheme}
@@ -58,4 +61,4 @@ std\+::vector$<$ std\+::string $>$ {\bfseries \+\_\+quantity\+\_\+name}
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/eisuke\+\_\+sonomoto/\+Google ドライブ/\+F\+Lattice/src/include/simulator.\+hpp\end{DoxyCompactItemize}
+/\+Users/eisuke/\+Desktop/\+F\+Lattice/src/include/simulator.\+hpp\end{DoxyCompactItemize}

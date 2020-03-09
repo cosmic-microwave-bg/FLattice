@@ -45,7 +45,7 @@ class Simulator
                 int i = 0, j = 0, k = 0;
                 // Don't parallerize to realize the same initial condition
                 for( i = 0; i < N; ++i ){
-                        int idx = i;
+                    int idx = i;
                     #if DIMENSION >= 2
                         for( j = 0; j < N; ++j ){
                             idx = i*N+j;
@@ -58,7 +58,7 @@ class Simulator
                                 double v_fluct = rand(mt);
                                 _field.f[n][idx]   = ini_amp[n]*(1 + f_fluct);
                                 _field.df[n][idx]  = ini_vel[n];
-                    #if DIMESION == 3
+                    #if DIMENSION == 3
                             }
                     #endif
                     #if DIMENSION >= 2

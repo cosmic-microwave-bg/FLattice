@@ -1,7 +1,7 @@
-\form#0:$ N^{dim} $
-\form#1:$ {\rm output\_step} \times dt $
-\form#2:$ {\rm total_step} \times dt $
-\form#3:$ L/N $
-\form#4:$ V(\phi) $
-\form#5:$ V(\bar{\phi}) $
-\form#6:$ \bar{\phi} = \phi / a $
+\_form#0:$ N^{dim} $
+\_form#1:$ {\rm output\_step} \times dt $
+\_form#2:$ {\rm total_step} \times dt $
+\_form#3:$ L/N $
+\_form#4:$ V(\phi) $
+\_form#5:$ V(\bar{\phi}) $
+\_form#6:$ \bar{\phi} = \phi / a $

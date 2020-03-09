@@ -13,8 +13,8 @@ std::unique_ptr<T> createPhysicalQuantity(std::string name, double** f, double**
     if(name == "energy")
         return std::make_unique<Energy>(name, num_fields, N, DIMENSION);
     if(name == "charge"){
-        if(num_fields != 2){
-            std::cerr << "'num_fields' must be 2 when you set 'charge'." << std::endl;
+        if(num_fields < 2){
+            std::cerr << "'num_fields' must be larger than 2 when you set 'charge'." << std::endl;
             exit(1);
         }
         return std::make_unique<Charge>(name, num_fields, N, DIMENSION, f, df);

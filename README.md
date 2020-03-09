@@ -1,8 +1,8 @@
 # FLattice
 
-Updated on February 26th, 2020 ver. 0.0.3
+Updated on March 9th, 2020 ver. 0.0.4
 
-Add `searchObject` function to calculate the number of clumps only for 2D.
+Bug fixed in 3D case.
 
 ---
 

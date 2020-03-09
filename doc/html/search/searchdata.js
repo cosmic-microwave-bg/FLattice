@@ -1,21 +1,24 @@
 var indexSectionsWithContent =
 {
-  0: "cfms",
+  0: "cfmsv",
   1: "fs",
-  2: "cms"
+  2: "cms",
+  3: "v"
 };
 
 var indexSectionNames =
 {
   0: "all",
   1: "classes",
-  2: "files"
+  2: "files",
+  3: "functions"
 };
 
 var indexSectionLabels =
 {
   0: "All",
   1: "Classes",
-  2: "Files"
+  2: "Files",
+  3: "Functions"
 };
 

@@ -1,29 +1,37 @@
-\hypertarget{model_8hpp}{}\section{/\+Users/home/\+Dropbox/\+F\+Lattice/src/include/model.hpp File Reference}
-\label{model_8hpp}\index{/Users/home/Dropbox/FLattice/src/include/model.hpp@{/Users/home/Dropbox/FLattice/src/include/model.hpp}}
+\hypertarget{model_8hpp}{}\doxysection{/\+Users/eisuke/\+Desktop/\+F\+Lattice/src/include/model.hpp File Reference}
+\label{model_8hpp}\index{/Users/eisuke/Desktop/FLattice/src/include/model.hpp@{/Users/eisuke/Desktop/FLattice/src/include/model.hpp}}
 
 
-class {\ttfamily \mbox{\hyperlink{class_model}{Model}}} is written where model parameters and the potential is defined.  
+{\ttfamily Model} is written where the potential is defined.  
 
 
 {\ttfamily \#include $<$cmath$>$}\newline
 {\ttfamily \#include \char`\"{}parameter.\+hpp\char`\"{}}\newline
-\subsection*{Classes}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{class_model}{Model}}
-\begin{DoxyCompactList}\small\item\em You set the model potential (and parameters) in this class model. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Functions}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{model_8hpp_a11d2ecaa75d15fd8c065b3792e8c585c}\label{model_8hpp_a11d2ecaa75d15fd8c065b3792e8c585c}} 
-{\footnotesize template$<$typename data\+Type $>$ }\\data\+Type $\ast$$\ast$ {\bfseries allocate\+Data} (int \mbox{\hyperlink{parameter_8cpp_ac0ae3334b9e17a8fd23ad6fd3a032034}{num\+\_\+fields}}, std\+::size\+\_\+t \mbox{\hyperlink{parameter_8cpp_a7722c8ecbb62d99aee7ce68b1752f337}{N}}, int dimension)
-\item 
-\mbox{\Hypertarget{model_8hpp_af91166d7930b350a292500aa818bd42b}\label{model_8hpp_af91166d7930b350a292500aa818bd42b}} 
-{\footnotesize template$<$typename data\+Type $>$ }\\void {\bfseries delete\+Data} (data\+Type $\ast$$\ast$\&data)
+{\footnotesize template$<$typename T  = double$>$ }\\T \mbox{\hyperlink{model_8hpp_acb027b73146d7835027cce5ca6712836}{V}} (T $\ast$$\ast$f, int n, int idx)
+\begin{DoxyCompactList}\small\item\em V, dV. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{model_8hpp_a4aa5aee7285e6562d52da70d49574044}\label{model_8hpp_a4aa5aee7285e6562d52da70d49574044}} 
+{\footnotesize template$<$typename T  = double$>$ }\\T {\bfseries dV} (T $\ast$$\ast$f, int n, int idx)
 \end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
-class {\ttfamily \mbox{\hyperlink{class_model}{Model}}} is written where model parameters and the potential is defined. 
+\doxysubsection{Detailed Description}
+{\ttfamily Model} is written where the potential is defined. 
 
-Only you have to do is to change the potential and derivative of potential of model class. 
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{model_8hpp_acb027b73146d7835027cce5ca6712836}\label{model_8hpp_acb027b73146d7835027cce5ca6712836}} 
+\index{model.hpp@{model.hpp}!V@{V}}
+\index{V@{V}!model.hpp@{model.hpp}}
+\doxysubsubsection{\texorpdfstring{V()}{V()}}
+{\footnotesize\ttfamily template$<$typename T  = double$>$ \\
+T V (\begin{DoxyParamCaption}\item[{T $\ast$$\ast$}]{f,  }\item[{int}]{n,  }\item[{int}]{idx }\end{DoxyParamCaption})}
+
+
+
+V, dV. 
+
+When you simulate in either spacetime, just write down the potential . 

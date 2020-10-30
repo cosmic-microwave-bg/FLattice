@@ -26,7 +26,7 @@ class Simulator
 
     public:
         Simulator( int num_fields, int N, int dimension )
-        : _field(num_fields, N, dimension), _status("../status.txt", std::ios::trunc), _scheme(nullptr)
+        : _field(num_fields, N, dimension), _status(statusname.c_str(), std::ios::trunc), _scheme(nullptr)
         {
             if( !_status ){ std::cerr << "Failed to open 'status.txt'" << std::endl; exit(1); }
             else{

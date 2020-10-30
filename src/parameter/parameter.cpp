@@ -5,6 +5,9 @@
 #include <typeinfo>
 #include "parameter.hpp"
 
+#include <string.h>//file nameの比較とかに必要
+#include <sstream>//string stream
+#include <sys/stat.h>//mkdir
 
 int A;
 int D;
@@ -31,8 +34,11 @@ double t0;
 std::vector<double> ini_amp;
 std::vector<double> ini_vel;
 
+//global file name
+std::string outfoldername;//出力フォルダの名前を決定。output_outputも取り扱えるように組む outfoldername.c_str()
+std::string statusname;
 
-double lambda;
+//box parameters
 
 
 double dx;
@@ -40,11 +46,31 @@ double a, da;
 double t;
 
 
-void setParameters()
+//model paramters 
+double lambda;
+
+void setParameters(char* filename)
 {
     nlohmann::json j;
-    std::ifstream input("../src/parameter/parameter.json");
+    std::stringstream inputname;
+    std::stringstream outputfoldername;
+    if(strcmp(filename, "")==0){
+      inputname <<  "../src/parameter/parameter.json";
+      outputfoldername<< "../output" << filename  ;
+    }else{
+  		inputname << "../" << filename  << ".json";
+      outputfoldername<< "../output_" << filename  ;
+    }
+    mkdir(outputfoldername.str().c_str(), 0755);//filenameに対応するファイル名の設定
+    outfoldername = outputfoldername.str();
+    std::ifstream input( inputname.str().c_str() );
+    if (input.fail()){ std::cout<<"We can not find the json"<<std::endl;  exit(0);  }
     input >> j;
+
+    //面倒だが、いい定義が思いつかない。
+    std::stringstream ssStatusname;
+    ssStatusname << outfoldername << "/status.txt";
+    statusname = ssStatusname.str();
 
 
     A = j["A"];

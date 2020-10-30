@@ -9,9 +9,17 @@
 
 
 
-int main()
+int main(int argc, char *argv[])
 {   
-    setParameters();
+    
+    //use FLattice/name.json by "./flattice name"
+    if(argc ==2 ){
+        char * filename = argv[1];
+        setParameters(filename);
+    }else{
+        setParameters();
+    }
+
     Simulator simulator(num_fields, N, DIMENSION);
 
     //-------------------------------------------------

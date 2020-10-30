@@ -16,6 +16,8 @@
 #include <cstddef>  // for std::size_t
 #include "nlohmann/json.hpp"
 
+#include <string.h>//file nameの比較とかに必要
+
 /**
  * @def DIMENSION
  * @brief Simulation dimension.
@@ -76,9 +78,12 @@ extern double dx;  //!< Grid spacing calculated by \f$ L/N \f$.
 extern double a, da;
 extern double t;
 
+//global file name
+extern std::string outfoldername;//出力フォルダの名前を決定。output_outputも取り扱えるように組む
+extern std::string statusname;
 
-void setParameters();
 
+void setParameters(char* filename = "");
 
 
 #endif
